@@ -1,0 +1,6 @@
+# ignore bytecode files
+*.class
+
+# ignore intellij thingies
+*.iml
+**/.idea
