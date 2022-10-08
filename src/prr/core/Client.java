@@ -1,20 +1,132 @@
 package prr.core;
 
+import javax.management.Notification;
+import java.util.Collection;
+import java.util.ArrayList;
 import java.util.LinkedList;
+
+import prr.core.Terminal.TerminalStatus;
 
 public class Client {
 
-    private String _key;
-    private String _name;
-    private long _ssNum;
+    enum ClientType {
+        NORMAL,
+        GOLD,
+        PREMIUM,
+    }
+
+    private final String _key;
+    private final String _name;
+    private final long _ssNum;
     private ClientType _type;
-    private LinkedList<Notification> _notifications; //TODO: Implement Notification
+    // private LinkedList<Notification> _notifications; //TODO: Implement Notification
+    private boolean _receiveNotifications;
+    private final ArrayList<Terminal> _terminals;
 
     public Client(String key, String name, long ss) {
         _key = key;
         _name = name;
         _ssNum = ss;
-        _type = Normal;
+        _type = ClientType.NORMAL;
+        // _notifications = new LinkedList<Notification>();
+        _terminals = new ArrayList<>();
     }
 
+    public String toString() {
+        var out = new StringBuilder("CLIENT");
+        out.append("|"); out.append(_key);
+        out.append("|"); out.append(_name);
+        out.append("|"); switch (_type) {
+            case NORMAL -> out.append("NORMAL");
+            case GOLD -> out.append("GOLD");
+            case PREMIUM -> out.append("PREMIUM");
+        }
+        out.append("|"); if (_receiveNotifications) out.append("YES");
+            else out.append("NO");
+        out.append("|"); out.append(this.countActiveTerminals());
+        // out.append("|"); out.append(this.getPaidAmount());
+        out.append("|"); out.append(0);
+        // out.append("|"); out.append(this.getDebtAmount());
+        out.append("|"); out.append(0);
+        return new String(out);
+    }
+
+    public String getKey() {
+        return new String(_key);
+    }
+
+    public String getName() {
+        return new String(_name);
+    }
+
+    public long getSsNum() {
+        return _ssNum;
+    }
+
+    public ClientType getType() {
+        return _type;
+    }
+
+    public void setType(ClientType t) {
+        _type = t;
+    }
+
+    /*
+    public void registerNotification(Notification n) {
+        _notifications.add(n);
+    }
+
+    public Collection<Notification> getAndDeleteAllNotifications() {
+        var out = new LinkedList<Notification>(_notifications);
+        _notifications.clear();
+        return out;
+    }
+    */
+
+    public Collection<Terminal> getTerminals() {
+        return new ArrayList<>(_terminals);
+    }
+
+    private int countActiveTerminals() {
+        int out = 0;
+        for (Terminal t : _terminals) {
+            if (t.getStatus() != TerminalStatus.OFF)
+                out++;
+        }
+        return out;
+    }
+
+    public void addTerminal(Terminal t) {
+        _terminals.add(t);
+    }
+
+    /*
+    public ArrayList<Payment> getAllPayments() {
+        var out = new ArrayList<Payment>();
+        for (Terminal t : _terminals) {
+            out.addAll(t.getAllPayments());
+        }
+        return out;
+    }
+
+    private double getPaidAmount() {
+        double paid = 0;
+        for (Terminal t : _terminals) {
+            for (Payment p : t.getAllPayments()) {
+                if (p.isPaid()) paid += p.getAmount();
+            }
+        }
+        return paid;
+    }
+
+    private double getDebtAmount() {
+        double debt = 0;
+        for (Terminal t : _terminals) {
+            for (Payment p : t.getAllPayments()) {
+                if (p.isPaid()) debt += p.getAmount();
+            }
+        }
+        return debt;
+    }
+    */
 }
