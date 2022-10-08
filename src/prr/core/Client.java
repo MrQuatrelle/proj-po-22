@@ -100,6 +100,7 @@ public class Client {
         _terminals.add(t);
     }
 
+    // FIXME: uncomment this section of the code when notifications are implemented
     /*
     public ArrayList<Payment> getAllPayments() {
         var out = new ArrayList<Payment>();
