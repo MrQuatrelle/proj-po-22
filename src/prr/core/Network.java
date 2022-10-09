@@ -2,6 +2,9 @@ package prr.core;
 
 import java.io.Serializable;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
+
 import prr.core.exception.UnrecognizedEntryException;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
@@ -15,9 +18,28 @@ public class Network implements Serializable {
     private static final long serialVersionUID = 202208091753L;
 
     // FIXME define attributes
-    // FIXME define contructor(s)
-    // FIXME define methods
+    private Collection<Client> _clients;
+    // private Collection<Terminal> _terminals;
 
+
+    // FIXME define contructor(s)
+
+    public Network() {
+        _clients = new ArrayList<>();
+    }
+
+
+
+    // FIXME define methods
+    /** @return container with all the clients of the network */
+    public Collection<Client> getAllClients() {
+        return new ArrayList<>(_clients);
+    }
+
+    /** Adds a client to the network */
+    public void addClient(String key, String name, long ss) {
+        _clients.add(new Client(key, name, ss));
+    }
     /**
      * Read text input file and create corresponding domain entities.
      *
