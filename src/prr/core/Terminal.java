@@ -5,9 +5,6 @@ import java.io.Serializable;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
-/**
- * Abstract terminal.
- */
 public class Terminal implements Serializable /* FIXME maybe addd more interfaces */{
 
     public enum TerminalStatus {

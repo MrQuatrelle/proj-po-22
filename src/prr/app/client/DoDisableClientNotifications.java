@@ -12,12 +12,13 @@ import pt.tecnico.uilib.menus.CommandException;
 class DoDisableClientNotifications extends Command<Network> {
 
     DoDisableClientNotifications(Network receiver) {
-        super(Label.DISABLE_CLIENT_NOTIFICATIONS, receiver);
-        //FIXME add command fields
+        super(Label.ENABLE_CLIENT_NOTIFICATIONS, receiver);
+        addStringField("key", Message.key());
     }
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        var key = stringField("key");
+        _receiver.setClientNotifications(key, false);
     }
 }

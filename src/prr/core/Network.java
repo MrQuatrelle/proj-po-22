@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 import prr.core.exception.UnrecognizedEntryException;
 
@@ -18,14 +19,14 @@ public class Network implements Serializable {
     private static final long serialVersionUID = 202208091753L;
 
     // FIXME define attributes
-    private Collection<Client> _clients;
+    private HashMap<String, Client> _clients;
     // private Collection<Terminal> _terminals;
 
 
     // FIXME define contructor(s)
 
     public Network() {
-        _clients = new ArrayList<>();
+        _clients = new HashMap<>();
     }
 
 
@@ -33,12 +34,26 @@ public class Network implements Serializable {
     // FIXME define methods
     /** @return container with all the clients of the network */
     public Collection<Client> getAllClients() {
-        return new ArrayList<>(_clients);
+        return new ArrayList<>(_clients.values());
+    }
+
+    public Client getClient(String key) {
+        if (_clients.containsKey(key)) {
+            return _clients.get(key);
+        }
+        return null;
+    }
+
+    public void setClientNotifications(String key, boolean b) {
+        var c = _clients.get(key);
+        if (c.getReceiveNotifications() != b) {
+           c.setReceiveNotifications(b);
+        }
     }
 
     /** Adds a client to the network */
     public void addClient(String key, String name, long ss) {
-        _clients.add(new Client(key, name, ss));
+        _clients.put(key, new Client(key, name, ss));
     }
     /**
      * Read text input file and create corresponding domain entities.

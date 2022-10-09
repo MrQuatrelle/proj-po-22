@@ -23,13 +23,17 @@ public class Client {
     private boolean _receiveNotifications;
     private final ArrayList<Terminal> _terminals;
 
-    public Client(String key, String name, long ss) {
+    private Client(String key, String name, long ss, ClientType type, ArrayList<Terminal> terminals) {
         _key = key;
         _name = name;
         _ssNum = ss;
         _type = ClientType.NORMAL;
         // _notifications = new LinkedList<Notification>();
-        _terminals = new ArrayList<>();
+        _terminals = (terminals != null) ? terminals : new ArrayList<>();
+    }
+
+    public Client(String key, String name, long ss) {
+        this(key, name, ss, ClientType.NORMAL, new ArrayList<>());
     }
 
     public String toString() {
@@ -51,6 +55,15 @@ public class Client {
         return new String(out);
     }
 
+    public Client copy() {
+        var t_copy = new ArrayList<Terminal>();
+        for (Terminal t : _terminals) {
+            t_copy.add(t/*.copy() TODO*/);
+        }
+        // TODO: Criar cópias de tudo em falta (à espera dos copy() das outras classes)
+        return new Client(_key, _name, _ssNum, _type, t_copy);
+    }
+
     public String getKey() {
         return new String(_key);
     }
@@ -69,6 +82,14 @@ public class Client {
 
     public void setType(ClientType t) {
         _type = t;
+    }
+
+    public boolean getReceiveNotifications() {
+        return _receiveNotifications;
+    }
+
+    public void setReceiveNotifications(boolean b) {
+        _receiveNotifications = b;
     }
 
     /*

@@ -1,5 +1,6 @@
 package prr.app.client;
 
+import prr.core.Client;
 import prr.core.Network;
 import prr.app.exception.UnknownClientKeyException;
 import pt.tecnico.uilib.menus.Command;
@@ -13,11 +14,18 @@ class DoShowClient extends Command<Network> {
 
     DoShowClient(Network receiver) {
         super(Label.SHOW_CLIENT, receiver);
-        //FIXME add command fields
+        addStringField("key", Message.key());
     }
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        var key = stringField("key");
+        Client c = _receiver.getClient(key);
+        if (c != null) {
+            _display.add(c);
+        }
+        //TODO: Falta implementar as notificações. Quando isso estiver feito,
+        //      adicionar a listagem de notificações aqui
+        _display.display();
     }
 }
