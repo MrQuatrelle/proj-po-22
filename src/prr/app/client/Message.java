@@ -16,8 +16,9 @@ interface Message {
     }
 
     /**
-     * @param key
-     * @param balance
+     * @param key client's key
+     * @param payments client's payments sum
+     * @param debts client's debts sum
      * @return report message
      */
     static String clientPaymentsAndDebts(String key, long payments, long debts) {
