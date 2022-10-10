@@ -3,8 +3,8 @@ package prr.core;
 import java.io.Serializable;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 import prr.core.exception.UnrecognizedEntryException;
 
@@ -33,15 +33,31 @@ public class Network implements Serializable {
 
     // FIXME define methods
     /** @return container with all the clients of the network */
-    public Collection<Client> getAllClients() {
-        return new ArrayList<>(_clients.values());
+    public List<String> getAllClientStrings() {
+        var out = new ArrayList<String>();
+        for (Client c : _clients.values()) {
+            out.add(c.toString());
+        }
+        return out;
     }
 
-    public Client getClient(String key) {
+    public String getClientString(String key) {
         if (_clients.containsKey(key)) {
-            return _clients.get(key);
+            return _clients.get(key).toString();
         }
         return null;
+    }
+
+    public long getClientPaymentValue(String key) {
+        if (_clients.containsKey(key))
+            return _clients.get(key).getPaymentValue();
+        return -1;
+    }
+
+    public long getDebtPaymentValue(String key) {
+        if (_clients.containsKey(key))
+            return _clients.get(key).getDebtValue();
+        return -1;
     }
 
     public void setClientNotifications(String key, boolean b) {
@@ -51,16 +67,17 @@ public class Network implements Serializable {
         }
     }
 
-    /** Adds a client to the network */
+    /** Adds a client to the network, if the key doesn't exist yet */
     public void addClient(String key, String name, long ss) {
-        _clients.put(key, new Client(key, name, ss));
+        if (!_clients.containsKey(key))
+            _clients.put(key, new Client(key, name, ss));
     }
     /**
      * Read text input file and create corresponding domain entities.
      *
      * @param filename name of the text input file
      * @throws UnrecognizedEntryException if some entry is not correct
-     * @throws IOException if there is an IO erro while processing the text file
+     * @throws IOException if there is an IO error while processing the text file
      */
     void importFile(String filename) throws UnrecognizedEntryException, IOException /* FIXME maybe other exceptions */  {
         //FIXME implement method

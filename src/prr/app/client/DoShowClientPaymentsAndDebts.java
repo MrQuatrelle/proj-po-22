@@ -13,11 +13,16 @@ class DoShowClientPaymentsAndDebts extends Command<Network> {
 
     DoShowClientPaymentsAndDebts(Network receiver) {
         super(Label.SHOW_CLIENT_BALANCE, receiver);
-        //FIXME add command fields
+        addStringField("key", Message.key());
     }
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        var key = stringField("key");
+        var p = _receiver.getClientPaymentValue(key);
+        var d = _receiver.getDebtPaymentValue(key);
+        if (p >= 0 && d >= 0)
+            _display.add(Message.clientPaymentsAndDebts(key, p, d));
+        _display.display();
     }
 }

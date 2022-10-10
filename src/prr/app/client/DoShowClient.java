@@ -20,9 +20,9 @@ class DoShowClient extends Command<Network> {
     @Override
     protected final void execute() throws CommandException {
         var key = stringField("key");
-        Client c = _receiver.getClient(key);
-        if (c != null) {
-            _display.add(c);
+        String s = _receiver.getClientString(key);
+        if (s != null) {
+            _display.add(s);
         }
         //TODO: Falta implementar as notificações. Quando isso estiver feito,
         //      adicionar a listagem de notificações aqui

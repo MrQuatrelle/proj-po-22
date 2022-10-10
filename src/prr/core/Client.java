@@ -27,13 +27,13 @@ public class Client {
         _key = key;
         _name = name;
         _ssNum = ss;
-        _type = ClientType.NORMAL;
+        _type = type;
         // _notifications = new LinkedList<Notification>();
         _terminals = (terminals != null) ? terminals : new ArrayList<>();
     }
 
     public Client(String key, String name, long ss) {
-        this(key, name, ss, ClientType.NORMAL, new ArrayList<>());
+        this(key, name, ss, ClientType.NORMAL, null);
     }
 
     public String toString() {
@@ -53,15 +53,6 @@ public class Client {
         // out.append("|"); out.append(this.getDebtAmount());
         out.append("|"); out.append(0);
         return new String(out);
-    }
-
-    public Client copy() {
-        var t_copy = new ArrayList<Terminal>();
-        for (Terminal t : _terminals) {
-            t_copy.add(t/*.copy() TODO*/);
-        }
-        // TODO: Criar cópias de tudo em falta (à espera dos copy() das outras classes)
-        return new Client(_key, _name, _ssNum, _type, t_copy);
     }
 
     public String getKey() {
@@ -119,6 +110,14 @@ public class Client {
 
     public void addTerminal(Terminal t) {
         _terminals.add(t);
+    }
+
+    long getPaymentValue() {
+        return 0;
+    }
+
+    long getDebtValue() {
+        return 0;
     }
 
     // FIXME: uncomment this section of the code when notifications are implemented
