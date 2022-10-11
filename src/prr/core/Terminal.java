@@ -4,10 +4,12 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
-public class Terminal implements Serializable /* FIXME maybe addd more interfaces */{
+public class Terminal implements Serializable /* FIXME maybe add more interfaces */{
 
     public enum TerminalStatus {
         OFF,
@@ -17,30 +19,27 @@ public class Terminal implements Serializable /* FIXME maybe addd more interface
     }
 
     /** Serial number for serialization. */
-
     @Serial
     private static final long serialVersionUID = 202208091753L;
-    private final String _key;
+    private final Long _key;
     private String _clientKey;
     private TerminalStatus _status;
-    private Collection<String> _friendlyKeys;
+    private final Set<String> _friendlyKeys;
+    // private InteractiveCommunication _currCommunication;
 
-    // FIXME define attributes
-    // FIXME define contructor(s)
-
-    private Terminal (String key, String clientKey, TerminalStatus status, Collection<String> friendlyKeys) {
-        _key = new String(key);
-        _clientKey = new String(clientKey);
+    private Terminal (Long key, String clientKey, TerminalStatus status, Set<String> friendlyKeys) {
+        _key = key;
+        _clientKey = clientKey;
         _status = status;
-        _friendlyKeys = friendlyKeys;
-    }
-    public Terminal (String key, String clientKey) {
-        this(key, clientKey, TerminalStatus.IDLE, new ArrayList<>());
+        _friendlyKeys = (friendlyKeys != null) ? friendlyKeys : new HashSet<>();
     }
 
-    public Terminal copy() {
-        var t = new Terminal(_key, _clientKey);
-        return t;
+    public Terminal (Long key, String clientKey) {
+        this(key, clientKey, TerminalStatus.IDLE, null);
+    }
+
+    public Long getKey() {
+        return _key;
     }
 
     public TerminalStatus getStatus() {
@@ -58,7 +57,11 @@ public class Terminal implements Serializable /* FIXME maybe addd more interface
      *          it was the originator of this communication.
      **/
     public boolean canEndCurrentCommunication() {
-        // FIXME add implementation code
+        /** FIXME: Uncomment when communications are implemented
+         * if (_currCommunication != null)
+         *      return (_currCommunication.provenienceKey() == _key);
+         * return false;
+         */
         return true;
     }
 
@@ -68,7 +71,21 @@ public class Terminal implements Serializable /* FIXME maybe addd more interface
      * @return true if this terminal is neither off neither busy, false otherwise.
      **/
     public boolean canStartCommunication() {
-        // FIXME add implementation code
+        /** FIXME: Uncomment when communications are implemented
+         * return (_currCommunication == null && _status != TerminalStatus.OFF);
+         */
         return true;
+    }
+
+    public boolean startVoiceCommunication() {
+    // public VoiceCommunication startVoiceCommunication() {
+        if(this.canStartCommunication()) {
+            _status = TerminalStatus.BUSY;
+            /** FIXME: Uncomment and probably edit this when communications are implemented
+             * return new VoiceCommunication(...)
+             */
+            return true;
+        }
+        return false;
     }
 }

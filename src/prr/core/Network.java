@@ -19,19 +19,24 @@ public class Network implements Serializable {
     private static final long serialVersionUID = 202208091753L;
 
     // FIXME define attributes
-    private HashMap<String, Client> _clients;
-    // private Collection<Terminal> _terminals;
+    private final HashMap<String, Client> _clients;
+    private final HashMap<Long, Terminal> _terminals;
 
-
-    // FIXME define contructor(s)
 
     public Network() {
         _clients = new HashMap<>();
+        _terminals = new HashMap<>();
     }
 
 
 
     // FIXME define methods
+    /** Adds a client to the network, if the key doesn't exist yet */
+    public void addClient(String key, String name, long ss) {
+        if (!_clients.containsKey(key))
+            _clients.put(key, new Client(key, name, ss));
+    }
+
     /** @return container with all the clients of the network */
     public List<String> getAllClientStrings() {
         var out = new ArrayList<String>();
@@ -67,11 +72,19 @@ public class Network implements Serializable {
         }
     }
 
-    /** Adds a client to the network, if the key doesn't exist yet */
-    public void addClient(String key, String name, long ss) {
-        if (!_clients.containsKey(key))
-            _clients.put(key, new Client(key, name, ss));
+    public void addTerminal(Long key, String type) {
+        if (type.equals("BASIC"))
+            _terminals.put(key, new Terminal(key, null));
+        else _terminals.put(key, new FancyTerminal(key, null));
     }
+
+    public List<String> getAllTerminalStrings() {
+        var out = new ArrayList<String>();
+        for (Terminal t: _terminals.values())
+           out.add(t.toString());
+        return out;
+    }
+
     /**
      * Read text input file and create corresponding domain entities.
      *
