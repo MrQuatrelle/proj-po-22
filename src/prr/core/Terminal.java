@@ -2,12 +2,11 @@ package prr.core;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
-/**
- * Abstract terminal.
- */
 public class Terminal implements Serializable /* FIXME maybe addd more interfaces */{
 
     public enum TerminalStatus {
@@ -21,14 +20,28 @@ public class Terminal implements Serializable /* FIXME maybe addd more interface
 
     @Serial
     private static final long serialVersionUID = 202208091753L;
+    private final String _key;
+    private String _clientKey;
+    private TerminalStatus _status;
+    private Collection<String> _friendlyKeys;
 
     // FIXME define attributes
-    private TerminalStatus _status;
     // FIXME define contructor(s)
-    public Terminal () {
-        _status = TerminalStatus.IDLE;
+
+    private Terminal (String key, String clientKey, TerminalStatus status, Collection<String> friendlyKeys) {
+        _key = new String(key);
+        _clientKey = new String(clientKey);
+        _status = status;
+        _friendlyKeys = friendlyKeys;
     }
-    // FIXME define methods
+    public Terminal (String key, String clientKey) {
+        this(key, clientKey, TerminalStatus.IDLE, new ArrayList<>());
+    }
+
+    public Terminal copy() {
+        var t = new Terminal(_key, _clientKey);
+        return t;
+    }
 
     public TerminalStatus getStatus() {
         return _status;

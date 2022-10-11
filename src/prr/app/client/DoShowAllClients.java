@@ -1,5 +1,6 @@
 package prr.app.client;
 
+import prr.core.Client;
 import prr.core.Network;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
@@ -16,6 +17,8 @@ class DoShowAllClients extends Command<Network> {
 
     @Override
     protected final void execute() throws CommandException {
+        _display.addAll(_receiver.getAllClientStrings());
+        _display.display();
         //FIXME implement command
     }
 }

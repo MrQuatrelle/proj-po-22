@@ -23,13 +23,17 @@ public class Client {
     private boolean _receiveNotifications;
     private final ArrayList<Terminal> _terminals;
 
-    public Client(String key, String name, long ss) {
+    private Client(String key, String name, long ss, ClientType type, ArrayList<Terminal> terminals) {
         _key = key;
         _name = name;
         _ssNum = ss;
-        _type = ClientType.NORMAL;
+        _type = type;
         // _notifications = new LinkedList<Notification>();
-        _terminals = new ArrayList<>();
+        _terminals = (terminals != null) ? terminals : new ArrayList<>();
+    }
+
+    public Client(String key, String name, long ss) {
+        this(key, name, ss, ClientType.NORMAL, null);
     }
 
     public String toString() {
@@ -71,6 +75,14 @@ public class Client {
         _type = t;
     }
 
+    public boolean getReceiveNotifications() {
+        return _receiveNotifications;
+    }
+
+    public void setReceiveNotifications(boolean b) {
+        _receiveNotifications = b;
+    }
+
     /*
     public void registerNotification(Notification n) {
         _notifications.add(n);
@@ -98,6 +110,14 @@ public class Client {
 
     public void addTerminal(Terminal t) {
         _terminals.add(t);
+    }
+
+    long getPaymentValue() {
+        return 0;
+    }
+
+    long getDebtValue() {
+        return 0;
     }
 
     // FIXME: uncomment this section of the code when notifications are implemented

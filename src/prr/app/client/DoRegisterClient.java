@@ -13,11 +13,18 @@ class DoRegisterClient extends Command<Network> {
 
     DoRegisterClient(Network receiver) {
         super(Label.REGISTER_CLIENT, receiver);
+        addStringField("key", Message.key());
+        addStringField("name", Message.name());
+        addIntegerField("ss", Message.taxId());
         //FIXME add command fields
     }
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        var key = stringField("key");
+        var name = stringField("name");
+        var ss = integerField("ss");
+
+        _receiver.addClient(key, name, ss);
     }
 }
