@@ -24,8 +24,7 @@ class DoShowClient extends Command<Network> {
         if (s != null) {
             _display.add(s);
         }
-        //TODO: Falta implementar as notificações. Quando isso estiver feito,
-        //      adicionar a listagem de notificações aqui
+
         _display.display();
     }
 }

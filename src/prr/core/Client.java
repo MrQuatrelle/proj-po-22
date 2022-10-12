@@ -1,13 +1,14 @@
 package prr.core;
 
-import javax.management.Notification;
+import java.io.Serializable;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import prr.core.Notification;
 import prr.core.Terminal.TerminalStatus;
 
-public class Client {
+public class Client implements Serializable {
 
     enum ClientType {
         NORMAL,
@@ -15,21 +16,29 @@ public class Client {
         PREMIUM,
     }
 
+    enum Path{
+        DEFAULT,
+    }
+
     private final String _key;
     private final String _name;
     private final long _ssNum;
     private ClientType _type;
-    // private LinkedList<Notification> _notifications; //TODO: Implement Notification
+    private LinkedList<Notification> _notifications;
     private boolean _receiveNotifications;
     private final ArrayList<Terminal> _terminals;
+
+    private Path _path;
+
 
     private Client(String key, String name, long ss, ClientType type, ArrayList<Terminal> terminals) {
         _key = key;
         _name = name;
         _ssNum = ss;
         _type = type;
-        // _notifications = new LinkedList<Notification>();
+        _notifications = new LinkedList<Notification>();
         _terminals = (terminals != null) ? terminals : new ArrayList<>();
+        _path = Path.DEFAULT;
     }
 
     public Client(String key, String name, long ss) {
@@ -83,7 +92,6 @@ public class Client {
         _receiveNotifications = b;
     }
 
-    /*
     public void registerNotification(Notification n) {
         _notifications.add(n);
     }
@@ -93,7 +101,10 @@ public class Client {
         _notifications.clear();
         return out;
     }
-    */
+
+    public void changePath(Path newPath){
+        _path = newPath;
+    }
 
     public Collection<Terminal> getTerminals() {
         return new ArrayList<>(_terminals);
