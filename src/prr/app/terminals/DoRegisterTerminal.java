@@ -21,6 +21,8 @@ class DoRegisterTerminal extends Command<Network> {
 
     @Override
     protected final void execute() throws CommandException {
-
+    var key = integerField("key");
+    var type = optionField("type");
+    //TODO
     }
 }

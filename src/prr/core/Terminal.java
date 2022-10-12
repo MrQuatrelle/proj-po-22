@@ -2,8 +2,6 @@ package prr.core;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +20,7 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
     @Serial
     private static final long serialVersionUID = 202208091753L;
     private final Long _key;
-    private String _clientKey;
+    private final String _clientKey;
     private TerminalStatus _status;
     private final Set<String> _friendlyKeys;
     // private InteractiveCommunication _currCommunication;
@@ -46,8 +44,73 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
         return _status;
     }
 
-    public void setStatus(TerminalStatus s) {
+    void setStatus(TerminalStatus s) {
         _status = s;
+    }
+
+    @Override
+    public String toString() {
+        var buffer = new StringBuilder("BASIC");
+        buffer.append("|"); buffer.append(_key);
+        buffer.append("|"); buffer.append(_clientKey);
+        buffer.append("|"); switch (_status) {
+            case OFF    -> buffer.append("OFF");
+            case SILENT -> buffer.append("SILENCE");
+            case IDLE   -> buffer.append("IDLE");
+            case BUSY   -> buffer.append("BUSY");
+        }
+        buffer.append("|"); buffer.append(this.getBalancePaid());
+        buffer.append("|"); buffer.append(this.getBalanceDebts());
+        for (String f: _friendlyKeys) {
+            buffer.append("|"); buffer.append(f);
+        }
+        return new String(buffer);
+    }
+
+    public
+
+    double getBalancePaid() {
+        //FIXME: Implement when payments get implemented
+        return 0;
+    }
+
+    double getBalanceDebts() {
+        //FIXME: Implement when payments get implemented
+        return 0;
+    }
+
+    void addFriend(String fk) {
+        _friendlyKeys.add(fk);
+    }
+
+    public void makeVoiceCall() {
+        // public VoiceCommunication makeVoiceCall() {
+        if(this.canStartCommunication()) {
+            _status = TerminalStatus.BUSY;
+            /** FIXME: Uncomment and probably edit this when communications are implemented
+             * return new VoiceCommunication(...)
+             */
+        }
+    }
+
+    void acceptVoiceCall() {
+        // TODO
+        _status = TerminalStatus.BUSY;
+    }
+
+    public void makeVideoCall(Terminal receiver) {
+        //TODO
+        //It probably will just return an exception, since it is a basic terminal
+    }
+
+    void acceptVideoCall(Terminal caller) {
+        //TODO
+        //It probably will just return an exception, since it is a basic terminal
+    }
+
+    public void endOngoingCommunication(int size) {
+        //TODO
+        _status = TerminalStatus.IDLE;
     }
 
     /**
@@ -77,15 +140,4 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
         return true;
     }
 
-    public boolean startVoiceCommunication() {
-    // public VoiceCommunication startVoiceCommunication() {
-        if(this.canStartCommunication()) {
-            _status = TerminalStatus.BUSY;
-            /** FIXME: Uncomment and probably edit this when communications are implemented
-             * return new VoiceCommunication(...)
-             */
-            return true;
-        }
-        return false;
-    }
 }
