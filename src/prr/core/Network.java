@@ -65,13 +65,6 @@ public class Network implements Serializable {
         return -1;
     }
 
-    public void setClientNotifications(String key, boolean b) {
-        var c = _clients.get(key);
-        if (c.getReceiveNotifications() != b) {
-           c.setReceiveNotifications(b);
-        }
-    }
-
     public void addTerminal(Long key, String type) {
         if (type.equals("BASIC"))
             _terminals.put(key, new Terminal(key, null));

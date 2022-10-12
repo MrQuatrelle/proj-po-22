@@ -87,9 +87,6 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
         // public VoiceCommunication makeVoiceCall() {
         if(this.canStartCommunication()) {
             _status = TerminalStatus.BUSY;
-            /** FIXME: Uncomment and probably edit this when communications are implemented
-             * return new VoiceCommunication(...)
-             */
         }
     }
 

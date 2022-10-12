@@ -5,7 +5,6 @@ import prr.core.Network;
 import prr.app.exception.UnknownClientKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
 
 /**
  * Show specific client: also show previous notifications.
@@ -24,8 +23,6 @@ class DoShowClient extends Command<Network> {
         if (s != null) {
             _display.add(s);
         }
-        //TODO: Falta implementar as notificações. Quando isso estiver feito,
-        //      adicionar a listagem de notificações aqui
         _display.display();
     }
 }

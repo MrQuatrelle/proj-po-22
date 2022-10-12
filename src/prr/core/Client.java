@@ -1,9 +1,9 @@
 package prr.core;
 
-import javax.management.Notification;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import prr.core.Terminal.TerminalStatus;
 
@@ -19,7 +19,6 @@ public class Client {
     private final String _name;
     private final long _ssNum;
     private ClientType _type;
-    // private LinkedList<Notification> _notifications; //TODO: Implement Notification
     private boolean _receiveNotifications;
     private final ArrayList<Terminal> _terminals;
 
@@ -28,7 +27,6 @@ public class Client {
         _name = name;
         _ssNum = ss;
         _type = type;
-        // _notifications = new LinkedList<Notification>();
         _terminals = (terminals != null) ? terminals : new ArrayList<>();
     }
 
@@ -75,27 +73,7 @@ public class Client {
         _type = t;
     }
 
-    public boolean getReceiveNotifications() {
-        return _receiveNotifications;
-    }
-
-    public void setReceiveNotifications(boolean b) {
-        _receiveNotifications = b;
-    }
-
-    /*
-    public void registerNotification(Notification n) {
-        _notifications.add(n);
-    }
-
-    public Collection<Notification> getAndDeleteAllNotifications() {
-        var out = new LinkedList<Notification>(_notifications);
-        _notifications.clear();
-        return out;
-    }
-    */
-
-    public Collection<Terminal> getTerminals() {
+    public List<Terminal> getTerminals() {
         return new ArrayList<>(_terminals);
     }
 
@@ -119,35 +97,4 @@ public class Client {
     long getDebtValue() {
         return 0;
     }
-
-    // FIXME: uncomment this section of the code when notifications are implemented
-    /*
-    public ArrayList<Payment> getAllPayments() {
-        var out = new ArrayList<Payment>();
-        for (Terminal t : _terminals) {
-            out.addAll(t.getAllPayments());
-        }
-        return out;
-    }
-
-    private double getPaidAmount() {
-        double paid = 0;
-        for (Terminal t : _terminals) {
-            for (Payment p : t.getAllPayments()) {
-                if (p.isPaid()) paid += p.getAmount();
-            }
-        }
-        return paid;
-    }
-
-    private double getDebtAmount() {
-        double debt = 0;
-        for (Terminal t : _terminals) {
-            for (Payment p : t.getAllPayments()) {
-                if (p.isPaid()) debt += p.getAmount();
-            }
-        }
-        return debt;
-    }
-    */
 }
