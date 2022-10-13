@@ -10,6 +10,6 @@ public class UnallowedKeyException extends Exception {
     private static final String MESSAGE = "[CORE] Chave não permitida: ";
 
     public UnallowedKeyException(String key) {
-        super(key);
+        super(MESSAGE + key);
     }
 }

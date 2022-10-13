@@ -5,13 +5,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
 
+import java.security.InvalidKeyException;
 import java.util.Collection;
 import java.util.ArrayList;
 
-import prr.core.exception.InvalidTerminalException;
-import prr.core.exception.UnallowedTypeException;
-import prr.core.exception.UnrecognizedEntryException;
-import prr.core.exception.UnknownIdentifierException;
+import prr.core.exception.*;
 // import more exception core classes if needed
 
 /*
@@ -30,7 +28,7 @@ public class Parser {
         _network = network;
     }
 
-    void parseFile(String filename) throws IOException, UnrecognizedEntryException {
+    void parseFile(String filename) throws IOException, UnrecognizedEntryException, UnallowedTypeException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
 
@@ -64,8 +62,8 @@ public class Parser {
             _network.addClient(components[1], components[2], taxNumber);
         } catch (NumberFormatException nfe) {
             throw new UnrecognizedEntryException("Invalid number in line " + line, nfe);
-        } catch (OtherException e) {
-            throw new UnrecognizedEntryException("Invalid specification in line: " + line, e);
+        } catch (DuplicateException e) {
+            throw new UnrecognizedEntryException("Invalid input in line: " + line, e);
         }
     }
 
@@ -75,7 +73,7 @@ public class Parser {
 
         try {
             _network.addParsedTerminal(components[0], components[1], components[2], components[3]);
-        } catch (InvalidTerminalException | UnallowedTypeException e) {
+        } catch (InvalidKeyException | UnallowedTypeException | InvalidStatusException e) {
             throw new UnrecognizedEntryException("Invalid specification in line: " + line, e);
         }
     }
@@ -90,7 +88,7 @@ public class Parser {
 
             for (String friend : friends)
                 _network.addFriend(terminal, friend);
-        } catch (OtherException e) {
+        } catch (InexistentKeyException e) {
             throw new UnrecognizedEntryException("Some message error in line:  " + line, e);
         }
     }

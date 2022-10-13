@@ -2,13 +2,12 @@ package prr.core;
 
 import java.io.Serializable;
 import java.io.IOException;
+import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import prr.core.exception.InvalidTerminalException;
-import prr.core.exception.UnallowedTypeException;
-import prr.core.exception.UnrecognizedEntryException;
+import prr.core.exception.*;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -20,23 +19,24 @@ public class Network implements Serializable {
     /** Serial number for serialization. */
     private static final long serialVersionUID = 202208091753L;
 
-    // FIXME define attributes
+    /****ATTRIBUTES****/
     private final HashMap<String, Client> _clients;
     private final HashMap<String, Terminal> _terminals;
 
 
+    /****CONSTRUCTOR****/
     public Network() {
         _clients = new HashMap<>();
         _terminals = new HashMap<>();
     }
 
 
-
-    // FIXME define methods
+    /****METHODS****/
     /** Adds a client to the network, if the key doesn't exist yet */
-    public void addClient(String key, String name, long ss) {
+    public void addClient(String key, String name, long ss) throws DuplicateException {
         if (!_clients.containsKey(key))
             _clients.put(key, new Client(key, name, ss));
+        else throw new DuplicateException(key);
     }
 
     /** @return container with all the clients of the network */
@@ -67,20 +67,27 @@ public class Network implements Serializable {
         return -1;
     }
 
-    public void addFriend(String terminal, String friend) {
-        if (_terminals.containsKey(terminal) && _terminals.containsKey(friend)
-
+    public void addFriend(String terminal, String friend) throws InexistentKeyException {
+        if (_terminals.containsKey(terminal)) {
+            if (_terminals.containsKey(friend))
+                _terminals.get(terminal).addFriend(friend);
+            else throw new InexistentKeyException(friend);
+        }
+        else throw new InexistentKeyException(terminal);
     }
 
-    public void addTerminal(String type, String key, String client) throws UnallowedTypeException {
+    public void addTerminal(String type, String key, String client)
+            throws UnallowedTypeException, InvalidKeyException {
+        if (/*!Terminal.isValidKey(key)*/false) throw new InvalidKeyException(key);
         switch (type) {
             case "BASIC" -> _terminals.put(key, new Terminal(key, client));
             case "FANCY" -> _terminals.put(key, new FancyTerminal(key, client));
             default -> throw new UnallowedTypeException(key);
         }
     }
+
     void addParsedTerminal(String type, String key, String client, String status)
-            throws UnallowedTypeException, InvalidTerminalException {
+            throws UnallowedTypeException, InvalidKeyException, InvalidStatusException {
         addTerminal(type, key, client);
         var terminal = _terminals.get(key);
         switch(status) {
@@ -88,7 +95,7 @@ public class Network implements Serializable {
             case "OFF" -> terminal.setStatus(Terminal.TerminalStatus.OFF);
             default -> {
                 if (!status.equals("ON"))
-                    throw new InvalidTerminalException();
+                    throw new InvalidStatusException(status);
             }
         }
     }
