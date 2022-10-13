@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import prr.core.exception.InvalidTerminalException;
+import prr.core.exception.UnallowedTypeException;
 import prr.core.exception.UnrecognizedEntryException;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
@@ -20,7 +22,7 @@ public class Network implements Serializable {
 
     // FIXME define attributes
     private final HashMap<String, Client> _clients;
-    private final HashMap<Long, Terminal> _terminals;
+    private final HashMap<String, Terminal> _terminals;
 
 
     public Network() {
@@ -65,10 +67,30 @@ public class Network implements Serializable {
         return -1;
     }
 
-    public void addTerminal(Long key, String type) {
-        if (type.equals("BASIC"))
-            _terminals.put(key, new Terminal(key, null));
-        else _terminals.put(key, new FancyTerminal(key, null));
+    public void addFriend(String terminal, String friend) {
+        if (_terminals.containsKey(terminal) && _terminals.containsKey(friend)
+
+    }
+
+    public void addTerminal(String type, String key, String client) throws UnallowedTypeException {
+        switch (type) {
+            case "BASIC" -> _terminals.put(key, new Terminal(key, client));
+            case "FANCY" -> _terminals.put(key, new FancyTerminal(key, client));
+            default -> throw new UnallowedTypeException(key);
+        }
+    }
+    void addParsedTerminal(String type, String key, String client, String status)
+            throws UnallowedTypeException, InvalidTerminalException {
+        addTerminal(type, key, client);
+        var terminal = _terminals.get(key);
+        switch(status) {
+            case "SILENCE" -> terminal.setStatus(Terminal.TerminalStatus.SILENT);
+            case "OFF" -> terminal.setStatus(Terminal.TerminalStatus.OFF);
+            default -> {
+                if (!status.equals("ON"))
+                    throw new InvalidTerminalException();
+            }
+        }
     }
 
     public List<String> getAllTerminalStrings() {
