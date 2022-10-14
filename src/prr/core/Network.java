@@ -20,7 +20,7 @@ public class Network implements Serializable {
 
     // FIXME define attributes
     private final HashMap<String, Client> _clients;
-    private final HashMap<Long, Terminal> _terminals;
+    private final HashMap<String, Terminal> _terminals;
 
 
     public Network() {
@@ -65,7 +65,7 @@ public class Network implements Serializable {
         return -1;
     }
 
-    public void addTerminal(Long key, String type) {
+    public void addTerminal(String key, String type) {
         if (type.equals("BASIC"))
             _terminals.put(key, new Terminal(key, null));
         else _terminals.put(key, new FancyTerminal(key, null));
