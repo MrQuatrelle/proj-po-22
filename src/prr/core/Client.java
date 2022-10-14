@@ -4,10 +4,11 @@ import java.util.Collection;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import  java.io.Serializable;
 
 import prr.core.Terminal.TerminalStatus;
 
-public class Client {
+public class Client implements Serializable{
 
     enum ClientType {
         NORMAL,
@@ -15,6 +16,7 @@ public class Client {
         PREMIUM,
     }
 
+    private static final long serialVersionUID = 202208091753L;
     private final String _key;
     private final String _name;
     private final long _ssNum;
