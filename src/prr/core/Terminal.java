@@ -19,24 +19,24 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
     /** Serial number for serialization. */
     @Serial
     private static final long serialVersionUID = 202208091753L;
-    private final Long _key;
+    private final String _key;
     private final String _clientKey;
     private TerminalStatus _status;
     private final Set<String> _friendlyKeys;
     // private InteractiveCommunication _currCommunication;
 
-    private Terminal (Long key, String clientKey, TerminalStatus status, Set<String> friendlyKeys) {
+    private Terminal (String key, String clientKey, TerminalStatus status, Set<String> friendlyKeys) {
         _key = key;
         _clientKey = clientKey;
         _status = status;
         _friendlyKeys = (friendlyKeys != null) ? friendlyKeys : new HashSet<>();
     }
 
-    public Terminal (Long key, String clientKey) {
+    public Terminal (String key, String clientKey) {
         this(key, clientKey, TerminalStatus.IDLE, null);
     }
 
-    public Long getKey() {
+    public String getKey() {
         return _key;
     }
 
