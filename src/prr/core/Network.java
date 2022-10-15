@@ -67,6 +67,11 @@ public class Network implements Serializable {
         return -1;
     }
 
+    public Terminal getTerminal(String key) throws InexistentKeyException{
+        if (_terminals.containsKey(key))
+            return _terminals.get(key);
+        else throw new InexistentKeyException(key);
+    }
     public void addFriend(String terminal, String friend) throws InexistentKeyException {
         if (_terminals.containsKey(terminal)) {
             if (_terminals.containsKey(friend))

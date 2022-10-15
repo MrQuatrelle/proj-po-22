@@ -44,7 +44,7 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
         return _status;
     }
 
-    void setStatus(TerminalStatus s) {
+    public void setStatus(TerminalStatus s) {
         _status = s;
     }
 
@@ -79,9 +79,11 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
         return 0;
     }
 
-    void addFriend(String fk) {
+    public void addFriend(String fk) {
         _friendlyKeys.add(fk);
     }
+
+    public void removeFriend(String fk){_friendlyKeys.remove(fk);}
 
     public void makeVoiceCall() {
         // public VoiceCommunication makeVoiceCall() {

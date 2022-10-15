@@ -16,6 +16,11 @@ class DoSilenceTerminal extends TerminalCommand {
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        if (_receiver.getStatus() == Terminal.TerminalStatus.SILENT){
+            _display.add(Message.alreadySilent());
+            _display.display();
+        }
+        if(_receiver.getStatus() != Terminal.TerminalStatus.OFF)
+            _receiver.setStatus(Terminal.TerminalStatus.SILENT);
     }
 }

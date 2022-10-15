@@ -16,6 +16,11 @@ class DoTurnOffTerminal extends TerminalCommand {
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        if (_receiver.getStatus() == Terminal.TerminalStatus.OFF){
+            _display.add(Message.alreadyOff());
+            _display.display();
+        }
+        if(_receiver.getStatus() != Terminal.TerminalStatus.BUSY)
+            _receiver.setStatus(Terminal.TerminalStatus.OFF);
     }
 }
