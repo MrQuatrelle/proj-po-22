@@ -18,6 +18,6 @@ class DoEnableClientNotifications extends Command<Network> {
     @Override
     protected final void execute() throws CommandException {
         var key = stringField("key");
-        _receiver.setClientNotifications(key, true);
+        //_receiver.setClientNotifications(key, true);
     }
 }

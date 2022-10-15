@@ -82,7 +82,7 @@ public class Network implements Serializable {
     }
 
     public void addTerminal(String type, String key, String client)
-            throws UnallowedTypeException, InvalidKeyException {
+           throws UnallowedTypeException, InvalidKeyException {
         if (/*!Terminal.isValidKey(key)*/false) throw new InvalidKeyException(key);
         switch (type) {
             case "BASIC" -> _terminals.put(key, new Terminal(key, client));

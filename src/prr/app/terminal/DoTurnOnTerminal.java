@@ -20,6 +20,6 @@ class DoTurnOnTerminal extends TerminalCommand {
             _display.add(Message.alreadyOn());
             _display.display();
         }
-        _receiver.setStatus(Terminal.TerminalStatus.OFF);
+        _receiver.setStatus(Terminal.TerminalStatus.IDLE);
     }
 }

@@ -2,6 +2,7 @@ package prr.app.client;
 
 import prr.core.Network;
 import prr.app.exception.DuplicateClientKeyException;
+import prr.core.exception.DuplicateException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
@@ -25,6 +26,10 @@ class DoRegisterClient extends Command<Network> {
         var name = stringField("name");
         var ss = integerField("ss");
 
-        _receiver.addClient(key, name, ss);
+        try {
+            _receiver.addClient(key, name, ss);
+        } catch (DuplicateException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
