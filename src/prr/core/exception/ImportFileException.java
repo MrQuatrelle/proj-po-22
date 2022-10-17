@@ -6,7 +6,7 @@ import java.io.Serial;
  * Class for representing an import problem.
  */
 public class ImportFileException extends Exception {
-    
+
     private static final String ERROR_MESSAGE = "Erro a processar ficheiro de import: ";
 
     /**
