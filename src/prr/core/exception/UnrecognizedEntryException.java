@@ -5,9 +5,6 @@ package prr.core.exception;
  */
 public class UnrecognizedEntryException extends Exception {
 
-    /** Class serial number. */
-    private static final long serialVersionUID = 202208091753L;
-
     /** Bad bad entry specification. */
     private String _entrySpecification;
 
