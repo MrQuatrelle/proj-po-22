@@ -1,5 +1,7 @@
 package prr.core;
 
+import prr.core.exception.InexistentKeyException;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -23,23 +25,29 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
     private final String _clientKey;
     private TerminalStatus _status;
     private final Set<String> _friendlyKeys;
+
+    private Network _network;
     // private InteractiveCommunication _currCommunication;
 
-    private Terminal (String key, String clientKey, TerminalStatus status, Set<String> friendlyKeys) {
+    private Terminal (String key, String clientKey, TerminalStatus status, Set<String> friendlyKeys, Network network) {
         _key = key;
         _clientKey = clientKey;
         _status = status;
         _friendlyKeys = (friendlyKeys != null) ? friendlyKeys : new HashSet<>();
+        _network = network;
     }
 
-    public Terminal (String key, String clientKey) {
-        this(key, clientKey, TerminalStatus.IDLE, null);
+    public Terminal (String key, String clientKey, Network network) {
+        this(key, clientKey, TerminalStatus.IDLE, null, network);
     }
 
     public String getKey() {
         return _key;
     }
 
+    public static boolean isValidKey(String key){
+        return key.matches("[0-9]+") && key.length() == 6;
+    }
     public TerminalStatus getStatus() {
         return _status;
     }
@@ -79,11 +87,17 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
         return 0;
     }
 
-    public void addFriend(String fk) {
-        _friendlyKeys.add(fk);
+    public void addFriend(String fk) throws InexistentKeyException {
+        if (_network.hasTerminalKey(fk))
+            _friendlyKeys.add(fk);
+        else throw new InexistentKeyException(fk);
     }
 
-    public void removeFriend(String fk){_friendlyKeys.remove(fk);}
+    public void removeFriend(String fk) throws InexistentKeyException {
+        if (_network.hasTerminalKey(fk))
+        _friendlyKeys.add(fk);
+        else throw new InexistentKeyException(fk);
+    }
 
     public void makeVoiceCall() {
         // public VoiceCommunication makeVoiceCall() {

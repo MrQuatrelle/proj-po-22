@@ -6,6 +6,7 @@ import java.security.InvalidKeyException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import prr.core.exception.*;
 
@@ -67,6 +68,9 @@ public class Network implements Serializable {
         return -1;
     }
 
+    boolean hasTerminalKey(String key) {
+        return _terminals.containsKey(key);
+    }
     public Terminal getTerminal(String key) throws InexistentKeyException{
         if (_terminals.containsKey(key))
             return _terminals.get(key);
@@ -82,17 +86,18 @@ public class Network implements Serializable {
     }
 
     public void addTerminal(String type, String key, String client)
-           throws UnallowedTypeException, InvalidKeyException {
-        if (/*!Terminal.isValidKey(key)*/false) throw new InvalidKeyException(key);
+            throws UnallowedTypeException, InexistentKeyException, UnallowedKeyException, DuplicateException {
+        if (!Terminal.isValidKey(key)) throw new UnallowedKeyException(key);
+        if (_terminals.containsKey(key)) throw new DuplicateException(key);
         switch (type) {
-            case "BASIC" -> _terminals.put(key, new Terminal(key, client));
-            case "FANCY" -> _terminals.put(key, new FancyTerminal(key, client));
+            case "BASIC" -> _terminals.put(key, new Terminal(key, client, this));
+            case "FANCY" -> _terminals.put(key, new FancyTerminal(key, client, this));
             default -> throw new UnallowedTypeException(key);
         }
     }
 
     void addParsedTerminal(String type, String key, String client, String status)
-            throws UnallowedTypeException, InvalidKeyException, InvalidStatusException {
+            throws UnallowedTypeException, InexistentKeyException, InvalidStatusException, UnallowedKeyException, DuplicateException {
         addTerminal(type, key, client);
         var terminal = _terminals.get(key);
         switch(status) {

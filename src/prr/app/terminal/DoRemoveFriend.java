@@ -1,7 +1,9 @@
 package prr.app.terminal;
 
+import prr.app.exception.UnknownTerminalKeyException;
 import prr.core.Network;
 import prr.core.Terminal;
+import prr.core.exception.InexistentKeyException;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
 
@@ -18,5 +20,10 @@ class DoRemoveFriend extends TerminalCommand {
     @Override
     protected final void execute() throws CommandException {
         var key = stringField("key");
-        _receiver.removeFriend(key);    }
+        try {
+            _receiver.removeFriend(key);
+        } catch (InexistentKeyException e) {
+            throw new UnknownTerminalKeyException(e.getKey());
+        }
+    }
 }

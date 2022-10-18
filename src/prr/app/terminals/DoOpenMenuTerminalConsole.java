@@ -1,5 +1,6 @@
 package prr.app.terminals;
 
+import prr.app.exception.InvalidTerminalKeyException;
 import prr.app.terminal.Menu;
 import prr.core.Network;
 import prr.app.exception.UnknownTerminalKeyException;
@@ -26,7 +27,7 @@ class DoOpenMenuTerminalConsole extends Command<Network> {
         try {
             menu = new Menu(_receiver, _receiver.getTerminal(key) );
         } catch (InexistentKeyException e) {
-            throw new RuntimeException(e);
+            throw new InvalidTerminalKeyException(e.getKey());
         }
         menu.open();
     }
