@@ -21,15 +21,17 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
     /** Serial number for serialization. */
     @Serial
     private static final long serialVersionUID = 202208091753L;
-    private final String _key;
-    private final String _clientKey;
-    private TerminalStatus _status;
-    private final Set<String> _friendlyKeys;
+    protected String _type;
+    protected final String _key;
+    protected final String _clientKey;
+    protected TerminalStatus _status;
+    protected final Set<String> _friendlyKeys;
 
-    private Network _network;
+    private final Network _network;
     // private InteractiveCommunication _currCommunication;
 
     private Terminal (String key, String clientKey, TerminalStatus status, Set<String> friendlyKeys, Network network) {
+        _type = "BASIC";
         _key = key;
         _clientKey = clientKey;
         _status = status;
@@ -56,33 +58,23 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
         _status = s;
     }
 
-    @Override
     public String toString() {
-        var buffer = new StringBuilder("BASIC");
-        buffer.append("|"); buffer.append(_key);
-        buffer.append("|"); buffer.append(_clientKey);
-        buffer.append("|"); switch (_status) {
-            case OFF    -> buffer.append("OFF");
-            case SILENT -> buffer.append("SILENCE");
-            case IDLE   -> buffer.append("IDLE");
-            case BUSY   -> buffer.append("BUSY");
-        }
-        buffer.append("|"); buffer.append(this.getBalancePaid());
-        buffer.append("|"); buffer.append(this.getBalanceDebts());
+        var out = new StringBuilder(_type + "|" + _key + "|" + _clientKey + "|" + _status + "|"
+                + getBalancePaid() + "|" + getBalanceDebts());
         for (String f: _friendlyKeys) {
-            buffer.append("|"); buffer.append(f);
+            out.append("|"); out.append(f);
         }
-        return new String(buffer);
+        return new String(out);
     }
 
     public
 
-    double getBalancePaid() {
+    int getBalancePaid() {
         //FIXME: Implement when payments get implemented
         return 0;
     }
 
-    double getBalanceDebts() {
+    int getBalanceDebts() {
         //FIXME: Implement when payments get implemented
         return 0;
     }

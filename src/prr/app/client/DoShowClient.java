@@ -3,6 +3,7 @@ package prr.app.client;
 import prr.core.Client;
 import prr.core.Network;
 import prr.app.exception.UnknownClientKeyException;
+import prr.core.exception.InexistentKeyException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
@@ -19,7 +20,12 @@ class DoShowClient extends Command<Network> {
     @Override
     protected final void execute() throws CommandException {
         var key = stringField("key");
-        String s = _receiver.getClientString(key);
+        Client s;
+        try {
+            s = _receiver.getClient(key);
+        } catch (InexistentKeyException e) {
+            throw new UnknownClientKeyException(e.getKey());
+        }
         if (s != null) {
             _display.add(s);
         }

@@ -5,6 +5,7 @@ public class FancyTerminal extends Terminal {
 
     public FancyTerminal(String key, String clientKey, Network network) {
         super(key, clientKey, network);
+        _type = "FANCY";
     }
 
     @Override

@@ -28,12 +28,14 @@ public class Parser {
         _network = network;
     }
 
-    void parseFile(String filename) throws IOException, UnrecognizedEntryException, UnallowedTypeException, UnallowedKeyException, DuplicateException {
+    void parseFile(String filename) throws UnrecognizedEntryException, UnallowedTypeException, UnallowedKeyException, DuplicateException, ImportFileException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
 
             while ((line = reader.readLine()) != null)
                 parseLine(line);
+        } catch (IOException e) {
+            throw new ImportFileException(filename, e);
         }
     }
 

@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.TreeMap;
 
 import prr.core.exception.*;
 
@@ -21,14 +21,14 @@ public class Network implements Serializable {
     private static final long serialVersionUID = 202208091753L;
 
     /****ATTRIBUTES****/
-    private final HashMap<String, Client> _clients;
-    private final HashMap<String, Terminal> _terminals;
+    private final Map<String, Client> _clients;
+    private final Map<String, Terminal> _terminals;
 
 
     /****CONSTRUCTOR****/
     public Network() {
-        _clients = new HashMap<>();
-        _terminals = new HashMap<>();
+        _clients = new TreeMap<>();
+        _terminals = new TreeMap<>();
     }
 
 
@@ -41,19 +41,15 @@ public class Network implements Serializable {
     }
 
     /** @return container with all the clients of the network */
-    public List<String> getAllClientStrings() {
-        var out = new ArrayList<String>();
-        for (Client c : _clients.values()) {
-            out.add(c.toString());
-        }
-        return out;
+    public List<Client> getAllClients() {
+        return new ArrayList<Client>(_clients.values());
     }
 
-    public String getClientString(String key) {
+    public Client getClient(String key) throws InexistentKeyException {
         if (_clients.containsKey(key)) {
-            return _clients.get(key).toString();
+            return _clients.get(key);
         }
-        return null;
+        throw new InexistentKeyException(key);
     }
 
     public long getClientPaymentValue(String key) {
@@ -66,6 +62,10 @@ public class Network implements Serializable {
         if (_clients.containsKey(key))
             return _clients.get(key).getDebtValue();
         return -1;
+    }
+
+    public void setClientNotification(String key, boolean b) {
+        _clients.get(key).setNotification(b);
     }
 
     boolean hasTerminalKey(String key) {
@@ -89,11 +89,14 @@ public class Network implements Serializable {
             throws UnallowedTypeException, InexistentKeyException, UnallowedKeyException, DuplicateException {
         if (!Terminal.isValidKey(key)) throw new UnallowedKeyException(key);
         if (_terminals.containsKey(key)) throw new DuplicateException(key);
+        Terminal t;
         switch (type) {
-            case "BASIC" -> _terminals.put(key, new Terminal(key, client, this));
-            case "FANCY" -> _terminals.put(key, new FancyTerminal(key, client, this));
+            case "BASIC" -> t = new Terminal(key, client, this);
+            case "FANCY" -> t = new FancyTerminal(key, client, this);
             default -> throw new UnallowedTypeException(key);
         }
+        _terminals.put(key, t);
+        _clients.get(client).addTerminal(t);
     }
 
     void addParsedTerminal(String type, String key, String client, String status)
@@ -124,8 +127,9 @@ public class Network implements Serializable {
      * @throws UnrecognizedEntryException if some entry is not correct
      * @throws IOException if there is an IO error while processing the text file
      */
-    void importFile(String filename) throws UnrecognizedEntryException, IOException /* FIXME maybe other exceptions */  {
-        //FIXME implement method
+    void importFile(String filename) throws UnrecognizedEntryException, IOException, UnallowedTypeException, DuplicateException, UnallowedKeyException, ImportFileException {
+        var parser = new Parser(this);
+        parser.parseFile(filename);
     }
 }
 

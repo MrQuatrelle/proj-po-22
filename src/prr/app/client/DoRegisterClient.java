@@ -29,7 +29,7 @@ class DoRegisterClient extends Command<Network> {
         try {
             _receiver.addClient(key, name, ss);
         } catch (DuplicateException e) {
-            throw new RuntimeException(e);
+            throw new DuplicateClientKeyException(e.getKey());
         }
     }
 }

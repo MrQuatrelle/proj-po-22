@@ -9,10 +9,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-import prr.core.exception.ImportFileException;
-import prr.core.exception.MissingFileAssociationException;
-import prr.core.exception.UnavailableFileException;
-import prr.core.exception.UnrecognizedEntryException;
+import prr.core.exception.*;
 
 //FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -33,7 +30,7 @@ public class NetworkManager implements Serializable {
         _filename = filename;
     }
 
-    public String getFilename(){
+    public String getFilename() {
         return _filename;
     }
     /**
@@ -42,13 +39,17 @@ public class NetworkManager implements Serializable {
      * @throws UnavailableFileException if the specified file does not exist or there is
      *         an error while processing this file.
      */
-    public void load(String filename) throws UnavailableFileException,FileNotFoundException,IOException,ClassNotFoundException {
+    public void load(String filename) throws UnavailableFileException, FileNotFoundException, ClassNotFoundException, ImportFileException {
 
         try(FileInputStream fileIn = new FileInputStream(filename)) {
             try (ObjectInputStream in = new ObjectInputStream(fileIn)) {
                 _network = (Network) in.readObject();
                 setFilename(filename);
+            } catch (IOException e) {
+                throw new ImportFileException(filename, e);
             }
+        } catch (IOException e) {
+            throw new UnavailableFileException(filename);
         }
     }
 
@@ -61,7 +62,6 @@ public class NetworkManager implements Serializable {
      */
     public void save() throws FileNotFoundException, MissingFileAssociationException, IOException {
         this.saveAs(this.getFilename());
-
     }
 
     /**
@@ -91,7 +91,8 @@ public class NetworkManager implements Serializable {
     public void importFile(String filename) throws ImportFileException {
         try {
             _network.importFile(filename);
-        } catch (IOException | UnrecognizedEntryException /* FIXME maybe other exceptions */ e) {
+        } catch (IOException | UnrecognizedEntryException | UnallowedTypeException |
+                 DuplicateException | UnallowedKeyException e) {
             throw new ImportFileException(filename, e);
         }
     }

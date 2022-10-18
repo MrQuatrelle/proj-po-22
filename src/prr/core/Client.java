@@ -29,6 +29,7 @@ public class Client implements Serializable{
         _name = name;
         _ssNum = ss;
         _type = type;
+        _receiveNotifications = true;
         _terminals = (terminals != null) ? terminals : new ArrayList<>();
     }
 
@@ -37,21 +38,9 @@ public class Client implements Serializable{
     }
 
     public String toString() {
-        var out = new StringBuilder("CLIENT");
-        out.append("|"); out.append(_key);
-        out.append("|"); out.append(_name);
-        out.append("|"); switch (_type) {
-            case NORMAL -> out.append("NORMAL");
-            case GOLD -> out.append("GOLD");
-            case PREMIUM -> out.append("PREMIUM");
-        }
-        out.append("|"); if (_receiveNotifications) out.append("YES");
-            else out.append("NO");
-        out.append("|"); out.append(this.countActiveTerminals());
-        // out.append("|"); out.append(this.getPaidAmount());
-        out.append("|"); out.append(0);
-        // out.append("|"); out.append(this.getDebtAmount());
-        out.append("|"); out.append(0);
+        var out = new StringBuilder("CLIENT" + "|" + _key + "|" + _name + "|" + _ssNum + "|" + _type + "|");
+        if (_receiveNotifications) out.append("YES"); else out.append("NO");
+        out.append("|" + countActiveTerminals() + "|" + 0 + "|" + 0);
         return new String(out);
     }
 
@@ -73,6 +62,11 @@ public class Client implements Serializable{
 
     public void setType(ClientType t) {
         _type = t;
+    }
+
+    public void setNotification(boolean b) {
+        if (b == _receiveNotifications) /* throw exception...*/;
+        _receiveNotifications = b;
     }
 
     public List<Terminal> getTerminals() {
