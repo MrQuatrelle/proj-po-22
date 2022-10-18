@@ -28,7 +28,7 @@ public class Parser {
         _network = network;
     }
 
-    void parseFile(String filename) throws IOException, UnrecognizedEntryException, UnallowedTypeException {
+    void parseFile(String filename) throws IOException, UnrecognizedEntryException, UnallowedTypeException, UnallowedKeyException, DuplicateException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
 
@@ -37,7 +37,7 @@ public class Parser {
         }
     }
 
-    private void parseLine(String line) throws UnrecognizedEntryException, UnallowedTypeException {
+    private void parseLine(String line) throws UnrecognizedEntryException, UnallowedTypeException, UnallowedKeyException, DuplicateException {
         String[] components = line.split("\\|");
 
         switch(components[0]) {
@@ -68,12 +68,12 @@ public class Parser {
     }
 
     // parse a line with format terminal-type|idTerminal|idClient|state
-    private void parseTerminal(String[] components, String line) throws UnrecognizedEntryException {
+    private void parseTerminal(String[] components, String line) throws UnrecognizedEntryException, UnallowedKeyException, DuplicateException {
         checkComponentsLength(components, 4, line);
 
         try {
             _network.addParsedTerminal(components[0], components[1], components[2], components[3]);
-        } catch (InvalidKeyException | UnallowedTypeException | InvalidStatusException e) {
+        } catch (InexistentKeyException | UnallowedTypeException | InvalidStatusException e) {
             throw new UnrecognizedEntryException("Invalid specification in line: " + line, e);
         }
     }

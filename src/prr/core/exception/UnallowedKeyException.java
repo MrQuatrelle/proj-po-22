@@ -4,12 +4,16 @@ import java.io.Serial;
 
 public class UnallowedKeyException extends Exception {
 
-    @Serial
-    private static final long serialVersionUID = 202213101647L;
+    private String _key;
 
     private static final String MESSAGE = "[CORE] Chave não permitida: ";
 
     public UnallowedKeyException(String key) {
         super(MESSAGE + key);
+        _key = key;
+    }
+
+    public String getKey() {
+        return _key;
     }
 }
