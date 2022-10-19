@@ -1,0 +1,53 @@
+*** tests/A-09-03-M-ok.out	2022-10-10 10:32:19.447584700 +0100
+--- tests/A-09-03-M-ok.outhyp	2022-10-19 14:17:36.039937840 +0100
+***************
+*** 21,27 ****
+  7 - Consultar saldo
+  8 - Enviar comunicação de texto
+  9 - Iniciar comunicação
+! 11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+--- 21,27 ----
+  7 - Consultar saldo
+  8 - Enviar comunicação de texto
+  9 - Iniciar comunicação
+! 10 - Terminar comunicação activa
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+***************
+*** 38,44 ****
+  7 - Consultar saldo
+  8 - Enviar comunicação de texto
+  9 - Iniciar comunicação
+! 11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+--- 38,44 ----
+  7 - Consultar saldo
+  8 - Enviar comunicação de texto
+  9 - Iniciar comunicação
+! 10 - Terminar comunicação activa
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+***************
+*** 55,61 ****
+  7 - Consultar saldo
+  8 - Enviar comunicação de texto
+  9 - Iniciar comunicação
+! 11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+--- 55,61 ----
+  7 - Consultar saldo
+  8 - Enviar comunicação de texto
+  9 - Iniciar comunicação
+! 10 - Terminar comunicação activa
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
