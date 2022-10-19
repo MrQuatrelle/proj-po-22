@@ -1,16 +1,14 @@
 package prr.core;
 
-import java.util.Collection;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import  java.io.Serializable;
 
-import prr.core.Terminal.TerminalStatus;
+import prr.core.Terminal.Status;
 
 public class Client implements Serializable{
 
-    enum ClientType {
+    enum Type {
         NORMAL,
         GOLD,
         PREMIUM,
@@ -20,11 +18,11 @@ public class Client implements Serializable{
     private final String _key;
     private final String _name;
     private final long _ssNum;
-    private ClientType _type;
+    private Type _type;
     private boolean _receiveNotifications;
     private final ArrayList<Terminal> _terminals;
 
-    private Client(String key, String name, long ss, ClientType type, ArrayList<Terminal> terminals) {
+    private Client(String key, String name, long ss, Type type, ArrayList<Terminal> terminals) {
         _key = key;
         _name = name;
         _ssNum = ss;
@@ -34,7 +32,7 @@ public class Client implements Serializable{
     }
 
     public Client(String key, String name, long ss) {
-        this(key, name, ss, ClientType.NORMAL, null);
+        this(key, name, ss, Type.NORMAL, null);
     }
 
     public String toString() {
@@ -56,11 +54,11 @@ public class Client implements Serializable{
         return _ssNum;
     }
 
-    public ClientType getType() {
+    public Type getType() {
         return _type;
     }
 
-    public void setType(ClientType t) {
+    public void setType(Type t) {
         _type = t;
     }
 
@@ -76,7 +74,7 @@ public class Client implements Serializable{
     private int countActiveTerminals() {
         int out = 0;
         for (Terminal t : _terminals) {
-            if (t.getStatus() != TerminalStatus.OFF)
+            if (t.getStatus() != Status.OFF)
                 out++;
         }
         return out;

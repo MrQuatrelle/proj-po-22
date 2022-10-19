@@ -7,16 +7,15 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-// FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
+public class Terminal implements Serializable {
 
-public class Terminal implements Serializable /* FIXME maybe add more interfaces */{
-
-    public enum TerminalStatus {
+    public enum Status {
         OFF,
         SILENT,
         IDLE,
         BUSY,
     }
+
 
     /** Serial number for serialization. */
     @Serial
@@ -24,13 +23,13 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
     protected String _type;
     protected final String _key;
     protected final String _clientKey;
-    protected TerminalStatus _status;
+    protected Status _status;
     protected final Set<String> _friendlyKeys;
 
     private final Network _network;
     // private InteractiveCommunication _currCommunication;
 
-    private Terminal (String key, String clientKey, TerminalStatus status, Set<String> friendlyKeys, Network network) {
+    private Terminal (String key, String clientKey, Status status, Set<String> friendlyKeys, Network network) {
         _type = "BASIC";
         _key = key;
         _clientKey = clientKey;
@@ -40,7 +39,7 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
     }
 
     public Terminal (String key, String clientKey, Network network) {
-        this(key, clientKey, TerminalStatus.IDLE, null, network);
+        this(key, clientKey, Status.IDLE, null, network);
     }
 
     public String getKey() {
@@ -50,11 +49,11 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
     public static boolean isValidKey(String key){
         return key.matches("[0-9]+") && key.length() == 6;
     }
-    public TerminalStatus getStatus() {
+    public Status getStatus() {
         return _status;
     }
 
-    public void setStatus(TerminalStatus s) {
+    public void setStatus(Status s) {
         _status = s;
     }
 
@@ -94,13 +93,13 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
     public void makeVoiceCall() {
         // public VoiceCommunication makeVoiceCall() {
         if(this.canStartCommunication()) {
-            _status = TerminalStatus.BUSY;
+            _status = Status.BUSY;
         }
     }
 
     void acceptVoiceCall() {
         // TODO
-        _status = TerminalStatus.BUSY;
+        _status = Status.BUSY;
     }
 
     public void makeVideoCall(Terminal receiver) {
@@ -115,7 +114,7 @@ public class Terminal implements Serializable /* FIXME maybe add more interfaces
 
     public void endOngoingCommunication(int size) {
         //TODO
-        _status = TerminalStatus.IDLE;
+        _status = Status.IDLE;
     }
 
     /**

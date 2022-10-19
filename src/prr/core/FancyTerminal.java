@@ -10,13 +10,11 @@ public class FancyTerminal extends Terminal {
 
     @Override
     public void makeVideoCall(Terminal receiver) {
-        //TODO
-        this.setStatus(TerminalStatus.BUSY);
+        this.setStatus(Status.BUSY);
     }
 
     @Override
     public void acceptVideoCall(Terminal caller) {
-        //TODO
-        this.setStatus(TerminalStatus.BUSY);
+        this.setStatus(Status.BUSY);
     }
 }

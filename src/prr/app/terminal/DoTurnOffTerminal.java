@@ -3,7 +3,6 @@ package prr.app.terminal;
 import prr.core.Network;
 import prr.core.Terminal;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
 
 /**
  * Turn off the terminal.
@@ -16,11 +15,11 @@ class DoTurnOffTerminal extends TerminalCommand {
 
     @Override
     protected final void execute() throws CommandException {
-        if (_receiver.getStatus() == Terminal.TerminalStatus.OFF){
+        if (_receiver.getStatus() == Terminal.Status.OFF){
             _display.add(Message.alreadyOff());
             _display.display();
         }
-        if(_receiver.getStatus() != Terminal.TerminalStatus.BUSY)
-            _receiver.setStatus(Terminal.TerminalStatus.OFF);
+        if(_receiver.getStatus() != Terminal.Status.BUSY)
+            _receiver.setStatus(Terminal.Status.OFF);
     }
 }

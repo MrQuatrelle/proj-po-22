@@ -104,8 +104,8 @@ public class Network implements Serializable {
         addTerminal(type, key, client);
         var terminal = _terminals.get(key);
         switch(status) {
-            case "SILENCE" -> terminal.setStatus(Terminal.TerminalStatus.SILENT);
-            case "OFF" -> terminal.setStatus(Terminal.TerminalStatus.OFF);
+            case "SILENCE" -> terminal.setStatus(Terminal.Status.SILENT);
+            case "OFF" -> terminal.setStatus(Terminal.Status.OFF);
             default -> {
                 if (!status.equals("ON"))
                     throw new InvalidStatusException(status);

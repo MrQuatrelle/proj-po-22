@@ -16,10 +16,10 @@ class DoTurnOnTerminal extends TerminalCommand {
 
     @Override
     protected final void execute() throws CommandException {
-        if (_receiver.getStatus() == Terminal.TerminalStatus.IDLE){
+        if (_receiver.getStatus() == Terminal.Status.IDLE){
             _display.add(Message.alreadyOn());
             _display.display();
         }
-        _receiver.setStatus(Terminal.TerminalStatus.IDLE);
+        _receiver.setStatus(Terminal.Status.IDLE);
     }
 }
