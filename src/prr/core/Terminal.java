@@ -117,6 +117,9 @@ public class Terminal implements Serializable {
         _status = Status.IDLE;
     }
 
+    public int getNumberOfCommunications(){
+        return 0;
+    }
     /**
      * Checks if this terminal can end the current interactive communication.
      *
@@ -124,12 +127,11 @@ public class Terminal implements Serializable {
      *          it was the originator of this communication.
      **/
     public boolean canEndCurrentCommunication() {
-        /** FIXME: Uncomment when communications are implemented
-         * if (_currCommunication != null)
-         *      return (_currCommunication.provenienceKey() == _key);
-         * return false;
-         */
-        return true;
+        /* FIXME: Uncomment when communications are implemented*/
+        if (_status == Status.BUSY){
+            return true;
+        }
+            return false;
     }
 
     /**
@@ -138,9 +140,9 @@ public class Terminal implements Serializable {
      * @return true if this terminal is neither off neither busy, false otherwise.
      **/
     public boolean canStartCommunication() {
-        /** FIXME: Uncomment when communications are implemented
-         * return (_currCommunication == null && _status != TerminalStatus.OFF);
-         */
+        if (_status == Status.BUSY){
+            return false;
+        }
         return true;
     }
 

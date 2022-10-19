@@ -27,7 +27,7 @@ class DoOpenMenuTerminalConsole extends Command<Network> {
         try {
             menu = new Menu(_receiver, _receiver.getTerminal(key) );
         } catch (InexistentKeyException e) {
-            throw new InvalidTerminalKeyException(e.getKey());
+            throw new UnknownTerminalKeyException(e.getKey());
         }
         menu.open();
     }

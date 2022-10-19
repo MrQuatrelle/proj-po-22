@@ -34,15 +34,12 @@ class DoRegisterTerminal extends Command<Network> {
         var client = stringField("client");
         try {
             _receiver.addTerminal(type, key, client);
-        } catch (UnallowedTypeException e) {
-
-
         } catch (InexistentKeyException e) {
             throw new UnknownClientKeyException(e.getKey());
         } catch (UnallowedKeyException e) {
             throw new UnknownTerminalKeyException(e.getKey());
         } catch (DuplicateException e) {
             throw new DuplicateTerminalKeyException(e.getKey());
-        }
+        } catch (UnallowedTypeException ignored){}
     }
 }

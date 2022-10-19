@@ -95,8 +95,11 @@ public class Network implements Serializable {
             case "FANCY" -> t = new FancyTerminal(key, client, this);
             default -> throw new UnallowedTypeException(key);
         }
-        _terminals.put(key, t);
-        _clients.get(client).addTerminal(t);
+        if (_clients.containsKey(client)) {
+            _terminals.put(key, t);
+            _clients.get(client).addTerminal(t);
+        }
+        else throw new InexistentKeyException(client);
     }
 
     void addParsedTerminal(String type, String key, String client, String status)
@@ -120,6 +123,15 @@ public class Network implements Serializable {
         return out;
     }
 
+    public List<Terminal> getAllUnusedTerminals(){
+        var out = new ArrayList<Terminal>();
+        for (Terminal i : _terminals.values()){
+            if (i.getNumberOfCommunications() == 0){
+                out.add(i);
+            }
+        }
+        return out;
+    }
     /**
      * Read text input file and create corresponding domain entities.
      *
