@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Terminal implements Serializable {
+public abstract class Terminal implements Serializable {
 
     public enum Status {
         OFF,
@@ -29,7 +29,7 @@ public class Terminal implements Serializable {
     private final Network _network;
     // private InteractiveCommunication _currCommunication;
 
-    private Terminal (String key, String clientKey, Status status, Set<String> friendlyKeys, Network network) {
+    Terminal (String key, String clientKey, Status status, Set<String> friendlyKeys, Network network) {
         _type = "BASIC";
         _key = key;
         _clientKey = clientKey;
@@ -91,7 +91,6 @@ public class Terminal implements Serializable {
     }
 
     public void makeVoiceCall() {
-        // public VoiceCommunication makeVoiceCall() {
         if(this.canStartCommunication()) {
             _status = Status.BUSY;
         }
@@ -100,16 +99,6 @@ public class Terminal implements Serializable {
     void acceptVoiceCall() {
         // TODO
         _status = Status.BUSY;
-    }
-
-    public void makeVideoCall(Terminal receiver) {
-        //TODO
-        //It probably will just return an exception, since it is a basic terminal
-    }
-
-    void acceptVideoCall(Terminal caller) {
-        //TODO
-        //It probably will just return an exception, since it is a basic terminal
     }
 
     public void endOngoingCommunication(int size) {
@@ -128,10 +117,7 @@ public class Terminal implements Serializable {
      **/
     public boolean canEndCurrentCommunication() {
         /* FIXME: Uncomment when communications are implemented*/
-        if (_status == Status.BUSY){
-            return true;
-        }
-            return false;
+        return _status == Status.BUSY;
     }
 
     /**
@@ -140,10 +126,7 @@ public class Terminal implements Serializable {
      * @return true if this terminal is neither off neither busy, false otherwise.
      **/
     public boolean canStartCommunication() {
-        if (_status == Status.BUSY){
-            return false;
-        }
-        return true;
+        return _status != Status.BUSY;
     }
 
 }

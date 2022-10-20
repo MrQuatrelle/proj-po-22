@@ -2,6 +2,7 @@ package prr.app.client;
 
 import prr.core.Network;
 import prr.app.exception.UnknownClientKeyException;
+import prr.core.exception.UnchangedNotificationException;
 import pt.tecnico.uilib.menus.Command;
 import pt.tecnico.uilib.menus.CommandException;
 
@@ -18,6 +19,10 @@ class DoDisableClientNotifications extends Command<Network> {
     @Override
     protected final void execute() throws CommandException {
         var key = stringField("key");
-        _receiver.setClientNotification(key, false);
+        try {
+            _receiver.setClientNotification(key, false);
+        } catch (UnchangedNotificationException e) {
+            _display.popup(Message.clientNotificationsAlreadyDisabled());
+        }
     }
 }

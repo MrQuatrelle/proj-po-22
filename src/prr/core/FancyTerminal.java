@@ -8,13 +8,27 @@ public class FancyTerminal extends Terminal {
         _type = "FANCY";
     }
 
-    @Override
     public void makeVideoCall(Terminal receiver) {
         this.setStatus(Status.BUSY);
     }
 
-    @Override
     public void acceptVideoCall(Terminal caller) {
         this.setStatus(Status.BUSY);
+    }
+
+    public void makeVoiceCall() {
+        if(this.canStartCommunication()) {
+            _status = Status.BUSY;
+        }
+    }
+
+    public void acceptVoiceCall() {
+        // TODO
+        _status = Status.BUSY;
+    }
+
+    public void endOngoingCommunication(int size) {
+        //TODO
+        _status = Status.IDLE;
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import  java.io.Serializable;
 
 import prr.core.Terminal.Status;
+import prr.core.exception.UnchangedNotificationException;
 
 public class Client implements Serializable{
 
@@ -62,8 +63,9 @@ public class Client implements Serializable{
         _type = t;
     }
 
-    public void setNotification(boolean b) {
-        if (b == _receiveNotifications) /* throw exception...*/;
+    public void setNotification(boolean b) throws UnchangedNotificationException {
+        if (b == _receiveNotifications)
+            throw new UnchangedNotificationException();
         _receiveNotifications = b;
     }
 
