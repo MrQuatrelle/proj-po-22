@@ -25,7 +25,7 @@ public class Network implements Serializable {
 
     /****CONSTRUCTOR****/
     public Network() {
-        _clients = new TreeMap<>();
+        _clients = new HashMap<>();
         _terminals = new TreeMap<>();
     }
 
