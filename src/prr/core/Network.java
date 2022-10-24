@@ -90,7 +90,7 @@ public class Network implements Serializable {
 
     /** Checks if the terminal exists
      * @param key Terminal key
-     * @return true if the terminal exists, false if doesn't
+     * @return true if the terminal exists, false if it doesn't
      */
     boolean hasTerminalKey(String key) {
         return _terminals.containsKey(key);
