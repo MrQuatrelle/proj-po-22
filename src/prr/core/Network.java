@@ -2,9 +2,7 @@ package prr.core;
 
 import java.io.Serializable;
 import java.io.IOException;
-import java.security.InvalidKeyException;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import prr.core.exception.*;
 
@@ -25,7 +23,7 @@ public class Network implements Serializable {
 
     /****CONSTRUCTOR****/
     public Network() {
-        _clients = new HashMap<>();
+        _clients = new TreeMap<>();
         _terminals = new TreeMap<>();
     }
 
@@ -44,14 +42,10 @@ public class Network implements Serializable {
 
     /** @return container with all the string representations of the clients of the network */
     public List<String> getAllClientStrings() {
-        var buffer = new ArrayList<>(_clients.values());
-        buffer.sort(new Comparator<>() {
-            @Override
-            public int compare(Client client, Client other) {
-                return client.toString().toLowerCase().compareTo(other.toString().toLowerCase());
-            }
-        });
-        return buffer.stream().map(Client::toString).toList();
+        return _clients.values().stream()
+                                .sorted(Comparator.comparing(client -> client.getKey().toLowerCase()))
+                                .map(Client::toString)
+                                .toList();
     }
 
     /** Gets client with given key
