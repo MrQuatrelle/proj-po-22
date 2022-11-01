@@ -4,8 +4,13 @@ import prr.core.exception.InexistentKeyException;
 import prr.core.exception.NoVideoSupportException;
 import prr.core.exception.UnavailableTerminalException;
 
-public abstract class TerminalState {
+import java.io.Serial;
+import java.io.Serializable;
 
+public abstract class TerminalState implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 202211011549L;
     protected Terminal _terminal;
 
     TerminalState(Terminal t) {

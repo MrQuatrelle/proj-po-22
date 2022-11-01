@@ -39,7 +39,7 @@ public class Parser {
         }
     }
 
-    private void parseLine(String line) throws UnrecognizedEntryException, UnallowedTypeException, UnallowedKeyException, DuplicateException {
+    private void parseLine(String line) throws UnrecognizedEntryException, UnallowedKeyException, DuplicateException {
         String[] components = line.split("\\|");
 
         switch(components[0]) {

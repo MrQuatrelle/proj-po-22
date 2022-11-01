@@ -17,7 +17,7 @@ public class Client implements Serializable{
     }
 
     @Serial
-    private static final long serialVersionUID = 202208091753L;
+    private static final long serialVersionUID = 202209231753L;
     private final String _key;
     private final String _name;
     private final long _ssNum;

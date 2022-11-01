@@ -1,5 +1,6 @@
 package prr.core;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.io.IOException;
 import java.util.*;
@@ -14,6 +15,7 @@ import prr.core.exception.*;
 public class Network implements Serializable {
 
     /** Serial number for serialization. */
+    @Serial
     private static final long serialVersionUID = 202208091753L;
 
     /****ATTRIBUTES****/
