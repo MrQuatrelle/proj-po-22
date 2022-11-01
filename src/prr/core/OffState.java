@@ -1,6 +1,8 @@
 package prr.core;
 
 import prr.core.exception.UnavailableTerminalException;
+import prr.core.notification.OffToIdleNotification;
+import prr.core.notification.OffToSilentNotification;
 
 public class OffState extends TerminalState {
     OffState(Terminal t) {
@@ -45,5 +47,16 @@ public class OffState extends TerminalState {
     @Override
     void acceptVideoCall() throws UnavailableTerminalException {
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
+    }
+
+    @Override
+    void notifyClients(String s) {
+        var network = _terminal.getNetwork();
+        for (String key: _terminal.getClientsToNotify()) {
+            switch (s) {
+                case "SILENCE" -> network.notifyClient(key, new OffToSilentNotification(_terminal.getKey()));
+                case "IDLE" -> network.notifyClient(key, new OffToIdleNotification(_terminal.getKey()));
+            }
+        }
     }
 }

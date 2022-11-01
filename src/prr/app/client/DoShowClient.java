@@ -20,14 +20,17 @@ class DoShowClient extends Command<Network> {
     @Override
     protected final void execute() throws CommandException {
         var key = stringField("key");
-        Client s;
+        String s;
         try {
-            s = _receiver.getClient(key);
+            s = _receiver.getClientString(key);
         } catch (InexistentKeyException e) {
             throw new UnknownClientKeyException(e.getKey());
         }
         if (s != null) {
             _display.add(s);
+            var notifications = _receiver.getClientNotifications(key);
+            if (notifications != null)
+                _display.addAll(notifications);
         }
         _display.display();
     }

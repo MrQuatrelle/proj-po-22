@@ -6,8 +6,7 @@ import prr.core.exception.UnavailableTerminalException;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public abstract class Terminal implements Serializable {
 
@@ -19,6 +18,7 @@ public abstract class Terminal implements Serializable {
     private final String _key;
     private final String _clientKey;
     private final Set<String> _friendlyKeys;
+    private final List<String> _keysToNotify;
 
     private final Network _network;
     protected TerminalState _state;
@@ -30,6 +30,7 @@ public abstract class Terminal implements Serializable {
         _state = new IdleState(this);
         _friendlyKeys = new HashSet<>();
         _network = network;
+        _keysToNotify = new LinkedList<>();
     }
 
     public String getKey() {
@@ -39,6 +40,7 @@ public abstract class Terminal implements Serializable {
     public static boolean isValidKey(String key){
         return key.matches("[0-9]+") && key.length() == 6;
     }
+
     public String getStatus() {
         return _state.toString();
     }
@@ -48,6 +50,7 @@ public abstract class Terminal implements Serializable {
     }
 
     public void setStatus(String s) {
+        _state.notifyClients(s);
         switch (s) {
             case "OFF" -> _state = new OffState(this);
             case "IDLE" -> _state = new IdleState(this);
@@ -65,9 +68,12 @@ public abstract class Terminal implements Serializable {
         return new String(out);
     }
 
-    public
+    @Override
+    public int hashCode() {
+        return _key.hashCode();
+    }
 
-    int getBalancePaid() {
+    public int getBalancePaid() {
         //FIXME: Implement when payments get implemented
         return 0;
     }
@@ -75,6 +81,14 @@ public abstract class Terminal implements Serializable {
     int getBalanceDebts() {
         //FIXME: Implement when payments get implemented
         return 0;
+    }
+
+    void addClientToNotify(String key) {
+        _keysToNotify.add(key);
+    }
+
+    List<String> getClientsToNotify() {
+        return _keysToNotify;
     }
 
     public void addFriend(String fk) throws InexistentKeyException {
@@ -89,7 +103,8 @@ public abstract class Terminal implements Serializable {
         else throw new InexistentKeyException(fk);
     }
 
-    public void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
+    public void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException,
+            NoVideoSupportException {
         _state.makeVoiceCall(t);
     }
 
@@ -101,7 +116,7 @@ public abstract class Terminal implements Serializable {
         _state.endOngoingCommunication();
     }
 
-    public int getNumberOfCommunications(){
+    public int getNumberOfCommunications() {
         return 0;
     }
     /**
@@ -123,7 +138,8 @@ public abstract class Terminal implements Serializable {
         return _state.canStartCommunication();
     }
 
-    public abstract void makeVideoCall(String receiver) throws NoVideoSupportException, InexistentKeyException, UnavailableTerminalException;
+    public abstract void makeVideoCall(String receiver) throws NoVideoSupportException, InexistentKeyException,
+            UnavailableTerminalException;
     protected abstract void acceptVideoCall() throws NoVideoSupportException, UnavailableTerminalException;
 
 }

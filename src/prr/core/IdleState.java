@@ -49,4 +49,9 @@ public class IdleState extends TerminalState {
     void acceptVideoCall(/*communication*/) {
         //FIXME wating for the implementation of communications
     }
+
+    @Override
+    void notifyClients(String s) {
+        //Do nothing
+    }
 }

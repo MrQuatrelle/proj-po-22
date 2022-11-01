@@ -1,12 +1,11 @@
 package prr.core;
 
 import java.io.Serial;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import  java.io.Serializable;
-import java.util.Objects;
 
 import prr.core.exception.UnchangedNotificationException;
+import prr.core.notification.Notification;
 
 public class Client implements Serializable{
 
@@ -23,7 +22,8 @@ public class Client implements Serializable{
     private final long _ssNum;
     private Type _type;
     private boolean _receiveNotifications;
-    private final ArrayList<Terminal> _terminals;
+    private final List<Notification> _notifications;
+    private final Set<Terminal> _terminals;
 
     private Client(String key, String name, long ss, Type type, ArrayList<Terminal> terminals) {
         _key = key;
@@ -31,7 +31,8 @@ public class Client implements Serializable{
         _ssNum = ss;
         _type = type;
         _receiveNotifications = true;
-        _terminals = (terminals != null) ? terminals : new ArrayList<>();
+        _terminals = new HashSet<>();
+        _notifications = new ArrayList<>();
     }
 
     public Client(String key, String name, long ss) {
@@ -64,6 +65,9 @@ public class Client implements Serializable{
         _receiveNotifications = b;
     }
 
+    boolean wantsNotifications() {
+        return _receiveNotifications;
+    }
     public List<Terminal> getTerminals() {
         return new ArrayList<>(_terminals);
     }
@@ -87,5 +91,15 @@ public class Client implements Serializable{
 
     long getDebtValue() {
         return 0;
+    }
+
+    void addNotification(Notification n) {
+        _notifications.add(n);
+    }
+
+    List<Notification> getNotifications() {
+        var out = new ArrayList<>(_notifications);
+        _notifications.clear();
+        return out;
     }
 }

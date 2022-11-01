@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.*;
 
 import prr.core.exception.*;
+import prr.core.notification.Notification;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -55,9 +56,9 @@ public class Network implements Serializable {
      * @return client with given key
      * @throws InexistentKeyException if the key doesn't exist
      */
-    public Client getClient(String key) throws InexistentKeyException {
+    public String getClientString(String key) throws InexistentKeyException {
         if (_clients.containsKey(key)) {
-            return _clients.get(key);
+            return _clients.get(key).toString();
         }
         throw new InexistentKeyException(key);
     }
@@ -90,6 +91,15 @@ public class Network implements Serializable {
         _clients.get(key).setNotification(b);
     }
 
+    public List<String> getClientNotifications(String key) {
+        var c = _clients.get(key);
+        return (c.wantsNotifications()) ?
+                c.getNotifications().stream().map(Notification::toString).toList() :
+                null;
+    }
+    void notifyClient(String key, Notification n) {
+        _clients.get(key).addNotification(n);
+    }
     /** Checks if the terminal exists
      * @param key Terminal key
      * @return true if the terminal exists, false if it doesn't

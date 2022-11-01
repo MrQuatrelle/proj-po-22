@@ -1,6 +1,7 @@
 package prr.core;
 
 import prr.core.exception.UnavailableTerminalException;
+import prr.core.notification.BusyToIdleNotification;
 
 public class BusyState extends TerminalState {
     BusyState(Terminal t) {
@@ -47,5 +48,13 @@ public class BusyState extends TerminalState {
     void acceptVideoCall() throws UnavailableTerminalException {
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
         //Do nothing
+    }
+
+    @Override
+    void notifyClients(String s) {
+        var network = _terminal.getNetwork();
+        for (String key: _terminal.getClientsToNotify()) {
+            network.notifyClient(key, new BusyToIdleNotification(_terminal.getKey()));
+        }
     }
 }

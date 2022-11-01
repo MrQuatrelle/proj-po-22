@@ -3,6 +3,7 @@ package prr.core;
 import prr.core.exception.InexistentKeyException;
 import prr.core.exception.NoVideoSupportException;
 import prr.core.exception.UnavailableTerminalException;
+import prr.core.notification.SilentToIdleNotification;
 
 public class SilentState extends TerminalState {
     SilentState(Terminal t) {
@@ -49,5 +50,13 @@ public class SilentState extends TerminalState {
     @Override
     void acceptVideoCall() throws UnavailableTerminalException {
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
+    }
+
+    @Override
+    void notifyClients(String s) {
+        var network = _terminal.getNetwork();
+        for(String key: _terminal.getClientsToNotify()) {
+            network.notifyClient(key, new SilentToIdleNotification(_terminal.getKey()));
+        }
     }
 }
