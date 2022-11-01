@@ -1,10 +1,11 @@
 package prr.core;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import  java.io.Serializable;
+import java.util.Objects;
 
-import prr.core.Terminal.Status;
 import prr.core.exception.UnchangedNotificationException;
 
 public class Client implements Serializable{
@@ -15,6 +16,7 @@ public class Client implements Serializable{
         PREMIUM,
     }
 
+    @Serial
     private static final long serialVersionUID = 202208091753L;
     private final String _key;
     private final String _name;
@@ -39,24 +41,17 @@ public class Client implements Serializable{
     public String toString() {
         var out = new StringBuilder("CLIENT" + "|" + _key + "|" + _name + "|" + _ssNum + "|" + _type + "|");
         if (_receiveNotifications) out.append("YES"); else out.append("NO");
-        out.append("|" + countActiveTerminals() + "|" + 0 + "|" + 0);
+        out.append("|")
+           .append(countActiveTerminals())
+           .append("|")
+           .append(0)
+           .append("|")
+           .append(0);
         return new String(out);
     }
 
     public String getKey() {
-        return new String(_key);
-    }
-
-    public String getName() {
-        return new String(_name);
-    }
-
-    public long getSsNum() {
-        return _ssNum;
-    }
-
-    public Type getType() {
-        return _type;
+        return _key;
     }
 
     public void setType(Type t) {
@@ -76,7 +71,7 @@ public class Client implements Serializable{
     private int countActiveTerminals() {
         int out = 0;
         for (Terminal t : _terminals) {
-            if (t.getStatus() != Status.OFF)
+            if (!Objects.equals(t.getStatus(), "OFF"))
                 out++;
         }
         return out;

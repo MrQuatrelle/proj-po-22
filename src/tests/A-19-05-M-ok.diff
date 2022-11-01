@@ -1,0 +1,24 @@
+*** tests/A-19-05-M-ok.out	2022-10-30 22:21:45.133131932 +0000
+--- tests/A-19-05-M-ok.outhyp	2022-11-01 15:22:31.537878324 +0000
+***************
+*** 33,40 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: O terminal já estava em silêncio.
+--- 33,38 ----
+***************
+*** 46,53 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+--- 44,49 ----

@@ -1,0 +1,36 @@
+*** tests/A-18-02-M-ok.out	2022-10-30 22:19:52.557972921 +0000
+--- tests/A-18-02-M-ok.outhyp	2022-11-01 15:22:29.477856894 +0000
+***************
+*** 35,41 ****
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|NO|4|0|0
+  CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|2|0|0
+  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|3|0|0
+  CLIENT|cli201|Ludgero Oliveira|103440|NORMAL|YES|0|0|0
+--- 35,41 ----
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|NO|3|0|0
+  CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|2|0|0
+  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|3|0|0
+  CLIENT|cli201|Ludgero Oliveira|103440|NORMAL|YES|0|0|0
+***************
+*** 47,53 ****
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|NO|4|0|0
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes
+--- 47,53 ----
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|NO|3|0|0
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes

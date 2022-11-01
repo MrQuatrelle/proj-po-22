@@ -3,6 +3,8 @@ package prr.app.terminal;
 import prr.core.Network;
 import prr.core.Terminal;
 import pt.tecnico.uilib.menus.CommandException;
+
+import java.util.Objects;
 //FIXME add more imports if needed
 
 /**
@@ -16,11 +18,11 @@ class DoSilenceTerminal extends TerminalCommand {
 
     @Override
     protected final void execute() throws CommandException {
-        if (_receiver.getStatus() == Terminal.Status.SILENT){
+        if (Objects.equals(_receiver.getStatus(), "SILENCE")){
             _display.add(Message.alreadySilent());
             _display.display();
         }
-        if(_receiver.getStatus() != Terminal.Status.OFF)
-            _receiver.setStatus(Terminal.Status.SILENT);
+        if(!Objects.equals(_receiver.getStatus(), "OFF"))
+            _receiver.setStatus("SILENCE");
     }
 }

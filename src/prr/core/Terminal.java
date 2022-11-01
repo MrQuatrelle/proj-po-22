@@ -1,6 +1,8 @@
 package prr.core;
 
 import prr.core.exception.InexistentKeyException;
+import prr.core.exception.NoVideoSupportException;
+import prr.core.exception.UnavailableTerminalException;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -9,37 +11,25 @@ import java.util.Set;
 
 public abstract class Terminal implements Serializable {
 
-    public enum Status {
-        OFF,
-        SILENT,
-        IDLE,
-        BUSY,
-    }
-
 
     /** Serial number for serialization. */
     @Serial
     private static final long serialVersionUID = 202208091753L;
     protected String _type;
-    protected final String _key;
-    protected final String _clientKey;
-    protected Status _status;
-    protected final Set<String> _friendlyKeys;
+    private final String _key;
+    private final String _clientKey;
+    private final Set<String> _friendlyKeys;
 
     private final Network _network;
-    // private InteractiveCommunication _currCommunication;
+    protected TerminalState _state;
 
-    Terminal (String key, String clientKey, Status status, Set<String> friendlyKeys, Network network) {
+    Terminal (String key, String clientKey, Network network) {
         _type = "BASIC";
         _key = key;
         _clientKey = clientKey;
-        _status = status;
-        _friendlyKeys = (friendlyKeys != null) ? friendlyKeys : new HashSet<>();
+        _state = new IdleState(this);
+        _friendlyKeys = new HashSet<>();
         _network = network;
-    }
-
-    public Terminal (String key, String clientKey, Network network) {
-        this(key, clientKey, Status.IDLE, null, network);
     }
 
     public String getKey() {
@@ -49,17 +39,26 @@ public abstract class Terminal implements Serializable {
     public static boolean isValidKey(String key){
         return key.matches("[0-9]+") && key.length() == 6;
     }
-    public Status getStatus() {
-        return _status;
+    public String getStatus() {
+        return _state.toString();
     }
 
-    public void setStatus(Status s) {
-        _status = s;
+    Network getNetwork() {
+        return _network;
+    }
+
+    public void setStatus(String s) {
+        switch (s) {
+            case "OFF" -> _state = new OffState(this);
+            case "IDLE" -> _state = new IdleState(this);
+            case "SILENCE" -> _state = new SilentState(this);
+            case "BUSY" -> _state = new BusyState(this);
+        }
     }
 
     public String toString() {
-        var out = new StringBuilder(_type + "|" + _key + "|" + _clientKey + "|" + _status + "|"
-                + getBalancePaid() + "|" + getBalanceDebts());
+        var out = new StringBuilder(_type + "|" + _key + "|" + _clientKey + "|" +
+                _state.toString() + "|" + getBalancePaid() + "|" + getBalanceDebts());
         for (String f: _friendlyKeys) {
             out.append("|"); out.append(f);
         }
@@ -90,20 +89,16 @@ public abstract class Terminal implements Serializable {
         else throw new InexistentKeyException(fk);
     }
 
-    public void makeVoiceCall() {
-        if(this.canStartCommunication()) {
-            _status = Status.BUSY;
-        }
+    public void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
+        _state.makeVoiceCall(t);
     }
 
-    void acceptVoiceCall() {
-        // TODO
-        _status = Status.BUSY;
+    void acceptVoiceCall() throws UnavailableTerminalException {
+        _state.acceptVoiceCall();
     }
 
     public void endOngoingCommunication(int size) {
-        //TODO
-        _status = Status.IDLE;
+        _state.endOngoingCommunication();
     }
 
     public int getNumberOfCommunications(){
@@ -116,8 +111,7 @@ public abstract class Terminal implements Serializable {
      *          it was the originator of this communication.
      **/
     public boolean canEndCurrentCommunication() {
-        /* FIXME: Uncomment when communications are implemented*/
-        return _status == Status.BUSY;
+        return _state.canEndCurrentCommunication();
     }
 
     /**
@@ -126,7 +120,10 @@ public abstract class Terminal implements Serializable {
      * @return true if this terminal is neither off neither busy, false otherwise.
      **/
     public boolean canStartCommunication() {
-        return _status != Status.BUSY;
+        return _state.canStartCommunication();
     }
+
+    public abstract void makeVideoCall(String receiver) throws NoVideoSupportException, InexistentKeyException, UnavailableTerminalException;
+    protected abstract void acceptVideoCall() throws NoVideoSupportException, UnavailableTerminalException;
 
 }

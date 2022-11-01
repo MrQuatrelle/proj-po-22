@@ -1,0 +1,19 @@
+*** tests/A-12-04-M-ok.out	2022-10-30 22:15:20.476869601 +0000
+--- tests/A-12-04-M-ok.outhyp	2022-11-01 15:22:24.987810191 +0000
+***************
+*** 23,29 ****
+  9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+! Escolha uma opção: Número do terminal: Tipo de comunicação a iniciar (VOICE, VIDEO): O terminal de destino ('969006') está desligado.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 23,29 ----
+  9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+! Escolha uma opção: Número do terminal: Tipo de comunicação a iniciar (VOICE, VIDEO): O terminal '969006' não pode receber comunicações VIDEO
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio

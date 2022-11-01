@@ -3,9 +3,10 @@ package prr.app.terminal;
 import prr.core.Network;
 import prr.core.Terminal;
 import prr.app.exception.UnknownTerminalKeyException;
-import pt.tecnico.uilib.forms.Form;
+import prr.core.exception.InexistentKeyException;
+import prr.core.exception.NoVideoSupportException;
+import prr.core.exception.UnavailableTerminalException;
 import pt.tecnico.uilib.menus.CommandException;
-//FIXME add more imports if needed
 
 /**
  * Command for starting communication.
@@ -13,11 +14,29 @@ import pt.tecnico.uilib.menus.CommandException;
 class DoStartInteractiveCommunication extends TerminalCommand {
 
     DoStartInteractiveCommunication(Network context, Terminal terminal) {
-        super(Label.START_INTERACTIVE_COMMUNICATION, context, terminal, receiver -> receiver.canStartCommunication());
+        super(Label.START_INTERACTIVE_COMMUNICATION, context, terminal, Terminal::canStartCommunication);
+        addStringField("destination", Message.terminalKey());
+        addOptionField("type", Message.commType(), "VOICE", "VIDEO");
     }
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        try {
+            if (optionField("type").equals("VOICE")) {
+                _receiver.makeVoiceCall(stringField("destination"));
+                return;
+            }
+            _receiver.makeVideoCall(stringField("destination"));
+        } catch (InexistentKeyException e) {
+            throw new UnknownTerminalKeyException(stringField("destination"));
+        } catch (NoVideoSupportException e) {
+            _display.popup(Message.unsupportedAtDestination(e.getMessage(), "VIDEO"));
+        } catch (UnavailableTerminalException e) {
+            switch (e.getState()) {
+                case "OFF" -> _display.popup(Message.destinationIsOff(e.getKey()));
+                case "BUSY" -> _display.popup(Message.destinationIsBusy(e.getKey()));
+                case "SILENCE" -> _display.popup(Message.destinationIsSilent(e.getKey()));
+            }
+        }
     }
 }

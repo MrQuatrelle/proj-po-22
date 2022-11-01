@@ -1,0 +1,36 @@
+*** tests/A-18-04-M-ok.out	2022-10-30 22:19:52.560863855 +0000
+--- tests/A-18-04-M-ok.outhyp	2022-11-01 15:22:29.717859392 +0000
+***************
+*** 22,28 ****
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|NO|4|0|0
+  CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|2|0|0
+  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|3|0|0
+  CLIENT|cli201|Ludgero Oliveira|103440|NORMAL|YES|0|0|0
+--- 22,28 ----
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|NO|3|0|0
+  CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|2|0|0
+  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|3|0|0
+  CLIENT|cli201|Ludgero Oliveira|103440|NORMAL|YES|0|0|0
+***************
+*** 51,57 ****
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|NO|4|0|0
+  CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|2|0|0
+  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|NO|3|0|0
+  CLIENT|cli201|Ludgero Oliveira|103440|NORMAL|YES|0|0|0
+--- 51,57 ----
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|NO|3|0|0
+  CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|2|0|0
+  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|NO|3|0|0
+  CLIENT|cli201|Ludgero Oliveira|103440|NORMAL|YES|0|0|0

@@ -1,0 +1,36 @@
+*** tests/A-16-07-M-ok.out	2022-10-30 22:18:52.948751082 +0000
+--- tests/A-16-07-M-ok.outhyp	2022-11-01 15:22:28.737849197 +0000
+***************
+*** 37,43 ****
+  3 - Operações de terminal
+  0 - Sair
+  Escolha uma opção: BASIC|969001|cli001|IDLE|0|0
+! BASIC|969003|cli001|OFF|0|0
+  BASIC|969006|cli002|IDLE|0|0
+  BASIC|969007|cli003|IDLE|0|0
+  BASIC|969008|cli003|SILENCE|0|0
+--- 37,43 ----
+  3 - Operações de terminal
+  0 - Sair
+  Escolha uma opção: BASIC|969001|cli001|IDLE|0|0
+! BASIC|969003|cli001|OFF|0|0|969003
+  BASIC|969006|cli002|IDLE|0|0
+  BASIC|969007|cli003|IDLE|0|0
+  BASIC|969008|cli003|SILENCE|0|0
+***************
+*** 99,105 ****
+  3 - Operações de terminal
+  0 - Sair
+  Escolha uma opção: BASIC|969001|cli001|IDLE|0|0
+! BASIC|969003|cli001|OFF|0|0|969001
+  BASIC|969006|cli002|IDLE|0|0
+  BASIC|969007|cli003|IDLE|0|0
+  BASIC|969008|cli003|SILENCE|0|0
+--- 99,105 ----
+  3 - Operações de terminal
+  0 - Sair
+  Escolha uma opção: BASIC|969001|cli001|IDLE|0|0
+! BASIC|969003|cli001|OFF|0|0|969003|969001
+  BASIC|969006|cli002|IDLE|0|0
+  BASIC|969007|cli003|IDLE|0|0
+  BASIC|969008|cli003|SILENCE|0|0

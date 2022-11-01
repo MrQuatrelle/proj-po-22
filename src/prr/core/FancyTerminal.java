@@ -1,34 +1,25 @@
 package prr.core;
 
+import prr.core.exception.InexistentKeyException;
+import prr.core.exception.NoVideoSupportException;
+import prr.core.exception.UnavailableTerminalException;
+
 public class FancyTerminal extends Terminal {
 
-
-    public FancyTerminal(String key, String clientKey, Network network) {
+    FancyTerminal(String key, String clientKey, Network network) {
         super(key, clientKey, network);
         _type = "FANCY";
     }
 
-    public void makeVideoCall(Terminal receiver) {
-        this.setStatus(Status.BUSY);
+    @Override
+    public void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
+        _state.makeVideoCall(t);
+        this.setStatus("BUSY");
     }
 
-    public void acceptVideoCall(Terminal caller) {
-        this.setStatus(Status.BUSY);
-    }
-
-    public void makeVoiceCall() {
-        if(this.canStartCommunication()) {
-            _status = Status.BUSY;
-        }
-    }
-
-    public void acceptVoiceCall() {
-        // TODO
-        _status = Status.BUSY;
-    }
-
-    public void endOngoingCommunication(int size) {
-        //TODO
-        _status = Status.IDLE;
+    @Override
+    public void acceptVideoCall() throws UnavailableTerminalException {
+        _state.acceptVideoCall();
+        this.setStatus("BUSY");
     }
 }

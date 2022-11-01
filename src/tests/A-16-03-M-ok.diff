@@ -1,0 +1,35 @@
+*** tests/A-16-03-M-ok.out	2022-10-30 22:18:52.942484920 +0000
+--- tests/A-16-03-M-ok.outhyp	2022-11-01 15:22:28.297844620 +0000
+***************
+*** 19,26 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: Número do terminal: OPERAÇÕES DO TERMINAL
+--- 19,24 ----
+***************
+*** 31,38 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: Número do terminal: Adicionar amigo: Operação inválida: O terminal '969000' não existe.
+--- 29,34 ----
+***************
+*** 44,51 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+--- 40,45 ----

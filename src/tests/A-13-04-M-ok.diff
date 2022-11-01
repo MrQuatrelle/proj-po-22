@@ -1,0 +1,20 @@
+*** tests/A-13-04-M-ok.out	2022-10-30 22:16:20.723783211 +0000
+--- tests/A-13-04-M-ok.outhyp	2022-11-01 15:22:26.557826520 +0000
+***************
+*** 23,30 ****
+  9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+! Escolha uma opção: Não existe nenhuma comunicação em curso.
+! OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+  3 - Desligar
+--- 23,29 ----
+  9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+! Escolha uma opção: OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+  3 - Desligar

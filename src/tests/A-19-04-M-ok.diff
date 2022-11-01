@@ -1,0 +1,24 @@
+*** tests/A-19-04-M-ok.out	2022-10-30 22:21:45.131638298 +0000
+--- tests/A-19-04-M-ok.outhyp	2022-11-01 15:22:31.437877282 +0000
+***************
+*** 45,52 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+--- 45,50 ----
+***************
+*** 74,81 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+--- 72,77 ----

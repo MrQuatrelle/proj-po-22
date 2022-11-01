@@ -1,0 +1,105 @@
+*** tests/A-16-06-M-ok.out	2022-10-30 22:18:52.947309365 +0000
+--- tests/A-16-06-M-ok.outhyp	2022-11-01 15:22:28.637848159 +0000
+***************
+*** 110,116 ****
+  FANCY|969011|cli001|IDLE|0|0
+  FANCY|969013|cli001|SILENCE|0|0
+  FANCY|969014|cli002|IDLE|0|0
+! FANCY|969015|cli003|IDLE|0|0|969003,969008,969011,969014
+  GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+  2 - Registar terminal
+--- 110,116 ----
+  FANCY|969011|cli001|IDLE|0|0
+  FANCY|969013|cli001|SILENCE|0|0
+  FANCY|969014|cli002|IDLE|0|0
+! FANCY|969015|cli003|IDLE|0|0|969014|969003|969011|969008
+  GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+  2 - Registar terminal
+***************
+*** 153,159 ****
+  FANCY|969011|cli001|IDLE|0|0
+  FANCY|969013|cli001|SILENCE|0|0
+  FANCY|969014|cli002|IDLE|0|0
+! FANCY|969015|cli003|IDLE|0|0|969001,969003,969008,969011,969014
+  GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+  2 - Registar terminal
+--- 153,159 ----
+  FANCY|969011|cli001|IDLE|0|0
+  FANCY|969013|cli001|SILENCE|0|0
+  FANCY|969014|cli002|IDLE|0|0
+! FANCY|969015|cli003|IDLE|0|0|969014|969003|969001|969011|969008
+  GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+  2 - Registar terminal
+***************
+*** 167,174 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: Número do terminal: OPERAÇÕES DO TERMINAL
+--- 167,172 ----
+***************
+*** 179,186 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: Número do terminal: OPERAÇÕES DO TERMINAL
+--- 177,182 ----
+***************
+*** 191,198 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: Número do terminal: OPERAÇÕES DO TERMINAL
+--- 187,192 ----
+***************
+*** 203,210 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: GESTÃO DE TERMINAIS
+--- 197,202 ----
+***************
+*** 216,226 ****
+  BASIC|969003|cli001|OFF|0|0
+  BASIC|969006|cli002|IDLE|0|0
+  BASIC|969007|cli003|IDLE|0|0
+! BASIC|969008|cli003|SILENCE|0|0|969003,969013,969015
+  FANCY|969011|cli001|IDLE|0|0
+  FANCY|969013|cli001|SILENCE|0|0
+  FANCY|969014|cli002|IDLE|0|0
+! FANCY|969015|cli003|IDLE|0|0|969001,969003,969008,969011,969014
+  GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+  2 - Registar terminal
+--- 208,218 ----
+  BASIC|969003|cli001|OFF|0|0
+  BASIC|969006|cli002|IDLE|0|0
+  BASIC|969007|cli003|IDLE|0|0
+! BASIC|969008|cli003|SILENCE|0|0|969003|969013|969015
+  FANCY|969011|cli001|IDLE|0|0
+  FANCY|969013|cli001|SILENCE|0|0
+  FANCY|969014|cli002|IDLE|0|0
+! FANCY|969015|cli003|IDLE|0|0|969014|969003|969001|969011|969008
+  GESTÃO DE TERMINAIS
+  1 - Mostrar todos os terminais
+  2 - Registar terminal

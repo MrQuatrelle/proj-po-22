@@ -1,0 +1,19 @@
+*** tests/A-17-01-M-ok.out	2022-10-30 22:19:08.820669637 +0000
+--- tests/A-17-01-M-ok.outhyp	2022-11-01 15:22:28.887850759 +0000
+***************
+*** 40,46 ****
+  2 - Registar terminal
+  3 - Operações de terminal
+  0 - Sair
+! Escolha uma opção: BASIC|969001|cli001|IDLE|0|0
+  BASIC|969003|cli001|OFF|0|0
+  BASIC|969006|cli002|IDLE|0|0
+  BASIC|969007|cli003|IDLE|0|0
+--- 40,46 ----
+  2 - Registar terminal
+  3 - Operações de terminal
+  0 - Sair
+! Escolha uma opção: BASIC|969001|cli001|IDLE|0|0|969011
+  BASIC|969003|cli001|OFF|0|0
+  BASIC|969006|cli002|IDLE|0|0
+  BASIC|969007|cli003|IDLE|0|0

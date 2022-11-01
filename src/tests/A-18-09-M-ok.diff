@@ -1,0 +1,99 @@
+*** tests/A-18-09-M-ok.out	2022-10-30 22:19:52.567831272 +0000
+--- tests/A-18-09-M-ok.outhyp	2022-11-01 15:22:30.367866152 +0000
+***************
+*** 23,29 ****
+  9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+! Escolha uma opção: Número do terminal: Tipo de comunicação a iniciar (VOICE, VIDEO): O terminal de destino ('969008') está em silêncio.
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+--- 23,29 ----
+  9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+! Escolha uma opção: Número do terminal: Tipo de comunicação a iniciar (VOICE, VIDEO): O terminal '969008' não pode receber comunicações VIDEO
+  OPERAÇÕES DO TERMINAL
+  1 - Ligar
+  2 - Colocar no silêncio
+***************
+*** 57,63 ****
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|4|0|0
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes
+--- 57,63 ----
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|3|0|0
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes
+***************
+*** 87,94 ****
+  5 - Retirar amigo
+  6 - Pagamento
+  7 - Consultar saldo
+- 8 - Enviar comunicação de texto
+- 9 - Iniciar comunicação
+  11 - Mostrar comunicação em curso
+  0 - Sair
+  Escolha uma opção: OPERAÇÕES DO TERMINAL
+--- 87,92 ----
+***************
+*** 124,130 ****
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|4|0|0
+  CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|2|0|0
+  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|3|0|0
+  CLIENT|cli201|Ludgero Oliveira|103440|NORMAL|YES|0|0|0
+--- 122,128 ----
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|3|0|0
+  CLIENT|cli002|Pedro Pinheiro|103447|NORMAL|YES|2|0|0
+  CLIENT|cli003|Pedro Oliveira|103449|NORMAL|YES|3|0|0
+  CLIENT|cli201|Ludgero Oliveira|103440|NORMAL|YES|0|0|0
+***************
+*** 136,143 ****
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|4|0|0
+! S2I|969008
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes
+--- 134,140 ----
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|3|0|0
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes
+***************
+*** 146,152 ****
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|4|0|0
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes
+--- 143,149 ----
+  5 - Desactivar notificações
+  6 - Mostrar saldo de cliente
+  0 - Sair
+! Escolha uma opção: Identificador do cliente: CLIENT|cli001|Manuel Pinheiro|103443|NORMAL|YES|3|0|0
+  GESTÃO DE CLIENTES
+  1 - Visualizar cliente
+  2 - Visualizar todos os clientes
