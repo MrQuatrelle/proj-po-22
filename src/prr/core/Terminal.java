@@ -6,11 +6,17 @@ import prr.core.exception.UnavailableTerminalException;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public abstract class Terminal implements Serializable {
 
+    /*enum ComType{
+        VOICE,
+        VIDEO,
+    }*/
 
     /** Serial number for serialization. */
     @Serial
@@ -22,6 +28,11 @@ public abstract class Terminal implements Serializable {
 
     private final Network _network;
     protected TerminalState _state;
+    private final ArrayList<Payment> _payments;
+
+    private InteractiveCommunication _communication;
+
+    protected String _comType;
 
     Terminal (String key, String clientKey, Network network) {
         _type = "BASIC";
@@ -30,6 +41,7 @@ public abstract class Terminal implements Serializable {
         _state = new IdleState(this);
         _friendlyKeys = new HashSet<>();
         _network = network;
+        _payments = new ArrayList<>();
     }
 
     public String getKey() {
@@ -47,6 +59,13 @@ public abstract class Terminal implements Serializable {
         return _network;
     }
 
+    String getClientKey(){
+        return _clientKey;
+    }
+
+    public String getComType(){
+        return _comType;
+    }
     public void setStatus(String s) {
         switch (s) {
             case "OFF" -> _state = new OffState(this);
@@ -91,14 +110,21 @@ public abstract class Terminal implements Serializable {
 
     public void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
         _state.makeVoiceCall(t);
+        _comType = "VOICE";
+        _communication = new VoiceCommunication(getNumberOfCommunications(), _network.getTerminal(_key), _network.getTerminal(t),true,0);
+
     }
 
     void acceptVoiceCall() throws UnavailableTerminalException {
         _state.acceptVoiceCall();
     }
 
-    public void endOngoingCommunication(int size) {
+    public double endOngoingCommunication(int size) throws InexistentKeyException {
         _state.endOngoingCommunication();
+        _communication.changeDuration(size);
+        _payments.add(new Payment(_network.getNrOfCommunications(),false,
+                _communication.computeCost( _network.getClient(_clientKey).getType())));
+        return _communication.computeCost( _network.getClient(_clientKey).getType());
     }
 
     public int getNumberOfCommunications(){
@@ -123,7 +149,11 @@ public abstract class Terminal implements Serializable {
         return _state.canStartCommunication();
     }
 
+
     public abstract void makeVideoCall(String receiver) throws NoVideoSupportException, InexistentKeyException, UnavailableTerminalException;
     protected abstract void acceptVideoCall() throws NoVideoSupportException, UnavailableTerminalException;
 
+
 }
+
+

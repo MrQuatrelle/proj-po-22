@@ -13,7 +13,7 @@ public class Client implements Serializable{
     enum Type {
         NORMAL,
         GOLD,
-        PREMIUM,
+        PLATINUM,
     }
 
     @Serial
@@ -25,6 +25,8 @@ public class Client implements Serializable{
     private boolean _receiveNotifications;
     private final ArrayList<Terminal> _terminals;
 
+    private final ArrayList<Communication> _communications;
+
     private Client(String key, String name, long ss, Type type, ArrayList<Terminal> terminals) {
         _key = key;
         _name = name;
@@ -32,6 +34,7 @@ public class Client implements Serializable{
         _type = type;
         _receiveNotifications = true;
         _terminals = (terminals != null) ? terminals : new ArrayList<>();
+        _communications = new ArrayList<>();
     }
 
     public Client(String key, String name, long ss) {
@@ -56,6 +59,10 @@ public class Client implements Serializable{
 
     public void setType(Type t) {
         _type = t;
+    }
+
+    public Type getType(){
+        return _type;
     }
 
     public void setNotification(boolean b) throws UnchangedNotificationException {
