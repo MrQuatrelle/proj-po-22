@@ -16,17 +16,17 @@ public abstract class Terminal implements Serializable {
     private static final long serialVersionUID = 202208091753L;
     protected String _type;
     private final String _key;
-    private final String _clientKey;
+    private final Client _client;
     private final Set<String> _friendlyKeys;
     private final List<String> _keysToNotify;
 
     private final Network _network;
     protected TerminalState _state;
 
-    Terminal (String key, String clientKey, Network network) {
+    Terminal (String key, Client client, Network network) {
         _type = "BASIC";
         _key = key;
-        _clientKey = clientKey;
+        _client = client;
         _state = new IdleState(this);
         _friendlyKeys = new HashSet<>();
         _network = network;
@@ -49,6 +49,9 @@ public abstract class Terminal implements Serializable {
         return _network;
     }
 
+    Client getClient() {
+        return _client;
+    }
     public void setStatus(String s) {
         _state.notifyClients(s);
         switch (s) {
@@ -60,7 +63,7 @@ public abstract class Terminal implements Serializable {
     }
 
     public String toString() {
-        var out = new StringBuilder(_type + "|" + _key + "|" + _clientKey + "|" +
+        var out = new StringBuilder(_type + "|" + _key + "|" + _client.getKey() + "|" +
                 _state.toString() + "|" + getBalancePaid() + "|" + getBalanceDebts());
         for (String f: _friendlyKeys) {
             out.append("|"); out.append(f);
