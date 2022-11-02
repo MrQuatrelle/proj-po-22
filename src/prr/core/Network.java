@@ -23,6 +23,7 @@ public class Network implements Serializable {
     private final Map<String, Client> _clients;
     private final Map<String, Terminal> _terminals;
 
+    private int _nrOfCommunications = 0;
 
     /****CONSTRUCTOR****/
     public Network() {
@@ -62,6 +63,11 @@ public class Network implements Serializable {
         }
         throw new InexistentKeyException(key);
     }
+
+    Client getClient(String key){
+        return _clients.get(key);
+    }
+
 
     /** Gets the value of all the payments done by the client with the given key
      * @param key client's specific key
@@ -205,6 +211,14 @@ public class Network implements Serializable {
             }
         }
         return out;
+    }
+
+    public void incrementCommunication(){
+        _nrOfCommunications++;
+    }
+
+    public int getNrOfCommunications(){
+        return _nrOfCommunications;
     }
     /**
      * Read text input file and create corresponding domain entities.

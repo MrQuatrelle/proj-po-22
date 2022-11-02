@@ -1,5 +1,7 @@
 package prr.core;
 
+import prr.core.exception.InexistentKeyException;
+
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -12,7 +14,7 @@ public abstract class Communication implements Serializable {
 
     private boolean _isPaid;
 
-    protected double _cost;
+    protected long _cost;
 
     protected boolean _isOnGoing;
 
@@ -20,14 +22,21 @@ public abstract class Communication implements Serializable {
 
     private Terminal _receiver;
 
-    Communication (int id, Terminal sender, Terminal receiver, boolean isOnGoing){
+    private Client.Type _clientType;
+
+    Communication (int id, Terminal sender, Terminal receiver, boolean isOnGoing) throws InexistentKeyException {
         _id = id;
         _sender = sender;
         _receiver = receiver;
         _isOnGoing  =isOnGoing;
+        _clientType = _sender.getNetwork().getClient(_sender.getClientKey()).getType();
     }
 
-    abstract double computeCost();
+    Client.Type getClientType() {
+        return  _clientType;
+    }
+
+    abstract double computeCost(Client.Type type);
 
     abstract int getSize();
 }
