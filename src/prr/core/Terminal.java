@@ -185,7 +185,7 @@ public abstract class Terminal implements Serializable {
     void acceptTextCommunication(TextCommunication communication) throws UnavailableTerminalException {
         _state.acceptTextCommunication(communication);
     }
-    public double endOngoingCommunication(int size) throws InexistentKeyException {
+    public double endOngoingCommunication(int size) throws InexistentKeyException, NoOngoingCommunicationException {
        return  _state.endOngoingCommunication(size);
     }
 

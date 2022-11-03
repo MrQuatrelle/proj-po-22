@@ -1,6 +1,7 @@
 package prr.core;
 
 import prr.core.exception.InexistentKeyException;
+import prr.core.exception.NoOngoingCommunicationException;
 import prr.core.exception.NoVideoSupportException;
 import prr.core.exception.UnavailableTerminalException;
 
@@ -19,7 +20,7 @@ public abstract class TerminalState implements Serializable {
     public abstract String toString();
     abstract boolean canEndCurrentCommunication();
     abstract boolean canStartCommunication();
-    abstract double endOngoingCommunication(int size) throws InexistentKeyException;
+    abstract double endOngoingCommunication(int size) throws InexistentKeyException, NoOngoingCommunicationException;
     abstract void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException,
             NoVideoSupportException;
     abstract void acceptVoiceCall(VoiceCommunication communication) throws UnavailableTerminalException;

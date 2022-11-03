@@ -80,6 +80,6 @@ public class SilentState extends TerminalState {
         _terminal.getNetwork().getTerminal(destinationKey).acceptTextCommunication(com);
         _terminal.getNetwork().addCommunication(com);
         _terminal.addPayment(new Payment(_terminal.getNetwork().getNrOfCommunications(),false,
-                _terminal.getCommunication().computeCost( _terminal.getClient().getType())));
+                com.computeCost( _terminal.getClient().getType())));
     }
 }

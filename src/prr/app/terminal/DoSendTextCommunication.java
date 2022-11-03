@@ -28,7 +28,7 @@ class DoSendTextCommunication extends TerminalCommand {
         try {
             _receiver.makeTextCommunication(destination,message);
         } catch (InexistentKeyException e) {
-            throw new UnknownClientKeyException(_receiver.getClient().getKey());
+            throw new UnknownTerminalKeyException(e.getKey());
         } catch (UnavailableTerminalException e) {
             _display.popup(Message.destinationIsOff(destination));
         }
