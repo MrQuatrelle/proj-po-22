@@ -26,7 +26,6 @@ public class Client implements Serializable{
     private final Set<Terminal> _terminals;
 
     private final ArrayList<Communication> _communicationsFrom;
-
     private final ArrayList<Communication> _communicationsTo;
 
     private Client(String key, String name, long ss, Type type, ArrayList<Terminal> terminals) {
@@ -82,18 +81,12 @@ public class Client implements Serializable{
         return new ArrayList<>(_terminals);
     }
 
-    public List<String> getAllCommunicationToStrings() {
-        var out = new ArrayList<String>();
-        for (Communication c: _communicationsTo)
-            out.add(c.toString());
-        return out;
+    public List<Communication> getAllReceivingCommunications() {
+        return _communicationsTo;
     }
 
-    public List<String> getAllCommunicationFromStrings() {
-        var out = new ArrayList<String>();
-        for (Communication c: _communicationsFrom)
-            out.add(c.toString());
-        return out;
+    public List<Communication> getAllSendingCommunications() {
+        return _communicationsFrom;
     }
     private int countActiveTerminals() {
         int out = 0;

@@ -47,6 +47,10 @@ public abstract class Communication implements Serializable {
         return  _clientType;
     }
 
+    public int getId() {
+        return _id;
+    }
+
     Terminal getReceiver(){
         return _receiver;
     }
