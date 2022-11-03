@@ -20,5 +20,5 @@ public abstract class InteractiveCommunication extends Communication {
         _duration = duration;
     }
 
-    abstract double computeCost(Client.Type type);
+    abstract void computeCost(Client.Type type);
 }

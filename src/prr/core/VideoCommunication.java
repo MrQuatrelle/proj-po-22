@@ -8,15 +8,14 @@ public class VideoCommunication extends InteractiveCommunication{
         super(id, sender, receiver, isOnGoing,"VIDEO");
     }
     @Override
-    double computeCost(Client.Type type) {
+    void computeCost(Client.Type type) {
         switch(type){
             case NORMAL -> _cost = getSize() * 30;
             case GOLD -> _cost = getSize() * 20;
             case PLATINUM -> _cost = getSize() * 10;
         }
         if (getSender().hasFriend(getReceiver().getKey())) {
-            return _cost / 2;
+            _cost = _cost / 2;
         }
-        else return _cost;
     }
 }

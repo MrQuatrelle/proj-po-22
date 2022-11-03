@@ -40,7 +40,7 @@ public abstract class Communication implements Serializable {
         var out = new StringBuilder(_comType + "|" + _sender.getNetwork().getNrOfCommunications() + "|" +
                 _sender.getKey() + "|" + _receiver.getKey() + "|");
         if (_isOnGoing) out.append(0 + "|" + 0 + "|" + "ONGOING");
-        else out.append(getSize() + "|" + computeCost(_clientType) + "|" + "FINISHED");
+        else out.append(getSize() + "|" + getCost() + "|" + "FINISHED");
 
         return new String(out);
     }
@@ -67,7 +67,11 @@ public abstract class Communication implements Serializable {
      boolean getState(){
         return _isOnGoing;
      }
-    abstract double computeCost(Client.Type type);
+    abstract void computeCost(Client.Type type);
 
     abstract int getSize();
+
+    double getCost() {
+        return _cost;
+    }
 }
