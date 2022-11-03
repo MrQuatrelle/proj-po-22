@@ -15,7 +15,17 @@ public class Payment {
         _cost = cost;
     }
 
+    double getCost(){
+        return _cost;
+    }
 
+    boolean isPaid(){
+        return _paid;
+    }
+
+    void pay(){
+        _paid = true;
+    }
 
 }
 

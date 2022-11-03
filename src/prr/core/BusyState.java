@@ -1,5 +1,6 @@
 package prr.core;
 
+import prr.core.exception.InexistentKeyException;
 import prr.core.exception.UnavailableTerminalException;
 import prr.core.notification.BusyToIdleNotification;
 
@@ -24,13 +25,16 @@ public class BusyState extends TerminalState {
     }
 
     @Override
-    double endOngoingCommunication(int size) {
+    double endOngoingCommunication(int size) throws InexistentKeyException {
         _terminal.getCommunication().changeDuration(size);
+        _terminal.getCommunication().endCommunication();
         _terminal.addPayment(new Payment(_terminal.getNetwork().getNrOfCommunications(),false,
                 _terminal.getCommunication().computeCost( _terminal.getClient().getType())));
         _terminal.getClient().addComFrom(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
                 _terminal, _terminal.getCommunication().getReceiver(),false));
         _terminal.getCommunication().getReceiver().getClient().addComTo(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal, _terminal.getCommunication().getReceiver(),false));
+        _terminal.getNetwork().addCommunication(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
                 _terminal, _terminal.getCommunication().getReceiver(),false));
         return _terminal.getCommunication().computeCost( _terminal.getClient().getType());
     }

@@ -65,13 +65,24 @@ public class Network implements Serializable {
         throw new InexistentKeyException(key);
     }
 
-    Client getClient(String key){
+    public Client getClient(String key) throws InexistentKeyException{
         return _clients.get(key);
     }
 
     void addCommunication(Communication com){
         _allCommunications.add(com);
     }
+
+    Communication getCommunication(int id){
+        return _allCommunications.get(id);
+    }
+    public List<String> getAllCommunicationStrings() {
+        var out = new ArrayList<String>();
+        for (Communication c: _allCommunications)
+            out.add(c.toString());
+        return out;
+    }
+
     /** Gets the value of all the payments done by the client with the given key
      * @param key client's specific key
      * @return payments value if key exists, -1 if the key doesn't exist
