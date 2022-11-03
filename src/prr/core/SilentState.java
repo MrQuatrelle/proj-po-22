@@ -32,15 +32,15 @@ public class SilentState extends TerminalState {
 
     @Override
     void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException {
-        _terminal.getNetwork().getTerminal(t).acceptVoiceCall();
-        _terminal.setCurrentCommunication(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
-                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
+        var communication = new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
+        _terminal.getNetwork().getTerminal(t).acceptVoiceCall(communication);
+        _terminal.setCurrentCommunication(communication);
         _terminal.getNetwork().incrementCommunicationNr();
     }
 
     @Override
-    void acceptVoiceCall() throws UnavailableTerminalException {
-        //Do nothing
+    void acceptVoiceCall(VoiceCommunication communication) throws UnavailableTerminalException {
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
     }
 

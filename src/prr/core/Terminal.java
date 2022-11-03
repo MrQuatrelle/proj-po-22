@@ -161,14 +161,15 @@ public abstract class Terminal implements Serializable {
     public void performPayment(int id){
         _payments.get(id).pay();
     }
+
     public void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException,
             NoVideoSupportException {
         _state.makeVoiceCall(t);
 
     }
 
-    void acceptVoiceCall() throws UnavailableTerminalException {
-        _state.acceptVoiceCall();
+    void acceptVoiceCall(VoiceCommunication communication) throws UnavailableTerminalException {
+        _state.acceptVoiceCall(communication);
     }
 
     public double endOngoingCommunication(int size) throws InexistentKeyException {

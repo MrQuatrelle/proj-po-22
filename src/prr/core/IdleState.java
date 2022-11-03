@@ -32,14 +32,16 @@ public class IdleState extends TerminalState {
 
     @Override
     void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
-        _terminal.getNetwork().getTerminal(t).acceptVoiceCall();
-        _terminal.setCurrentCommunication(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
-                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
+        var comm = new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
+        _terminal.getNetwork().getTerminal(t).acceptVoiceCall(comm);
+        _terminal.setCurrentCommunication(comm);
         _terminal.getNetwork().incrementCommunicationNr();
     }
 
     @Override
-    void acceptVoiceCall() {
+    void acceptVoiceCall(VoiceCommunication communication) {
+        _terminal.setCurrentCommunication(communication);
         _terminal.setStatus("BUSY");
     }
 

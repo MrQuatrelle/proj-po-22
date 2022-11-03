@@ -35,7 +35,7 @@ public class OffState extends TerminalState {
     }
 
     @Override
-    void acceptVoiceCall() throws UnavailableTerminalException {
+    void acceptVoiceCall(VoiceCommunication communication) throws UnavailableTerminalException {
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
     }
 

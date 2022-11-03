@@ -22,7 +22,7 @@ public abstract class TerminalState implements Serializable {
     abstract double endOngoingCommunication(int size) throws InexistentKeyException;
     abstract void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException,
             NoVideoSupportException;
-    abstract void acceptVoiceCall() throws UnavailableTerminalException;
+    abstract void acceptVoiceCall(VoiceCommunication communication) throws UnavailableTerminalException;
     abstract void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException,
             NoVideoSupportException;
     abstract void acceptVideoCall() throws UnavailableTerminalException;

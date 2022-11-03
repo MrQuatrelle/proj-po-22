@@ -14,10 +14,12 @@ class DoSendTextCommunication extends TerminalCommand {
 
     DoSendTextCommunication(Network context, Terminal terminal) {
         super(Label.SEND_TEXT_COMMUNICATION, context, terminal, receiver -> receiver.canStartCommunication());
+        addStringField("destination", Message.terminalKey());
+        addStringField("message", Message.textMessage());
     }
 
     @Override
     protected final void execute() throws CommandException {
-        //FIXME implement command
+        _receiver.
     }
 } 

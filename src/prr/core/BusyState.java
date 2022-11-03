@@ -16,7 +16,7 @@ public class BusyState extends TerminalState {
 
     @Override
     boolean canEndCurrentCommunication() {
-        return _terminal.getCommunication().getReceiver() == _terminal;
+        return _terminal.getCommunication().getSender() == _terminal;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class BusyState extends TerminalState {
     }
 
     @Override
-    void acceptVoiceCall() throws UnavailableTerminalException {
+    void acceptVoiceCall(VoiceCommunication communication) throws UnavailableTerminalException {
         //Do nothing
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
     }
