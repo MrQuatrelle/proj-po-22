@@ -27,5 +27,8 @@ public class Payment {
         _paid = true;
     }
 
+    int getId() {
+        return _communicationId;
+    }
 }
 

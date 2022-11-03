@@ -20,15 +20,15 @@ class DoEndInteractiveCommunication extends TerminalCommand {
     @Override
     protected final void execute() throws CommandException {
         var duration = integerField("duration");
+        double amount = 0;
         if (_receiver.canEndCurrentCommunication()){
             try {
-                _receiver.endOngoingCommunication(duration);
+                amount = _receiver.endOngoingCommunication(duration);
             } catch (InexistentKeyException e) {
+                //TODO
+                return;
             }
         }
-        try {
-            _display.add(Message.communicationCost(Math.round(_receiver.endOngoingCommunication(duration))));
-        } catch (InexistentKeyException e) {
-        }
+        _display.add(Message.communicationCost(Math.round(amount)));
     }
 }

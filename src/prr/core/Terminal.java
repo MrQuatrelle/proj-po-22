@@ -1,6 +1,7 @@
 package prr.core;
 
 import prr.core.exception.InexistentKeyException;
+import prr.core.exception.InexistentPaymentException;
 import prr.core.exception.NoVideoSupportException;
 import prr.core.exception.UnavailableTerminalException;
 
@@ -78,7 +79,7 @@ public abstract class Terminal implements Serializable {
             case "OFF" -> _state = new OffState(this);
             case "IDLE" -> _state = new IdleState(this);
             case "SILENCE" -> _state = new SilentState(this);
-            case "BUSY" -> _state = new BusyState(this);
+            case "BUSY" -> _state = new BusyState(this, _state);
         }
     }
 
@@ -158,8 +159,13 @@ public abstract class Terminal implements Serializable {
     public boolean canPerformPayment(int id, Terminal t){
         return (_network.getCommunication(id).getSender() == t && _network.getCommunication(id).getState() && _payments.get(id).isPaid());
     }
-    public void performPayment(int id){
-        _payments.get(id).pay();
+    public void performPayment(int id) throws InexistentPaymentException {
+        for (Payment p : _payments)
+            if (p.getId() == id) {
+                p.pay();
+                return;
+        }
+        throw new InexistentPaymentException(id);
     }
 
     public void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException,

@@ -2,6 +2,7 @@ package prr.app.terminal;
 
 import prr.core.Network;
 import prr.core.Terminal;
+import prr.core.exception.InexistentPaymentException;
 import pt.tecnico.uilib.menus.CommandException;
 // Add more imports if needed
 
@@ -19,7 +20,11 @@ class DoPerformPayment extends TerminalCommand {
     protected final void execute() throws CommandException {
         var comId = integerField("comId");
         if (_receiver.canPerformPayment(comId,_receiver)){
-            _receiver.performPayment(comId);
+            try {
+                _receiver.performPayment(comId);
+            } catch (InexistentPaymentException e) {
+                _display.popup(Message.invalidCommunication());
+            }
         }
         else {
             _display.add(Message.invalidCommunication());

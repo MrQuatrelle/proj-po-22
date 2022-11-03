@@ -5,8 +5,11 @@ import prr.core.exception.UnavailableTerminalException;
 import prr.core.notification.BusyToIdleNotification;
 
 public class BusyState extends TerminalState {
-    BusyState(Terminal t) {
+
+    private TerminalState _previous;
+    BusyState(Terminal t, TerminalState p) {
         super(t);
+        _previous = p;
     }
 
     @Override
@@ -35,6 +38,7 @@ public class BusyState extends TerminalState {
         _terminal.getNetwork().addCommunication(_terminal.getCommunication());
         var out = _terminal.getCommunication().computeCost( _terminal.getClient().getType());
         _terminal.setCurrentCommunication(null);
+        _terminal.setStatus(_previous.toString());
         return out;
     }
 
