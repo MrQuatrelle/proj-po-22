@@ -1,13 +1,9 @@
 package prr.core;
 
-import java.io.Reader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.BufferedReader;
 
-import java.security.InvalidKeyException;
-import java.util.Collection;
-import java.util.ArrayList;
 
 import prr.core.exception.*;
 // import more exception core classes if needed
@@ -28,7 +24,7 @@ public class Parser {
         _network = network;
     }
 
-    void parseFile(String filename) throws UnrecognizedEntryException, UnallowedTypeException, UnallowedKeyException, DuplicateException, ImportFileException {
+    void parseFile(String filename) throws UnrecognizedEntryException, UnallowedKeyException, DuplicateException, ImportFileException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
 
