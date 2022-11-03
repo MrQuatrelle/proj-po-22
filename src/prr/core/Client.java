@@ -28,6 +28,8 @@ public class Client implements Serializable{
     private final ArrayList<Communication> _communicationsFrom;
     private final ArrayList<Communication> _communicationsTo;
 
+    private final ArrayList<Payment> _clientPayments;
+
     private Client(String key, String name, long ss, Type type, ArrayList<Terminal> terminals) {
         _key = key;
         _name = name;
@@ -38,6 +40,7 @@ public class Client implements Serializable{
         _notifications = new ArrayList<>();
         _communicationsFrom = new ArrayList<>();
         _communicationsTo = new ArrayList<>();
+        _clientPayments = new ArrayList<>();
     }
 
     public Client(String key, String name, long ss) {
@@ -109,6 +112,10 @@ public class Client implements Serializable{
         _communicationsFrom.add(com);
     }
 
+    public void addPayment(Payment p){
+        _clientPayments.add(p);
+    }
+
     long getPaymentValue() {
         return 0;
     }
@@ -116,6 +123,7 @@ public class Client implements Serializable{
     long getDebtValue() {
         return 0;
     }
+
 
     void addNotification(Notification n) {
         _notifications.add(n);
