@@ -7,7 +7,7 @@ import  java.io.Serializable;
 import prr.core.exception.UnchangedNotificationException;
 import prr.core.notification.Notification;
 
-public class Client implements Serializable{
+public class Client implements Serializable {
 
     enum Type {
         NORMAL,
@@ -125,7 +125,6 @@ public class Client implements Serializable{
     long getDebtValue() {
         return 0;
     }
-
 
     void addNotification(Notification n) {
         _notifications.add(n);

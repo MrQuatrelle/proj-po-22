@@ -21,7 +21,7 @@ class DoOpenMenuTerminalConsole extends Command<Network> {
 
     //check
     @Override
-    protected final void execute() throws CommandException, UnknownTerminalKeyException {
+    protected final void execute() throws CommandException {
         var key = stringField("key");
         Menu menu = null;
         try {

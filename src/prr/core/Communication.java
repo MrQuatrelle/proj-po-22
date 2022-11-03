@@ -11,7 +11,7 @@ public abstract class Communication implements Serializable {
     @Serial
     private static final long serialVersionUID = 202208091753L;
 
-    private int _id;
+    private final int _id;
 
     private boolean _isPaid;
 
@@ -19,13 +19,13 @@ public abstract class Communication implements Serializable {
 
     protected boolean _isOnGoing;
 
-    private Terminal _sender;
+    private final Terminal _sender;
 
-    private Terminal _receiver;
+    private final Terminal _receiver;
 
-    private Client.Type _clientType;
+    private final Client.Type _clientType;
 
-    private String _comType;
+    private final String _comType;
 
     Communication (int id, Terminal sender, Terminal receiver, boolean isOnGoing, String comType) throws InexistentKeyException {
         _id = id;

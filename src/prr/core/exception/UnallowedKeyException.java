@@ -4,7 +4,7 @@ import java.io.Serial;
 
 public class UnallowedKeyException extends Exception {
 
-    private String _key;
+    private final String _key;
 
     private static final String MESSAGE = "[CORE] Chave não permitida: ";
 
