@@ -69,7 +69,7 @@ public abstract class Terminal implements Serializable {
         return _client.getKey();
     }
 
-    InteractiveCommunication getCommunication(){
+    public InteractiveCommunication getCommunication(){
         return _currentCommunication;
     }
 
