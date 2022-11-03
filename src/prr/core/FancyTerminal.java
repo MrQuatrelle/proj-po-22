@@ -6,8 +6,8 @@ import prr.core.exception.UnavailableTerminalException;
 
 public class FancyTerminal extends Terminal {
 
-    FancyTerminal(String key, String clientKey, Network network) {
-        super(key, clientKey, network);
+    FancyTerminal(String key, Client client, Network network) {
+        super(key, client, network);
         _type = "FANCY";
     }
 

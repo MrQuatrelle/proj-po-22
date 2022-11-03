@@ -154,8 +154,8 @@ public class Network implements Serializable {
         if (_terminals.containsKey(key)) throw new DuplicateException(key);
         Terminal t;
         switch (type) {
-            case "BASIC" -> t = new BasicTerminal(key, client, this);
-            case "FANCY" -> t = new FancyTerminal(key, client, this);
+            case "BASIC" -> t = new BasicTerminal(key, _clients.get(client), this);
+            case "FANCY" -> t = new FancyTerminal(key, _clients.get(client), this);
             default -> throw new UnallowedTypeException(key);
         }
         if (_clients.containsKey(client)) {

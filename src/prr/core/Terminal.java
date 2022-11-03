@@ -83,12 +83,18 @@ public abstract class Terminal implements Serializable {
     }
 
     public String toString() {
-        var out = new StringBuilder(_type + "|" + _key + "|" + _client.getKey() + "|" +
-                _state.toString() + "|" + getBalancePaid() + "|" + getBalanceDebts());
-        for (String f: _friendlyKeys) {
-            out.append("|"); out.append(f);
-        }
-        return new String(out);
+        var out = new StringJoiner("|");
+        out.add(_type)
+           .add(_key)
+           .add(_client.getKey())
+           .add(_state.toString())
+           .add(String.valueOf(getBalancePaid()))
+           .add(String.valueOf(getBalanceDebts()));
+        var buffer = new StringJoiner(",");
+        for (String fk: _friendlyKeys)
+            buffer.add(fk);
+        out.add(buffer.toString());
+        return out.toString();
     }
 
     @Override
@@ -115,7 +121,7 @@ public abstract class Terminal implements Serializable {
     }
 
     public void addFriend(String fk) throws InexistentKeyException {
-        if (_network.hasTerminalKey(fk))
+        if (_network.hasTerminalKey(fk) && !fk.equals(_key))
             _friendlyKeys.add(fk);
         else throw new InexistentKeyException(fk);
     }
