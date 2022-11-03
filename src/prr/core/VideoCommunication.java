@@ -4,7 +4,7 @@ import prr.core.exception.InexistentKeyException;
 
 public class VideoCommunication extends InteractiveCommunication{
 
-    VideoCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing) {
+    VideoCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing) throws InexistentKeyException {
         super(id, sender, receiver, isOnGoing,"VIDEO");
     }
     @Override
@@ -14,6 +14,9 @@ public class VideoCommunication extends InteractiveCommunication{
             case GOLD -> _cost = getSize() * 20;
             case PLATINUM -> _cost = getSize() * 10;
         }
-        return  _cost;
+        if (getSender().hasFriend(getReceiver().getKey())) {
+            return _cost / 2;
+        }
+        else return _cost;
     }
 }

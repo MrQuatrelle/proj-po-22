@@ -82,7 +82,7 @@ public abstract class Terminal implements Serializable {
         }
     }
 
-    public void setCurrentCommunication(InteractiveCommunication com){
+    void setCurrentCommunication(InteractiveCommunication com){
         _currentCommunication = com;
     }
 
@@ -108,14 +108,24 @@ public abstract class Terminal implements Serializable {
         return _key.hashCode();
     }
 
-    public int getBalancePaid() {
-        //FIXME: Implement when payments get implemented
-        return 0;
+    public double getBalancePaid() {
+        double res = 0;
+        for(Payment p : _payments){
+            if(p.isPaid()){
+                res += p.getCost();
+            }
+        }
+        return res;
     }
 
-    int getBalanceDebts() {
-        //FIXME: Implement when payments get implemented
-        return 0;
+    double getBalanceDebts() {
+        double res = 0;
+        for(Payment p : _payments){
+            if(!p.isPaid()){
+                res += p.getCost();
+            }
+        }
+        return res;
     }
 
     void addClientToNotify(String key) {
@@ -132,15 +142,25 @@ public abstract class Terminal implements Serializable {
         else throw new InexistentKeyException(fk);
     }
 
-    public void addPayment(Payment p){
-        _payments.add(p);
-    }
     public void removeFriend(String fk) throws InexistentKeyException {
         if (_network.hasTerminalKey(fk))
         _friendlyKeys.add(fk);
         else throw new InexistentKeyException(fk);
     }
 
+    public boolean hasFriend(String fk){
+        return _friendlyKeys.contains(fk);
+    }
+    public void addPayment(Payment p){
+        _payments.add(p);
+    }
+
+    public boolean canPerformPayment(int id, Terminal t){
+        return (_network.getCommunication(id).getSender() == t && _network.getCommunication(id).getState() && _payments.get(id).isPaid());
+    }
+    public void performPayment(int id){
+        _payments.get(id).pay();
+    }
     public void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException,
             NoVideoSupportException {
         _state.makeVoiceCall(t);

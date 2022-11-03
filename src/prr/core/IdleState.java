@@ -45,10 +45,12 @@ public class IdleState extends TerminalState {
 
     @Override
     void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
+        _terminal.getNetwork().incrementCommunicationNr();
         _terminal.getNetwork().getTerminal(t).acceptVideoCall();
         _terminal.setCurrentCommunication(new VideoCommunication(_terminal.getNetwork().getNrOfCommunications(),
                 _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
-        _terminal.getNetwork().incrementCommunicationNr();
+        _terminal.getNetwork().addCommunication(new VideoCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
     }
 
     @Override

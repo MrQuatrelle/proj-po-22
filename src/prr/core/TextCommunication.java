@@ -41,18 +41,18 @@ public class TextCommunication extends Communication {
         if (getSize() < 50){
             return 0;
         }
-        if (getSize() > 50 && getSize() <100){
-            return 4;
-        }
-        else {return 4;}
+        return 4;
     }
     @Override
     double computeCost(Client.Type type) {
-        switch (type){
+        switch (type) {
             case NORMAL -> _cost = normalCost();
             case GOLD -> _cost = goldCost();
             case PLATINUM -> _cost = platinumCost();
         }
-        return _cost;
+        if (getSender().hasFriend(getReceiver().getKey())) {
+            return _cost / 2;
+        }
+        else return _cost;
     }
 }

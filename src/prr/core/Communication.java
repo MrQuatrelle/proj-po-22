@@ -26,7 +26,7 @@ public abstract class Communication implements Serializable {
 
     private String _comType;
 
-    Communication (int id, Terminal sender, Terminal receiver, boolean isOnGoing, String comType) {
+    Communication (int id, Terminal sender, Terminal receiver, boolean isOnGoing, String comType) throws InexistentKeyException {
         _id = id;
         _sender = sender;
         _receiver = receiver;
@@ -51,6 +51,16 @@ public abstract class Communication implements Serializable {
         return _receiver;
     }
 
+    Terminal getSender(){
+        return _sender;
+    }
+
+    void endCommunication(){
+        _isOnGoing = false;
+    }
+     boolean getState(){
+        return _isOnGoing;
+     }
     abstract double computeCost(Client.Type type);
 
     abstract int getSize();
