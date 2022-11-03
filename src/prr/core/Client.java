@@ -80,6 +80,7 @@ public class Client implements Serializable{
     boolean wantsNotifications() {
         return _receiveNotifications;
     }
+
     public List<Terminal> getTerminals() {
         return new ArrayList<>(_terminals);
     }
@@ -91,6 +92,7 @@ public class Client implements Serializable{
     public List<Communication> getAllSendingCommunications() {
         return _communicationsFrom;
     }
+
     private int countActiveTerminals() {
         int out = 0;
         for (Terminal t : _terminals) {
