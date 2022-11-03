@@ -1,5 +1,6 @@
 package prr.core;
 
+import prr.core.exception.InexistentKeyException;
 import prr.core.exception.UnavailableTerminalException;
 import prr.core.notification.OffToIdleNotification;
 import prr.core.notification.OffToSilentNotification;
@@ -45,7 +46,7 @@ public class OffState extends TerminalState {
     }
 
     @Override
-    void acceptVideoCall() throws UnavailableTerminalException {
+    void acceptVideoCall(VideoCommunication communication) throws UnavailableTerminalException {
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
     }
 
@@ -61,7 +62,11 @@ public class OffState extends TerminalState {
     }
 
     @Override
-    boolean canReceiveTextCommunication() {
-        return false;
+    void acceptTextCommunication(TextCommunication communication) throws UnavailableTerminalException {
+        throw new UnavailableTerminalException(_terminal.getKey(),"OFF");
+    }
+
+    void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
+
     }
 }

@@ -46,14 +46,15 @@ public class SilentState extends TerminalState {
 
     @Override
     void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
-        _terminal.getNetwork().getTerminal(t).acceptVideoCall();
-        _terminal.setCurrentCommunication(new VideoCommunication(_terminal.getNetwork().getNrOfCommunications(),
-                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
+        var com = new VideoCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
+        _terminal.getNetwork().getTerminal(t).acceptVideoCall(com);
+        _terminal.setCurrentCommunication(com);
         _terminal.getNetwork().incrementCommunicationNr();
     }
 
     @Override
-    void acceptVideoCall() throws UnavailableTerminalException {
+    void acceptVideoCall(VideoCommunication communication) throws UnavailableTerminalException {
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
     }
 
@@ -64,7 +65,17 @@ public class SilentState extends TerminalState {
             network.notifyClient(key, new SilentToIdleNotification(_terminal.getKey()));
         }
     }
-    boolean canReceiveTextCommunication() {
-        return true;
+
+    @Override
+    void acceptTextCommunication(TextCommunication communication) throws UnavailableTerminalException {
+        _terminal.getClient().addComTo(communication);
+    }
+
+    void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
+        var com = new TextCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(destinationKey),true,message);
+        _terminal.getNetwork().incrementCommunicationNr();
+        _terminal.getNetwork().getTerminal(destinationKey).acceptTextCommunication(com);
+        _terminal.getNetwork().addCommunication(com);
     }
 }

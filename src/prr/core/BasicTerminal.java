@@ -14,7 +14,7 @@ public class BasicTerminal extends Terminal{
     }
 
     @Override
-    public void acceptVideoCall() throws NoVideoSupportException {
+    public void acceptVideoCall(VideoCommunication communication) throws NoVideoSupportException {
         throw new NoVideoSupportException(this.getKey());
     }
 

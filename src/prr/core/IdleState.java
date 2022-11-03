@@ -37,34 +37,48 @@ public class IdleState extends TerminalState {
         _terminal.getNetwork().getTerminal(t).acceptVoiceCall(comm);
         _terminal.setCurrentCommunication(comm);
         _terminal.getNetwork().incrementCommunicationNr();
+        _terminal.getClient().addComFrom(comm);
     }
 
     @Override
     void acceptVoiceCall(VoiceCommunication communication) {
         _terminal.setCurrentCommunication(communication);
         _terminal.setStatus("BUSY");
+        _terminal.getClient().addComTo(communication);
     }
 
     @Override
     void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
+        var com = new VideoCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
         _terminal.getNetwork().incrementCommunicationNr();
-        _terminal.getNetwork().getTerminal(t).acceptVideoCall();
-        _terminal.setCurrentCommunication(new VideoCommunication(_terminal.getNetwork().getNrOfCommunications(),
-                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
-        _terminal.getNetwork().addCommunication(new VideoCommunication(_terminal.getNetwork().getNrOfCommunications(),
-                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
+        _terminal.getNetwork().getTerminal(t).acceptVideoCall(com);
+        _terminal.setCurrentCommunication(com);
+        _terminal.getNetwork().addCommunication(com);
+        _terminal.getClient().addComFrom(com);
     }
 
     @Override
-    void acceptVideoCall() {
+    void acceptVideoCall(VideoCommunication communication) {
         _terminal.setStatus("BUSY");
+        _terminal.getClient().addComTo(communication);
     }
 
     @Override
     void notifyClients(String s) {
         //Do nothing
     }
-    boolean canReceiveTextCommunication() {
-        return true;
+
+    @Override
+    void acceptTextCommunication(TextCommunication communication) throws UnavailableTerminalException {
+        _terminal.getClient().addComTo(communication);
+    }
+
+    void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
+        var com = new TextCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(destinationKey),true,message);
+        _terminal.getNetwork().incrementCommunicationNr();
+        _terminal.getNetwork().getTerminal(destinationKey).acceptTextCommunication(com);
+        _terminal.getNetwork().addCommunication(com);
     }
 }

@@ -26,16 +26,16 @@ public class BusyState extends TerminalState {
 
     @Override
     double endOngoingCommunication(int size) throws InexistentKeyException {
+        var com = new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal, _terminal.getCommunication().getReceiver(),false);
         _terminal.getCommunication().changeDuration(size);
         _terminal.getCommunication().endCommunication();
         _terminal.addPayment(new Payment(_terminal.getNetwork().getNrOfCommunications(),false,
                 _terminal.getCommunication().computeCost( _terminal.getClient().getType())));
-        _terminal.getClient().addComFrom(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
-                _terminal, _terminal.getCommunication().getReceiver(),false));
-        _terminal.getCommunication().getReceiver().getClient().addComTo(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
-                _terminal, _terminal.getCommunication().getReceiver(),false));
-        _terminal.getNetwork().addCommunication(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
-                _terminal, _terminal.getCommunication().getReceiver(),false));
+        _terminal.getClient().addComFrom(com);
+        _terminal.getCommunication().getReceiver().getClient().addComTo(com);
+        _terminal.getNetwork().addCommunication(com);
+        _terminal.setCurrentCommunication(null);
         return _terminal.getCommunication().computeCost( _terminal.getClient().getType());
     }
 
@@ -56,7 +56,7 @@ public class BusyState extends TerminalState {
     }
 
     @Override
-    void acceptVideoCall() throws UnavailableTerminalException {
+    void acceptVideoCall(VideoCommunication communication) throws UnavailableTerminalException {
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
         //Do nothing
     }
@@ -68,7 +68,14 @@ public class BusyState extends TerminalState {
             network.notifyClient(key, new BusyToIdleNotification(_terminal.getKey()));
         }
     }
-    boolean canReceiveTextCommunication() {
-        return true;
+
+    @Override
+    void acceptTextCommunication(TextCommunication communication) throws UnavailableTerminalException {
+        _terminal.getClient().addComTo(communication);
+    }
+
+    @Override
+    void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
+
     }
 }

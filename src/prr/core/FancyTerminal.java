@@ -18,8 +18,8 @@ public class FancyTerminal extends Terminal {
     }
 
     @Override
-    public void acceptVideoCall() throws UnavailableTerminalException {
-        _state.acceptVideoCall();
+    public void acceptVideoCall(VideoCommunication communication) throws UnavailableTerminalException {
+        _state.acceptVideoCall(communication);
         this.setStatus("BUSY");
     }
 }
