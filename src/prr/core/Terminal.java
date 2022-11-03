@@ -145,7 +145,7 @@ public abstract class Terminal implements Serializable {
 
     public void removeFriend(String fk) throws InexistentKeyException {
         if (_network.hasTerminalKey(fk))
-        _friendlyKeys.add(fk);
+        _friendlyKeys.remove(fk);
         else throw new InexistentKeyException(fk);
     }
 
