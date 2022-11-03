@@ -1,9 +1,6 @@
 package prr.core;
 
-import prr.core.exception.InexistentKeyException;
-import prr.core.exception.InexistentPaymentException;
-import prr.core.exception.NoVideoSupportException;
-import prr.core.exception.UnavailableTerminalException;
+import prr.core.exception.*;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -69,8 +66,11 @@ public abstract class Terminal implements Serializable {
         return _client.getKey();
     }
 
-    public InteractiveCommunication getCommunication(){
-        return _currentCommunication;
+    public InteractiveCommunication getCommunication() throws NoOngoingCommunicationException {
+        if (_currentCommunication!= null){
+            return _currentCommunication;
+        }
+        throw new NoOngoingCommunicationException();
     }
 
     public void setStatus(String s) {
