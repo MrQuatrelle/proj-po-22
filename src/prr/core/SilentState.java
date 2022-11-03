@@ -26,14 +26,16 @@ public class SilentState extends TerminalState {
     }
 
     @Override
-    void endOngoingCommunication() {
-        //Do nothing
+    double endOngoingCommunication(int size) {
+        return 0;
     }
 
     @Override
     void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException {
         _terminal.getNetwork().getTerminal(t).acceptVoiceCall();
-        //Do nothing
+        _terminal.setCurrentCommunication(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
+        _terminal.getNetwork().incrementCommunicationNr();
     }
 
     @Override
@@ -45,6 +47,9 @@ public class SilentState extends TerminalState {
     @Override
     void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
         _terminal.getNetwork().getTerminal(t).acceptVideoCall();
+        _terminal.setCurrentCommunication(new VideoCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
+        _terminal.getNetwork().incrementCommunicationNr();
     }
 
     @Override

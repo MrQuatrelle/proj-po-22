@@ -8,7 +8,7 @@ public class TextCommunication extends Communication {
 
 
     TextCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing, String message) throws InexistentKeyException {
-        super(id, sender, receiver, isOnGoing);
+        super(id, sender, receiver, isOnGoing,"TEXT");
         _message = message;
     }
 
@@ -17,8 +17,42 @@ public class TextCommunication extends Communication {
         return  _message.length();
     }
 
+    double normalCost(){
+        if (getSize() < 50){
+            return 10;
+        }
+        if (getSize() > 50 && getSize() <100){
+            return 16;
+        }
+        else {return (2 * getSize());}
+    }
+
+    double goldCost(){
+        if (getSize() < 50){
+            return 10;
+        }
+        if (getSize() > 50 && getSize() <100){
+            return 10;
+        }
+        else {return (2 * getSize());}
+    }
+
+    double platinumCost(){
+        if (getSize() < 50){
+            return 0;
+        }
+        if (getSize() > 50 && getSize() <100){
+            return 4;
+        }
+        else {return 4;}
+    }
     @Override
     double computeCost(Client.Type type) {
-        return 0;
+        switch (type){
+            case NORMAL -> _cost = normalCost();
+            case GOLD -> _cost = goldCost();
+            case PLATINUM -> _cost = platinumCost();
+        }
+        return _cost;
     }
 }

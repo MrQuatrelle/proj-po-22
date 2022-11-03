@@ -30,9 +30,8 @@ public abstract class Terminal implements Serializable {
     protected TerminalState _state;
     private final ArrayList<Payment> _payments;
 
-    private InteractiveCommunication _communication;
+    private InteractiveCommunication _currentCommunication;
 
-    protected String _comType;
 
     Terminal (String key, Client client, Network network) {
         _type = "BASIC";
@@ -69,9 +68,10 @@ public abstract class Terminal implements Serializable {
         return _client.getKey();
     }
 
-    public String getComType(){
-        return _comType;
+    InteractiveCommunication getCommunication(){
+        return _currentCommunication;
     }
+
     public void setStatus(String s) {
         _state.notifyClients(s);
         switch (s) {
@@ -80,6 +80,10 @@ public abstract class Terminal implements Serializable {
             case "SILENCE" -> _state = new SilentState(this);
             case "BUSY" -> _state = new BusyState(this);
         }
+    }
+
+    public void setCurrentCommunication(InteractiveCommunication com){
+        _currentCommunication = com;
     }
 
     public String toString() {
@@ -120,6 +124,9 @@ public abstract class Terminal implements Serializable {
         else throw new InexistentKeyException(fk);
     }
 
+    public void addPayment(Payment p){
+        _payments.add(p);
+    }
     public void removeFriend(String fk) throws InexistentKeyException {
         if (_network.hasTerminalKey(fk))
         _friendlyKeys.add(fk);
@@ -129,8 +136,6 @@ public abstract class Terminal implements Serializable {
     public void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException,
             NoVideoSupportException {
         _state.makeVoiceCall(t);
-        _comType = "VOICE";
-        _communication = new VoiceCommunication(getNumberOfCommunications(), _network.getTerminal(_key), _network.getTerminal(t),true,0);
 
     }
 
@@ -139,11 +144,7 @@ public abstract class Terminal implements Serializable {
     }
 
     public double endOngoingCommunication(int size) throws InexistentKeyException {
-        _state.endOngoingCommunication();
-        _communication.changeDuration(size);
-        _payments.add(new Payment(_network.getNrOfCommunications(),false,
-                _communication.computeCost( _client.getType())));
-        return _communication.computeCost( _client.getType());
+       return  _state.endOngoingCommunication(size);
     }
 
     public int getNumberOfCommunications() {

@@ -26,28 +26,34 @@ public class IdleState extends TerminalState {
     }
 
     @Override
-    void endOngoingCommunication() {
-
+    double endOngoingCommunication(int size) {
+        return 0;
     }
 
     @Override
     void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
-        _terminal.getNetwork().getTerminal(t).acceptVideoCall();
+        _terminal.getNetwork().getTerminal(t).acceptVoiceCall();
+        _terminal.setCurrentCommunication(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
+        _terminal.getNetwork().incrementCommunicationNr();
     }
 
     @Override
     void acceptVoiceCall() {
-        //FIXME wating for the implementation of communications
+        _terminal.setStatus("BUSY");
     }
 
     @Override
     void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
         _terminal.getNetwork().getTerminal(t).acceptVideoCall();
+        _terminal.setCurrentCommunication(new VideoCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true));
+        _terminal.getNetwork().incrementCommunicationNr();
     }
 
     @Override
-    void acceptVideoCall(/*communication*/) {
-        //FIXME wating for the implementation of communications
+    void acceptVideoCall() {
+        _terminal.setStatus("BUSY");
     }
 
     @Override

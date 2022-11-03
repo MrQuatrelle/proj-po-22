@@ -4,8 +4,8 @@ import prr.core.exception.InexistentKeyException;
 
 public class VoiceCommunication extends InteractiveCommunication {
 
-    VoiceCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing, int duration) throws InexistentKeyException {
-        super(id, sender, receiver, isOnGoing,duration);
+    VoiceCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing) {
+        super(id, sender, receiver, isOnGoing,"VOICE");
     }
     @Override
     double computeCost(Client.Type type) {

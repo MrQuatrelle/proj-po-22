@@ -4,8 +4,8 @@ import prr.core.exception.NoVideoSupportException;
 
 public class BasicTerminal extends Terminal{
 
-    public BasicTerminal(String key, String clientKey, Network network) {
-        super(key, clientKey, network);
+    public BasicTerminal(String key, Client client, Network network) {
+        super(key, client, network);
     }
 
     @Override

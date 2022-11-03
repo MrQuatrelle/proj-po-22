@@ -25,8 +25,8 @@ public class OffState extends TerminalState {
     }
 
     @Override
-    void endOngoingCommunication() {
-        //Do nothing
+    double endOngoingCommunication(int size) {
+        return 0;
     }
 
     @Override
