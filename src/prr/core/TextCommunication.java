@@ -4,7 +4,7 @@ import prr.core.exception.InexistentKeyException;
 
 public class TextCommunication extends Communication {
 
-    private String _message;
+    private final String _message;
 
 
     TextCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing, String message) throws InexistentKeyException {

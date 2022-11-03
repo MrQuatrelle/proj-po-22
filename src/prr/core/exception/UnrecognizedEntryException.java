@@ -6,7 +6,7 @@ package prr.core.exception;
 public class UnrecognizedEntryException extends Exception {
 
     /** Bad bad entry specification. */
-    private String _entrySpecification;
+    private final String _entrySpecification;
 
     /**
      * @param entrySpecification

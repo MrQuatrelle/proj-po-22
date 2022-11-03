@@ -54,7 +54,7 @@ interface Message {
      * @param key
      * @return string reporting duplicate terminals
      */
-    public static String duplicateTerminalKey(String key) {
+    static String duplicateTerminalKey(String key) {
         return "O terminal '" + key + "' já existe.";
     }
 
@@ -62,7 +62,7 @@ interface Message {
      * @param key
      * @return string reporting invalid keys
      */
-    public static String invalidTerminalKey(String key) {
+    static String invalidTerminalKey(String key) {
         return "A chave '" + key + "' não é válida para terminais.";
     }
 
@@ -78,7 +78,7 @@ interface Message {
      * @param key
      * @return string with problem description.
      */
-    public static String duplicateCommunicationKey(int key) {
+    static String duplicateCommunicationKey(int key) {
         return "A comunicação '" + key + "' já existe.";
     }
 }
