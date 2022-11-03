@@ -51,7 +51,7 @@ public class Client implements Serializable{
         var out = new StringBuilder("CLIENT" + "|" + _key + "|" + _name + "|" + _ssNum + "|" + _type + "|");
         if (_receiveNotifications) out.append("YES"); else out.append("NO");
         out.append("|")
-           .append(countActiveTerminals())
+           .append(countTerminals())
            .append("|")
            .append(Math.round(getPaymentValue()))
            .append("|")
@@ -98,6 +98,14 @@ public class Client implements Serializable{
         for (Terminal t : _terminals) {
             if (!Objects.equals(t.getStatus(), "OFF"))
                 out++;
+        }
+        return out;
+    }
+
+    private int countTerminals() {
+        int out = 0;
+        for (Terminal t : _terminals) {
+            out++;
         }
         return out;
     }
