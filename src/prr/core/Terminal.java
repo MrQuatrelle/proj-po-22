@@ -60,7 +60,7 @@ public abstract class Terminal implements Serializable {
         return _network;
     }
 
-    Client getClient() {
+    public Client getClient() {
         return _client;
     }
 
@@ -172,6 +172,13 @@ public abstract class Terminal implements Serializable {
         _state.acceptVoiceCall(communication);
     }
 
+    public void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
+        _state.makeTextCommunication(destinationKey, message);
+    }
+
+    void acceptTextCommunication(TextCommunication communication) throws UnavailableTerminalException {
+        _state.acceptTextCommunication(communication);
+    }
     public double endOngoingCommunication(int size) throws InexistentKeyException {
        return  _state.endOngoingCommunication(size);
     }
@@ -199,7 +206,7 @@ public abstract class Terminal implements Serializable {
     }
 
     public abstract void makeVideoCall(String receiver) throws NoVideoSupportException, InexistentKeyException, UnavailableTerminalException;
-    protected abstract void acceptVideoCall() throws NoVideoSupportException, UnavailableTerminalException;
+    protected abstract void acceptVideoCall(VideoCommunication communication) throws NoVideoSupportException, UnavailableTerminalException;
 
 
 }
