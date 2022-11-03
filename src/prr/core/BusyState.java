@@ -68,4 +68,7 @@ public class BusyState extends TerminalState {
             network.notifyClient(key, new BusyToIdleNotification(_terminal.getKey()));
         }
     }
+    boolean canReceiveTextCommunication() {
+        return true;
+    }
 }

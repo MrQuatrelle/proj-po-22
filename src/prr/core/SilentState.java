@@ -64,4 +64,7 @@ public class SilentState extends TerminalState {
             network.notifyClient(key, new SilentToIdleNotification(_terminal.getKey()));
         }
     }
+    boolean canReceiveTextCommunication() {
+        return true;
+    }
 }

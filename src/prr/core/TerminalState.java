@@ -26,7 +26,8 @@ public abstract class TerminalState implements Serializable {
     abstract void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException,
             NoVideoSupportException;
     abstract void acceptVideoCall() throws UnavailableTerminalException;
-
     abstract void notifyClients(String s);
+
+    abstract boolean canReceiveTextCommunication();
 
 }
