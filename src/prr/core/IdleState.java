@@ -82,10 +82,12 @@ public class IdleState extends TerminalState {
         _terminal.getNetwork().incrementCommunicationNr();
         var com = new TextCommunication(_terminal.getNetwork().getNrOfCommunications(),
                 _terminal, _terminal.getNetwork().getTerminal(destinationKey),true,message);
+        var payment = new Payment(_terminal.getNetwork().getNrOfCommunications(),false,
+                com.computeCost( _terminal.getClient().getType()));
         _terminal.getClient().addComFrom(com);
         _terminal.getNetwork().getTerminal(destinationKey).acceptTextCommunication(com);
         _terminal.getNetwork().addCommunication(com);
-        _terminal.addPayment(new Payment(_terminal.getNetwork().getNrOfCommunications(),false,
-                com.computeCost( _terminal.getClient().getType())));
+        _terminal.addPayment(payment);
+        _terminal.getClient().addPayment(payment);
     }
 }

@@ -109,7 +109,7 @@ public class Network implements Serializable {
      * @param key client's specific key
      * @return payments value if key exists, -1 if the key doesn't exist
      */
-    public long getClientPaymentValue(String key) {
+    public double getClientPaymentValue(String key) {
         if (_clients.containsKey(key))
             return _clients.get(key).getPaymentValue();
         return -1;
@@ -119,11 +119,42 @@ public class Network implements Serializable {
      * @param key client's specific key
      * @return debts value if key exists, -1 if the key doesn't exist
      */
-    public long getDebtPaymentValue(String key) {
+    public double getDebtPaymentValue(String key) {
         if (_clients.containsKey(key))
             return _clients.get(key).getDebtValue();
         return -1;
     }
+
+    public List<String> getClientsWithDebtsString(){
+        ArrayList<String> out = new ArrayList<>();
+        for (Client c : _clients.values()){
+            if (c.getDebtValue() > 0){
+                out.add(c.toString());
+            }
+        }
+        return out;
+    }
+    public List<String> getClientsWithoutDebtsString() {
+        ArrayList<String> out = new ArrayList<>();
+        for (Client c: _clients.values()) {
+            if (c.getDebtValue() == 0) {
+                out.add(c.toString());
+            }
+        }
+        return out;
+    }
+
+    List<Client> getClientsWithoutDebts(){
+        ArrayList<Client> out = new ArrayList<>();
+        for (Client c : _clients.values()){
+            if (c.getDebtValue() > 0){
+                out.add(c);
+            }
+        }
+        return out;
+    }
+
+
 
     /** Sets the notifications of the client with the given key on or off
      * @param key client's specific key

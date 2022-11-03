@@ -53,9 +53,9 @@ public class Client implements Serializable {
         out.append("|")
            .append(countActiveTerminals())
            .append("|")
-           .append(getPaymentValue())
+           .append(Math.round(getPaymentValue()))
            .append("|")
-           .append(getDebtValue());
+           .append(Math.round(getDebtValue()));
         return new String(out);
     }
 
@@ -118,12 +118,24 @@ public class Client implements Serializable {
         _clientPayments.add(p);
     }
 
-    long getPaymentValue() {
-        return 0;
+    double getPaymentValue() {
+        double res = 0;
+        for(Payment p : _clientPayments){
+            if(!p.isPaid()){
+                res += p.getCost();
+            }
+        }
+        return res;
     }
 
-    long getDebtValue() {
-        return 0;
+    double getDebtValue() {
+        double res = 0;
+        for(Payment p : _clientPayments){
+            if(!p.isPaid()){
+                res += p.getCost();
+            }
+        }
+        return res;
     }
 
     void addNotification(Notification n) {

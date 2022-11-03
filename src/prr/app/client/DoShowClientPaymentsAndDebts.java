@@ -21,7 +21,7 @@ class DoShowClientPaymentsAndDebts extends Command<Network> {
         var p = _receiver.getClientPaymentValue(key);
         var d = _receiver.getDebtPaymentValue(key);
         if (p >= 0 && d >= 0)
-            _display.add(Message.clientPaymentsAndDebts(key, p, d));
+            _display.add(Message.clientPaymentsAndDebts(key, Math.round(p), Math.round(d)));
         _display.display();
     }
 }
