@@ -1,6 +1,6 @@
 package prr.app.lookup;
 
-import prr.app.exception.DuplicateClientKeyException;
+import prr.app.exception.UnknownClientKeyException;
 import prr.core.Network;
 import prr.core.exception.InexistentKeyException;
 import pt.tecnico.uilib.menus.Command;
@@ -21,9 +21,10 @@ class DoShowCommunicationsFromClient extends Command<Network> {
     protected final void execute() throws CommandException {
         var key = stringField("clientKey");
         try {
-            _receiver.getClient(key).getAllCommunicationFromStrings();
+            _display.addAll(_receiver.getSendingCommunicationsOfClient(key));
+            _display.display();
         } catch (InexistentKeyException e) {
-            throw new DuplicateClientKeyException(key);
+            throw new UnknownClientKeyException(key);
         }
 
     }

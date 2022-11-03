@@ -21,7 +21,8 @@ class DoShowCommunicationsToClient extends Command<Network> {
     protected final void execute() throws CommandException {
         var key = stringField("clientKey");
         try {
-            _receiver.getClient(key).getAllCommunicationToStrings();
+            _display.addAll(_receiver.getReceivingCommunicationsOfClient(key));
+            _display.display();
         } catch (InexistentKeyException e) {
             throw new DuplicateClientKeyException(key);
         }

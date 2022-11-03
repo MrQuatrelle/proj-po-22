@@ -20,6 +20,6 @@ class DoSendTextCommunication extends TerminalCommand {
 
     @Override
     protected final void execute() throws CommandException {
-        _receiver.
+        //_receiver.makeTextCommunication(stringField("destination"), stringField("message"));
     }
 } 

@@ -65,8 +65,30 @@ public class Network implements Serializable {
         throw new InexistentKeyException(key);
     }
 
-    public Client getClient(String key) throws InexistentKeyException{
-        return _clients.get(key);
+    Client getClient(String key) throws InexistentKeyException {
+        if (_clients.containsKey(key))
+            return _clients.get(key);
+        throw new InexistentKeyException(key);
+    }
+
+    public List<String> getCommunicationsOfClient(String key) throws InexistentKeyException {
+        var buffer = new ArrayList<>(getClient(key).getAllSendingCommunications());
+        buffer.addAll(getClient(key).getAllReceivingCommunications());
+        return buffer.stream()
+                     .sorted(Comparator.comparing(Communication::getId))
+                     .map(Communication::toString)
+                     .toList();
+    }
+    public List<String> getReceivingCommunicationsOfClient(String key) throws InexistentKeyException {
+        return getClient(key).getAllReceivingCommunications().stream()
+                                                             .map(Communication::toString)
+                                                             .toList();
+    }
+
+    public List<String> getSendingCommunicationsOfClient(String key) throws InexistentKeyException {
+        return getClient(key).getAllSendingCommunications().stream()
+                .map(Communication::toString)
+                .toList();
     }
 
     void addCommunication(Communication com){
