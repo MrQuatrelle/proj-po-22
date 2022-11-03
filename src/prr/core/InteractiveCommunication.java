@@ -6,9 +6,9 @@ public abstract class InteractiveCommunication extends Communication {
 
     private int _duration;
 
-    InteractiveCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing, int duration) throws InexistentKeyException {
-        super(id, sender, receiver, isOnGoing);
-        _duration = duration;
+    InteractiveCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing, String comType) {
+        super(id, sender, receiver, isOnGoing,comType);
+        _duration = 0;
     }
 
     @Override

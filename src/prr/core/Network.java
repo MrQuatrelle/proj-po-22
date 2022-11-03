@@ -22,13 +22,14 @@ public class Network implements Serializable {
     /****ATTRIBUTES****/
     private final Map<String, Client> _clients;
     private final Map<String, Terminal> _terminals;
-
     private int _nrOfCommunications = 0;
+    private final ArrayList<Communication> _allCommunications;
 
     /****CONSTRUCTOR****/
     public Network() {
         _clients = new TreeMap<>();
         _terminals = new TreeMap<>();
+        _allCommunications = new ArrayList<>();
     }
 
 
@@ -68,7 +69,9 @@ public class Network implements Serializable {
         return _clients.get(key);
     }
 
-
+    void addCommunication(Communication com){
+        _allCommunications.add(com);
+    }
     /** Gets the value of all the payments done by the client with the given key
      * @param key client's specific key
      * @return payments value if key exists, -1 if the key doesn't exist
@@ -213,7 +216,7 @@ public class Network implements Serializable {
         return out;
     }
 
-    public void incrementCommunication(){
+    public void incrementCommunicationNr(){
         _nrOfCommunications++;
     }
 

@@ -15,7 +15,7 @@ public class BusyState extends TerminalState {
 
     @Override
     boolean canEndCurrentCommunication() {
-        return true;
+        return _terminal.getCommunication().getReceiver() == _terminal;
     }
 
     @Override
@@ -24,8 +24,15 @@ public class BusyState extends TerminalState {
     }
 
     @Override
-    void endOngoingCommunication() {
-        //Do nothing
+    double endOngoingCommunication(int size) {
+        _terminal.getCommunication().changeDuration(size);
+        _terminal.addPayment(new Payment(_terminal.getNetwork().getNrOfCommunications(),false,
+                _terminal.getCommunication().computeCost( _terminal.getClient().getType())));
+        _terminal.getClient().addComFrom(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal, _terminal.getCommunication().getReceiver(),false));
+        _terminal.getCommunication().getReceiver().getClient().addComTo(new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
+                _terminal, _terminal.getCommunication().getReceiver(),false));
+        return _terminal.getCommunication().computeCost( _terminal.getClient().getType());
     }
 
     @Override

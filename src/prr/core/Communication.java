@@ -14,7 +14,7 @@ public abstract class Communication implements Serializable {
 
     private boolean _isPaid;
 
-    protected long _cost;
+    protected double _cost;
 
     protected boolean _isOnGoing;
 
@@ -24,16 +24,31 @@ public abstract class Communication implements Serializable {
 
     private Client.Type _clientType;
 
-    Communication (int id, Terminal sender, Terminal receiver, boolean isOnGoing) throws InexistentKeyException {
+    private String _comType;
+
+    Communication (int id, Terminal sender, Terminal receiver, boolean isOnGoing, String comType) {
         _id = id;
         _sender = sender;
         _receiver = receiver;
         _isOnGoing  =isOnGoing;
         _clientType = _sender.getNetwork().getClient(_sender.getClientKey()).getType();
+        _comType = comType;
     }
 
+    public String toString(){
+        var out = new StringBuilder(_comType + "|" + _sender.getNetwork().getNrOfCommunications() + "|" +
+                _sender.getKey() + "|" + _receiver.getKey() + "|");
+        if (_isOnGoing) out.append(0 + "|" + 0 + "|" + "ONGOING");
+        else out.append(getSize() + "|" + computeCost(_clientType) + "|" + "FINISHED");
+
+        return new String(out);
+    }
     Client.Type getClientType() {
         return  _clientType;
+    }
+
+    Terminal getReceiver(){
+        return _receiver;
     }
 
     abstract double computeCost(Client.Type type);

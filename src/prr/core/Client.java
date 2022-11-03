@@ -25,7 +25,9 @@ public class Client implements Serializable{
     private final List<Notification> _notifications;
     private final Set<Terminal> _terminals;
 
-    private final ArrayList<Communication> _communications;
+    private final ArrayList<Communication> _communicationsFrom;
+
+    private final ArrayList<Communication> _communicationsTo;
 
     private Client(String key, String name, long ss, Type type, ArrayList<Terminal> terminals) {
         _key = key;
@@ -35,7 +37,8 @@ public class Client implements Serializable{
         _receiveNotifications = true;
         _terminals = new HashSet<>();
         _notifications = new ArrayList<>();
-        _communications = new ArrayList<>();
+        _communicationsFrom = new ArrayList<>();
+        _communicationsTo = new ArrayList<>();
     }
 
     public Client(String key, String name, long ss) {
@@ -90,6 +93,14 @@ public class Client implements Serializable{
 
     public void addTerminal(Terminal t) {
         _terminals.add(t);
+    }
+
+    public void addComTo(Communication com){
+        _communicationsTo.add(com);
+    }
+
+    public void addComFrom(Communication com){
+        _communicationsFrom.add(com);
     }
 
     long getPaymentValue() {

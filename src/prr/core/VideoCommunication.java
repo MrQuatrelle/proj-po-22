@@ -4,8 +4,8 @@ import prr.core.exception.InexistentKeyException;
 
 public class VideoCommunication extends InteractiveCommunication{
 
-    VideoCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing, int duration) throws InexistentKeyException {
-        super(id, sender, receiver, isOnGoing,duration);
+    VideoCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing) {
+        super(id, sender, receiver, isOnGoing,"VIDEO");
     }
     @Override
     double computeCost(Client.Type type) {
