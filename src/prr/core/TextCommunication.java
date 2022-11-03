@@ -44,15 +44,14 @@ public class TextCommunication extends Communication {
         return 4;
     }
     @Override
-    double computeCost(Client.Type type) {
+    void computeCost(Client.Type type) {
         switch (type) {
             case NORMAL -> _cost = normalCost();
             case GOLD -> _cost = goldCost();
             case PLATINUM -> _cost = platinumCost();
         }
         if (getSender().hasFriend(getReceiver().getKey())) {
-            return _cost / 2;
+            _cost = _cost / 2;
         }
-        else return _cost;
     }
 }

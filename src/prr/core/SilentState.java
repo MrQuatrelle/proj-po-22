@@ -77,8 +77,9 @@ public class SilentState extends TerminalState {
         _terminal.getNetwork().incrementCommunicationNr();
         var com = new TextCommunication(_terminal.getNetwork().getNrOfCommunications(),
                 _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(destinationKey),true,message);
+        com.computeCost( _terminal.getClient().getType());
         var payment = new Payment(_terminal.getNetwork().getNrOfCommunications(),false,
-                com.computeCost( _terminal.getClient().getType()));
+                com.getCost());
         _terminal.getNetwork().getTerminal(destinationKey).acceptTextCommunication(com);
         _terminal.getNetwork().addCommunication(com);
         _terminal.addPayment(payment);
