@@ -26,17 +26,16 @@ public class BusyState extends TerminalState {
 
     @Override
     double endOngoingCommunication(int size) throws InexistentKeyException {
-        var com = new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications(),
-                _terminal, _terminal.getCommunication().getReceiver(),false);
         _terminal.getCommunication().changeDuration(size);
         _terminal.getCommunication().endCommunication();
         _terminal.addPayment(new Payment(_terminal.getNetwork().getNrOfCommunications(),false,
                 _terminal.getCommunication().computeCost( _terminal.getClient().getType())));
-        _terminal.getClient().addComFrom(com);
-        _terminal.getCommunication().getReceiver().getClient().addComTo(com);
-        _terminal.getNetwork().addCommunication(com);
+        _terminal.getClient().addComFrom(_terminal.getCommunication());
+        _terminal.getCommunication().getReceiver().getClient().addComTo(_terminal.getCommunication());
+        _terminal.getNetwork().addCommunication(_terminal.getCommunication());
+        var out = _terminal.getCommunication().computeCost( _terminal.getClient().getType());
         _terminal.setCurrentCommunication(null);
-        return _terminal.getCommunication().computeCost( _terminal.getClient().getType());
+        return out;
     }
 
     @Override
