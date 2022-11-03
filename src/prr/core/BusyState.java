@@ -1,12 +1,13 @@
 package prr.core;
 
 import prr.core.exception.InexistentKeyException;
+import prr.core.exception.NoOngoingCommunicationException;
 import prr.core.exception.UnavailableTerminalException;
 import prr.core.notification.BusyToIdleNotification;
 
 public class BusyState extends TerminalState {
 
-    private TerminalState _previous;
+    private final TerminalState _previous;
     BusyState(Terminal t, TerminalState p) {
         super(t);
         _previous = p;
@@ -19,7 +20,11 @@ public class BusyState extends TerminalState {
 
     @Override
     boolean canEndCurrentCommunication() {
-        return _terminal.getCommunication().getSender() == _terminal;
+        try {
+            return _terminal.getCommunication().getSender() == _terminal;
+        } catch (NoOngoingCommunicationException e) {
+            return false;
+        }
     }
 
     @Override
@@ -28,7 +33,7 @@ public class BusyState extends TerminalState {
     }
 
     @Override
-    double endOngoingCommunication(int size) throws InexistentKeyException {
+    double endOngoingCommunication(int size) throws InexistentKeyException, NoOngoingCommunicationException {
         _terminal.getCommunication().changeDuration(size);
         if(_terminal.getCommunication().getSender() == _terminal)
             _terminal.getCommunication().endCommunication(size);

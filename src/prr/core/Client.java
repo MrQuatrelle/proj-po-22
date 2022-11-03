@@ -50,9 +50,9 @@ public class Client implements Serializable{
         out.append("|")
            .append(countActiveTerminals())
            .append("|")
-           .append(0)
+           .append(getPaymentValue())
            .append("|")
-           .append(0);
+           .append(getDebtValue());
         return new String(out);
     }
 

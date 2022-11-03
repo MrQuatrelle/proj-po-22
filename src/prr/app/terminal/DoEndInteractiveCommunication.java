@@ -3,6 +3,7 @@ package prr.app.terminal;
 import prr.core.Network;
 import prr.core.Terminal;
 import prr.core.exception.InexistentKeyException;
+import prr.core.exception.NoOngoingCommunicationException;
 import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
@@ -26,7 +27,8 @@ class DoEndInteractiveCommunication extends TerminalCommand {
         } catch (InexistentKeyException e) {
             //TODO
             return;
+        } catch (NoOngoingCommunicationException ignored) {
         }
-        _display.add(Message.communicationCost(Math.round(amount)));
+        _display.popup(Message.communicationCost(Math.round(amount)));
     }
 }

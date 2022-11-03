@@ -1,6 +1,7 @@
 package prr.core;
 
 import prr.core.exception.InexistentKeyException;
+import prr.core.exception.NoOngoingCommunicationException;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -59,7 +60,7 @@ public abstract class Communication implements Serializable {
         return _sender;
     }
 
-    void endCommunication(int size) throws InexistentKeyException {
+    void endCommunication(int size) throws InexistentKeyException, NoOngoingCommunicationException {
         _receiver.endOngoingCommunication(size);
         _isOnGoing = false;
     }
