@@ -119,7 +119,7 @@ public abstract class Terminal implements Serializable {
         return res;
     }
 
-    double getBalanceDebts() {
+    public double getBalanceDebts() {
         double res = 0;
         for(Payment p : _payments){
             if(!p.isPaid()){
