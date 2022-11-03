@@ -38,6 +38,7 @@ public class IdleState extends TerminalState {
         _terminal.setCurrentCommunication(comm);
         _terminal.getNetwork().incrementCommunicationNr();
         _terminal.getClient().addComFrom(comm);
+        _terminal.setStatus("BUSY");
     }
 
     @Override
@@ -56,6 +57,7 @@ public class IdleState extends TerminalState {
         _terminal.setCurrentCommunication(com);
         _terminal.getNetwork().addCommunication(com);
         _terminal.getClient().addComFrom(com);
+        _terminal.setStatus("BUSY");
     }
 
     @Override

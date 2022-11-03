@@ -37,6 +37,7 @@ public class SilentState extends TerminalState {
         _terminal.getNetwork().getTerminal(t).acceptVoiceCall(communication);
         _terminal.setCurrentCommunication(communication);
         _terminal.getNetwork().incrementCommunicationNr();
+        _terminal.setStatus("BUSY");
     }
 
     @Override
@@ -51,6 +52,7 @@ public class SilentState extends TerminalState {
         _terminal.getNetwork().getTerminal(t).acceptVideoCall(com);
         _terminal.setCurrentCommunication(com);
         _terminal.getNetwork().incrementCommunicationNr();
+        _terminal.setStatus("BUSY");
     }
 
     @Override
