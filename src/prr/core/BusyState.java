@@ -30,7 +30,8 @@ public class BusyState extends TerminalState {
     @Override
     double endOngoingCommunication(int size) throws InexistentKeyException {
         _terminal.getCommunication().changeDuration(size);
-        _terminal.getCommunication().endCommunication();
+        if(_terminal.getCommunication().getSender() == _terminal)
+            _terminal.getCommunication().endCommunication(size);
         _terminal.addPayment(new Payment(_terminal.getNetwork().getNrOfCommunications(),false,
                 _terminal.getCommunication().computeCost( _terminal.getClient().getType())));
         _terminal.getClient().addComFrom(_terminal.getCommunication());

@@ -14,12 +14,10 @@ public class FancyTerminal extends Terminal {
     @Override
     public void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
         _state.makeVideoCall(t);
-        this.setStatus("BUSY");
     }
 
     @Override
     public void acceptVideoCall(VideoCommunication communication) throws UnavailableTerminalException {
         _state.acceptVideoCall(communication);
-        this.setStatus("BUSY");
     }
 }

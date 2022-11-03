@@ -44,8 +44,8 @@ public class IdleState extends TerminalState {
     @Override
     void acceptVoiceCall(VoiceCommunication communication) {
         _terminal.setCurrentCommunication(communication);
-        _terminal.setStatus("BUSY");
         _terminal.getClient().addComTo(communication);
+        _terminal.setStatus("BUSY");
     }
 
     @Override
@@ -62,9 +62,9 @@ public class IdleState extends TerminalState {
 
     @Override
     void acceptVideoCall(VideoCommunication communication) {
-        _terminal.setStatus("BUSY");
         _terminal.setCurrentCommunication(communication);
         _terminal.getClient().addComTo(communication);
+        _terminal.setStatus("BUSY");
     }
 
     @Override

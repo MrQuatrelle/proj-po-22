@@ -22,7 +22,7 @@ public class SilentState extends TerminalState {
 
     @Override
     boolean canStartCommunication() {
-        return false;
+        return true;
     }
 
     @Override

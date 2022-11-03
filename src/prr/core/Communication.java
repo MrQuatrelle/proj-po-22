@@ -59,7 +59,8 @@ public abstract class Communication implements Serializable {
         return _sender;
     }
 
-    void endCommunication(){
+    void endCommunication(int size) throws InexistentKeyException {
+        _receiver.endOngoingCommunication(size);
         _isOnGoing = false;
     }
      boolean getState(){

@@ -21,13 +21,11 @@ class DoEndInteractiveCommunication extends TerminalCommand {
     protected final void execute() throws CommandException {
         var duration = integerField("duration");
         double amount = 0;
-        if (_receiver.canEndCurrentCommunication()){
-            try {
-                amount = _receiver.endOngoingCommunication(duration);
-            } catch (InexistentKeyException e) {
-                //TODO
-                return;
-            }
+        try {
+            amount = _receiver.endOngoingCommunication(duration);
+        } catch (InexistentKeyException e) {
+            //TODO
+            return;
         }
         _display.add(Message.communicationCost(Math.round(amount)));
     }
