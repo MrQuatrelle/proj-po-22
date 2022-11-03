@@ -61,6 +61,7 @@ public class IdleState extends TerminalState {
     @Override
     void acceptVideoCall(VideoCommunication communication) {
         _terminal.setStatus("BUSY");
+        _terminal.setCurrentCommunication(communication);
         _terminal.getClient().addComTo(communication);
     }
 
