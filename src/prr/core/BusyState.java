@@ -35,16 +35,16 @@ public class BusyState extends TerminalState {
     @Override
     double endOngoingCommunication(int size) throws InexistentKeyException, NoOngoingCommunicationException {
         var comm = _terminal.getCommunication();
-        if(_terminal.getCommunication().getSender() == _terminal) {
+        if(comm.getSender() == _terminal) {
             comm.changeDuration(size);
             comm.endCommunication(size);
             comm.computeCost(_terminal.getClient().getType());
             _terminal.addPayment(new Payment(_terminal.getNetwork().getNrOfCommunications(), false,
                     comm.getCost()));
+            _terminal.getNetwork().addCommunication(comm);
+            comm.getReceiver().endOngoingCommunication(size);
         }
-        _terminal.getClient().addComFrom(_terminal.getCommunication());
-        _terminal.getCommunication().getReceiver().getClient().addComTo(_terminal.getCommunication());
-        _terminal.getNetwork().addCommunication(_terminal.getCommunication());
+        _terminal.getClient().addComFrom(comm);
         _terminal.setCurrentCommunication(null);
         _terminal.setStatus(_previous.toString());
         return comm.getCost();
@@ -81,12 +81,11 @@ public class BusyState extends TerminalState {
     }
 
     @Override
-    void acceptTextCommunication(TextCommunication communication) throws UnavailableTerminalException {
+    void acceptTextCommunication(TextCommunication communication) {
         _terminal.getClient().addComTo(communication);
     }
 
     @Override
-    void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
-
+    void makeTextCommunication(String destinationKey, String message) {
     }
 }

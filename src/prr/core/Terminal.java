@@ -36,7 +36,7 @@ public abstract class Terminal implements Serializable {
         _key = key;
         _client = client;
         _state = new IdleState(this);
-        _friendlyKeys = new HashSet<>();
+        _friendlyKeys = new TreeSet<>();
         _network = network;
         _keysToNotify = new LinkedList<>();
         _payments = new ArrayList<>();
