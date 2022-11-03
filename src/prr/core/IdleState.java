@@ -62,4 +62,7 @@ public class IdleState extends TerminalState {
     void notifyClients(String s) {
         //Do nothing
     }
+    boolean canReceiveTextCommunication() {
+        return true;
+    }
 }

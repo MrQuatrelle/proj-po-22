@@ -59,4 +59,9 @@ public class OffState extends TerminalState {
             }
         }
     }
+
+    @Override
+    boolean canReceiveTextCommunication() {
+        return false;
+    }
 }
