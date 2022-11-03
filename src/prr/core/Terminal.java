@@ -92,12 +92,14 @@ public abstract class Terminal implements Serializable {
            .add(_key)
            .add(_client.getKey())
            .add(_state.toString())
-           .add(String.valueOf(getBalancePaid()))
-           .add(String.valueOf(getBalanceDebts()));
-        var buffer = new StringJoiner(",");
-        for (String fk: _friendlyKeys)
-            buffer.add(fk);
-        out.add(buffer.toString());
+           .add(String.valueOf(Math.round(getBalancePaid())))
+           .add(String.valueOf(Math.round(getBalanceDebts())));
+        if (!_friendlyKeys.isEmpty()) {
+            var buffer = new StringJoiner(",");
+            for (String fk : _friendlyKeys)
+                buffer.add(fk);
+            out.add(buffer.toString());
+        }
         return out.toString();
     }
 
