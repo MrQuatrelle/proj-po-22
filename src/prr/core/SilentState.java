@@ -32,6 +32,8 @@ public class SilentState extends TerminalState {
 
     @Override
     void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException {
+        if (t.equals(_terminal.getKey()))
+            throw new UnavailableTerminalException(t, "BUSY");
         var communication = new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications() + 1,
                 _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
         _terminal.getNetwork().getTerminal(t).acceptVoiceCall(communication);
@@ -47,6 +49,8 @@ public class SilentState extends TerminalState {
 
     @Override
     void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
+        if (t.equals(_terminal.getKey()))
+            throw new UnavailableTerminalException(t, "BUSY");
         var com = new VideoCommunication(_terminal.getNetwork().getNrOfCommunications() + 1,
                 _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
         _terminal.getNetwork().getTerminal(t).acceptVideoCall(com);
