@@ -7,6 +7,7 @@ import java.util.*;
 
 import prr.core.exception.*;
 import prr.core.notification.Notification;
+import prr.core.notification.SilentToIdleNotification;
 
 // FIXME add more import if needed (cannot import from pt.tecnico or prr.app)
 
@@ -166,9 +167,14 @@ public class Network implements Serializable {
 
     public List<String> getClientNotifications(String key) {
         var c = _clients.get(key);
-        return (c.wantsNotifications()) ?
-                c.getNotifications().stream().map(Notification::toString).toList() :
-                null;
+        var buffer = c.getNotifications();
+        for(Notification n: buffer)
+            _terminals.get(n.getKey()).flushClientsToNotify();
+        var out = buffer.stream().map(Notification::toString).toList();
+        if (c.wantsNotifications()) {
+            return out;
+        }
+        return null;
     }
     void notifyClient(String key, Notification n) {
         _clients.get(key).addNotification(n);

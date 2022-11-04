@@ -57,7 +57,7 @@ public class BusyState extends TerminalState {
 
     @Override
     void acceptVoiceCall(VoiceCommunication communication) throws UnavailableTerminalException {
-        //Do nothing
+        _terminal.addClientToNotify(communication.getSender().getClientKey());
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
     }
 

@@ -27,11 +27,12 @@ class DoShowClient extends Command<Network> {
             throw new UnknownClientKeyException(e.getKey());
         }
         if (s != null) {
-            _display.add(s);
+            _display.popup(s);
             var notifications = _receiver.getClientNotifications(key);
-            if (notifications != null)
+            if (notifications != null) {
                 _display.addAll(notifications);
+                _display.display();
+            }
         }
-        _display.display();
     }
 }

@@ -13,4 +13,8 @@ public abstract class Notification {
     public String toString() {
         return "" + _type + "|" + _key;
     }
+
+    public String getKey() {
+        return _key;
+    }
 }

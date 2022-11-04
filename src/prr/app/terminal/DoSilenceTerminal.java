@@ -22,7 +22,6 @@ class DoSilenceTerminal extends TerminalCommand {
             _display.add(Message.alreadySilent());
             _display.display();
         }
-        if(!Objects.equals(_receiver.getStatus(), "OFF"))
-            _receiver.setStatus("SILENCE");
+        _receiver.setStatus("SILENCE");
     }
 }

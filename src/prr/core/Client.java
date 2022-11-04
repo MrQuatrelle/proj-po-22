@@ -22,7 +22,7 @@ public class Client implements Serializable {
     private final long _ssNum;
     private Type _type;
     private boolean _receiveNotifications;
-    private final List<Notification> _notifications;
+    private Map<String, Notification> _notifications;
     private final Set<Terminal> _terminals;
 
     private final ArrayList<Communication> _communicationsFrom;
@@ -37,7 +37,7 @@ public class Client implements Serializable {
         _type = type;
         _receiveNotifications = true;
         _terminals = new HashSet<>();
-        _notifications = new ArrayList<>();
+        _notifications = new HashMap<>();
         _communicationsFrom = new ArrayList<>();
         _communicationsTo = new ArrayList<>();
         _clientPayments = new ArrayList<>();
@@ -147,12 +147,13 @@ public class Client implements Serializable {
     }
 
     void addNotification(Notification n) {
-        _notifications.add(n);
+        _notifications.remove(n.getKey());
+        _notifications.put(n.getKey(), n);
     }
 
-    List<Notification> getNotifications() {
-        var out = new ArrayList<>(_notifications);
-        _notifications.clear();
+    Collection<Notification> getNotifications() {
+        var out = _notifications.values();
+        _notifications = new HashMap<>();
         return out;
     }
 }

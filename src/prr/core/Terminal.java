@@ -22,7 +22,7 @@ public abstract class Terminal implements Serializable {
     private final String _key;
     private final Client _client;
     private final Set<String> _friendlyKeys;
-    private final List<String> _keysToNotify;
+    private final Set<String> _keysToNotify;
 
     private final Network _network;
     protected TerminalState _state;
@@ -38,7 +38,7 @@ public abstract class Terminal implements Serializable {
         _state = new IdleState(this);
         _friendlyKeys = new TreeSet<>();
         _network = network;
-        _keysToNotify = new LinkedList<>();
+        _keysToNotify = new HashSet<>();
         _payments = new ArrayList<>();
     }
 
@@ -134,13 +134,18 @@ public abstract class Terminal implements Serializable {
     }
 
     List<String> getClientsToNotify() {
-        return _keysToNotify;
+        return new ArrayList<>(_keysToNotify);
+    }
+
+    void flushClientsToNotify() {
+        _keysToNotify.clear();
     }
 
     public void addFriend(String fk) throws InexistentKeyException {
-        if (_network.hasTerminalKey(fk) && !fk.equals(_key))
+        if (!_network.hasTerminalKey(fk))
+            throw new InexistentKeyException(fk);
+        else if(!_key.equals(fk))
             _friendlyKeys.add(fk);
-        else throw new InexistentKeyException(fk);
     }
 
     public void removeFriend(String fk) throws InexistentKeyException {
