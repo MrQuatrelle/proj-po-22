@@ -38,6 +38,7 @@ public class IdleState extends TerminalState {
                 _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
         _terminal.getNetwork().getTerminal(t).acceptVoiceCall(comm);
         _terminal.setCurrentCommunication(comm);
+        _terminal.getNetwork().addCommunication(comm);
         _terminal.getClient().addComFrom(comm);
         _terminal.setStatus("BUSY");
     }

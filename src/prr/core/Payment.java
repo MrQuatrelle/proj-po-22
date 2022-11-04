@@ -3,7 +3,6 @@ package prr.core;
 public class Payment {
     private final int _communicationId;
 
-    private Client.Type _clientType;
 
     private boolean _paid;
 

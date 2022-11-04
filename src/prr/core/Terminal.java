@@ -10,11 +10,6 @@ import java.util.*;
 
 public abstract class Terminal implements Serializable {
 
-    /*enum ComType{
-        VOICE,
-        VIDEO,
-    }*/
-
     /** Serial number for serialization. */
     @Serial
     private static final long serialVersionUID = 202208091753L;
@@ -66,7 +61,7 @@ public abstract class Terminal implements Serializable {
         return _client.getKey();
     }
 
-    Payment getPayment(int id) throws InexistentPaymentException {
+    public Payment getPayment(int id) throws InexistentPaymentException {
         for (Payment p : _payments){
             if (p.getId() == id){
                 return p;
@@ -171,16 +166,11 @@ public abstract class Terminal implements Serializable {
     }
 
     public boolean canPerformPayment(int id, Terminal t) throws InexistentPaymentException {
-        return (_network.getCommunication(id).getSender() == t && !(_network.getCommunication(id).getState())
-                && !(getPayment(id).isPaid()));
+        return (_network.getCommunication(id).getSender() == t) && !(_network.getCommunication(id).getState())
+                && !(getPayment(id).isPaid());
     }
     public void performPayment(int id) throws InexistentPaymentException {
-        for (Payment p : _payments)
-            if (p.getId() == id) {
-                p.pay();
-                return;
-        }
-        throw new InexistentPaymentException(id);
+        getPayment(id).pay();
     }
 
     public void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException,
