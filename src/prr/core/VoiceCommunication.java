@@ -8,10 +8,10 @@ public class VoiceCommunication extends InteractiveCommunication {
         super(id, sender, receiver, isOnGoing,"VOICE");
     }
     @Override
-    void computeCost(Client.Type type) {
+    void computeCost(String type) {
         switch(type){
-            case NORMAL -> _cost = getSize() * 20;
-            case GOLD , PLATINUM -> _cost = getSize() * 10;
+            case "NORMAL" -> _cost = getSize() * 20;
+            case "GOLD" , "PLATINUM" -> _cost = getSize() * 10;
         }
         if (getSender().hasFriend(getReceiver().getKey())) {
             _cost = _cost / 2;

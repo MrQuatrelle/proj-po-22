@@ -1,6 +1,7 @@
 package prr.core;
 
 import java.io.Serial;
+import java.nio.MappedByteBuffer;
 import java.util.*;
 import  java.io.Serializable;
 
@@ -20,31 +21,27 @@ public class Client implements Serializable {
     private final String _key;
     private final String _name;
     private final long _ssNum;
-    private Type _type;
+    private ClientType _type;
     private boolean _receiveNotifications;
     private Map<String, Notification> _notifications;
     private final Set<Terminal> _terminals;
 
-    private final ArrayList<Communication> _communicationsFrom;
-    private final ArrayList<Communication> _communicationsTo;
+    private final Map<Integer, Communication> _communicationsFrom;
+    private final Map<Integer, Communication> _communicationsTo;
 
     private final ArrayList<Payment> _clientPayments;
 
-    private Client(String key, String name, long ss, Type type, ArrayList<Terminal> terminals) {
+    Client(String key, String name, long ss) {
         _key = key;
         _name = name;
         _ssNum = ss;
-        _type = type;
+        _type = new NormalType(this);
         _receiveNotifications = true;
         _terminals = new HashSet<>();
         _notifications = new HashMap<>();
-        _communicationsFrom = new ArrayList<>();
-        _communicationsTo = new ArrayList<>();
+        _communicationsFrom = new HashMap<>();
+        _communicationsTo = new HashMap<>();
         _clientPayments = new ArrayList<>();
-    }
-
-    public Client(String key, String name, long ss) {
-        this(key, name, ss, Type.NORMAL, null);
     }
 
     public String toString() {
@@ -63,12 +60,12 @@ public class Client implements Serializable {
         return _key;
     }
 
-    public void setType(Type t) {
+    public void setType(ClientType t) {
         _type = t;
     }
 
-    public Type getType(){
-        return _type;
+    public String getType(){
+        return _type.toString();
     }
 
     public void setNotification(boolean b) throws UnchangedNotificationException {
@@ -86,11 +83,11 @@ public class Client implements Serializable {
     }
 
     public List<Communication> getAllReceivingCommunications() {
-        return _communicationsTo;
+        return _communicationsTo.values().stream().toList();
     }
 
     public List<Communication> getAllSendingCommunications() {
-        return _communicationsFrom;
+        return _communicationsFrom.values().stream().toList();
     }
 
     private int countActiveTerminals() {
@@ -115,17 +112,28 @@ public class Client implements Serializable {
     }
 
     public void addComTo(Communication com){
-        _communicationsTo.add(com);
+        _communicationsTo.put(com.getId(), com);
     }
 
     public void addComFrom(Communication com){
-        _communicationsFrom.add(com);
+        _communicationsFrom.put(com.getId(), com);
     }
 
     public void addPayment(Payment p){
         _clientPayments.add(p);
+        _type.checkTypeUpdate(_communicationsFrom.get(p.getId()));
     }
 
+    double getBalanceValue() {
+        double res = 0;
+        for (Payment p: _clientPayments) {
+            if (p.isPaid())
+                res += p.getCost();
+            else
+                res -= p.getCost();
+        }
+        return res;
+    }
     double getPaymentValue() {
         double res = 0;
         for(Payment p : _clientPayments){

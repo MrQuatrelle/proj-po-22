@@ -23,7 +23,7 @@ public abstract class Communication implements Serializable {
 
     private final Terminal _receiver;
 
-    private final Client.Type _clientType;
+    private final String _clientType;
 
     private final String _comType;
 
@@ -44,7 +44,7 @@ public abstract class Communication implements Serializable {
 
         return new String(out);
     }
-    Client.Type getClientType() {
+    String getClientType() {
         return  _clientType;
     }
 
@@ -67,11 +67,15 @@ public abstract class Communication implements Serializable {
      boolean getState(){
         return _isOnGoing;
      }
-    abstract void computeCost(Client.Type type);
+    abstract void computeCost(String type);
 
     abstract int getSize();
 
     double getCost() {
         return _cost;
+    }
+
+    String getType() {
+        return _comType;
     }
 }
