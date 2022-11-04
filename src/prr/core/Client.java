@@ -137,7 +137,7 @@ public class Client implements Serializable {
     double getPaymentValue() {
         double res = 0;
         for(Payment p : _clientPayments){
-            if(!p.isPaid()){
+            if(p.isPaid()){
                 res += p.getCost();
             }
         }
