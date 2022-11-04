@@ -53,6 +53,8 @@ public class SilentState extends TerminalState {
                 _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
         _terminal.getNetwork().getTerminal(t).acceptVideoCall(com);
         _terminal.setCurrentCommunication(com);
+        _terminal.getNetwork().addCommunication(com);
+        _terminal.getClient().addComFrom(com);
         _terminal.setStatus("BUSY");
     }
 

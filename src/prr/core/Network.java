@@ -149,18 +149,6 @@ public class Network implements Serializable {
         return out;
     }
 
-    List<Client> getClientsWithoutDebts(){
-        ArrayList<Client> out = new ArrayList<>();
-        for (Client c : _clients.values()){
-            if (c.getDebtValue() > 0){
-                out.add(c);
-            }
-        }
-        return out;
-    }
-
-
-
     /** Sets the notifications of the client with the given key on or off
      * @param key client's specific key
      * @param b true to turn on, false for turn of
