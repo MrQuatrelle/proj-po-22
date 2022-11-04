@@ -12,7 +12,8 @@ public class NormalType extends ClientType {
             getClient().setType(new NormalType(getClient()));
             return;
         }
-        if (getClient().getBalanceValue() > 500)
+        if (getClient().getBalanceValue() > 500) {
             getClient().setType(new GoldType(getClient()));
+        }
     }
 }

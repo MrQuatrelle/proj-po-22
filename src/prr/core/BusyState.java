@@ -38,7 +38,7 @@ public class BusyState extends TerminalState {
         if(comm.getSender() == _terminal) {
             comm.changeDuration(size);
             comm.endCommunication(size);
-            comm.computeCost(_terminal.getClient().getType());
+            comm.computeCost(_terminal.getClient().getTypeString());
             _terminal.getNetwork().addCommunication(comm);
             var p = new Payment(_terminal.getNetwork().getNrOfCommunications(), false, comm.getCost());
             _terminal.addPayment(p);

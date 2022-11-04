@@ -189,9 +189,8 @@ public abstract class Terminal implements Serializable {
      * when a client finally gets notified, it no longer needs to be notified, so their key is 
      * taken off of the list
      */
-    void flushClientsToNotify() {
-        //FIXME apenas tirar o cliente que já foi notificado
-        _keysToNotify.clear();
+    void flushClientToNotify(String key) {
+        _keysToNotify.remove(key);
     }
 
     /**
@@ -232,6 +231,7 @@ public abstract class Terminal implements Serializable {
     }
     public void performPayment(int id) throws InexistentPaymentException {
         getPayment(id).pay();
+        getClient().getType().checkTypeUpdate(_currentCommunication);
     }
 
     public void makeVoiceCall(String t) throws InexistentKeyException, UnavailableTerminalException,

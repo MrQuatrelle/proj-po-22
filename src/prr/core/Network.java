@@ -160,7 +160,7 @@ public class Network implements Serializable {
         var c = _clients.get(key);
         var buffer = c.getNotifications();
         for(Notification n: buffer)
-            _terminals.get(n.getKey()).flushClientsToNotify();
+            _terminals.get(n.getKey()).flushClientToNotify(key);
         var out = buffer.stream().map(Notification::toString).toList();
         if (c.wantsNotifications()) {
             return out;

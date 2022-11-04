@@ -30,5 +30,5 @@ public abstract class ClientType implements Serializable {
         return _type.toString();
     }
 
-    abstract void checkTypeUpdate(Communication c);
+     abstract void checkTypeUpdate(Communication c);
 }

@@ -84,7 +84,7 @@ public class IdleState extends TerminalState {
     void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
         var com = new TextCommunication(_terminal.getNetwork().getNrOfCommunications() + 1,
                 _terminal, _terminal.getNetwork().getTerminal(destinationKey),false,message);
-        com.computeCost( _terminal.getClient().getType());
+        com.computeCost( _terminal.getClient().getTypeString());
         var payment = new Payment(_terminal.getNetwork().getNrOfCommunications() + 1,false,
                 com.getCost());
         _terminal.getClient().addComFrom(com);

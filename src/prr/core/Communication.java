@@ -32,7 +32,7 @@ public abstract class Communication implements Serializable {
         _sender = sender;
         _receiver = receiver;
         _isOnGoing  =isOnGoing;
-        _clientType = _sender.getNetwork().getClient(_sender.getClientKey()).getType();
+        _clientType = _sender.getNetwork().getClient(_sender.getClientKey()).getTypeString();
         _comType = comType;
     }
 
