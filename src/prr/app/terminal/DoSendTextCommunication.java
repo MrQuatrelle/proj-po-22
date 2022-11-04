@@ -1,12 +1,10 @@
 package prr.app.terminal;
 
-import prr.app.exception.UnknownClientKeyException;
 import prr.core.Network;
 import prr.core.Terminal;
 import prr.app.exception.UnknownTerminalKeyException;
 import prr.core.exception.InexistentKeyException;
 import prr.core.exception.UnavailableTerminalException;
-import pt.tecnico.uilib.forms.Form;
 import pt.tecnico.uilib.menus.CommandException;
 //FIXME add more imports if needed
 
@@ -16,7 +14,7 @@ import pt.tecnico.uilib.menus.CommandException;
 class DoSendTextCommunication extends TerminalCommand {
 
     DoSendTextCommunication(Network context, Terminal terminal) {
-        super(Label.SEND_TEXT_COMMUNICATION, context, terminal, receiver -> receiver.canStartCommunication());
+        super(Label.SEND_TEXT_COMMUNICATION, context, terminal, Terminal::canStartCommunication);
         addStringField("destination", Message.terminalKey());
         addStringField("message", Message.textMessage());
     }

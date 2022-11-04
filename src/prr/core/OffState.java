@@ -37,6 +37,7 @@ public class OffState extends TerminalState {
 
     @Override
     void acceptVoiceCall(VoiceCommunication communication) throws UnavailableTerminalException {
+        _terminal.addClientToNotify(communication.getSender().getClientKey());
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
     }
 
@@ -47,6 +48,7 @@ public class OffState extends TerminalState {
 
     @Override
     void acceptVideoCall(VideoCommunication communication) throws UnavailableTerminalException {
+        _terminal.addClientToNotify(communication.getSender().getClientKey());
         throw new UnavailableTerminalException(_terminal.getKey(), toString());
     }
 
@@ -63,6 +65,7 @@ public class OffState extends TerminalState {
 
     @Override
     void acceptTextCommunication(TextCommunication communication) throws UnavailableTerminalException {
+        _terminal.addClientToNotify(communication.getSender().getClientKey());
         throw new UnavailableTerminalException(_terminal.getKey(),"OFF");
     }
 
