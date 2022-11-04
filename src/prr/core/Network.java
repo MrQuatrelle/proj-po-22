@@ -274,6 +274,15 @@ public class Network implements Serializable {
         return out;
     }
 
+    public List<String> getTerminalsWithPositiveBalance(){
+        ArrayList<String> out = new ArrayList<String>();
+        for (Terminal t : _terminals.values()){
+            if (t.getBalancePaid() > t.getBalanceDebts()){
+                out.add(t.toString());
+            }
+        }
+        return out;
+    }
     public void incrementCommunicationNr(){
         _nrOfCommunications++;
     }
