@@ -24,13 +24,13 @@ public class Network implements Serializable {
     private final Map<String, Client> _clients;
     private final Map<String, Terminal> _terminals;
     private int _nrOfCommunications = 0;
-    private final ArrayList<Communication> _allCommunications;
+    private final Set<Communication> _allCommunications;
 
     /****CONSTRUCTOR****/
     public Network() {
         _clients = new TreeMap<>();
         _terminals = new TreeMap<>();
-        _allCommunications = new ArrayList<>();
+        _allCommunications = new HashSet<>();
     }
 
 
@@ -97,13 +97,17 @@ public class Network implements Serializable {
     }
 
     Communication getCommunication(int id){
-        return _allCommunications.get(id);
+        for (Communication c: _allCommunications)
+            if (c.getId() == id)
+                return c;
+        return null;
     }
     public List<String> getAllCommunicationStrings() {
-        var out = new ArrayList<String>();
-        for (Communication c: _allCommunications)
-            out.add(c.toString());
-        return out;
+        return _allCommunications.stream()
+                                 .sorted(Comparator.comparing(Communication::getId))
+                                 .map(Communication::toString)
+                                 .toList();
+
     }
 
     /** Gets the value of all the payments done by the client with the given key
