@@ -23,7 +23,6 @@ public class Network implements Serializable {
     /****ATTRIBUTES****/
     private final Map<String, Client> _clients;
     private final Map<String, Terminal> _terminals;
-    private int _nrOfCommunications = 0;
     private final Set<Communication> _allCommunications;
 
     /****CONSTRUCTOR****/
@@ -279,7 +278,7 @@ public class Network implements Serializable {
     }
 
     public List<String> getTerminalsWithPositiveBalance(){
-        ArrayList<String> out = new ArrayList<String>();
+        ArrayList<String> out = new ArrayList<>();
         for (Terminal t : _terminals.values()){
             if (t.getBalancePaid() > t.getBalanceDebts()){
                 out.add(t.toString());
@@ -287,12 +286,9 @@ public class Network implements Serializable {
         }
         return out;
     }
-    public void incrementCommunicationNr(){
-        _nrOfCommunications++;
-    }
 
     public int getNrOfCommunications(){
-        return _nrOfCommunications;
+        return _allCommunications.size();
     }
     /**
      * Read text input file and create corresponding domain entities.
