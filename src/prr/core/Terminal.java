@@ -46,26 +46,47 @@ public abstract class Terminal implements Serializable {
         return _key;
     }
 
+    /**
+     * @param key potential terminal key
+     * @return is the input a valid key for a terminal or not
+     */
     public static boolean isValidKey(String key){
         return key.matches("[0-9]+") && key.length() == 6;
     }
 
+    /**
+     * @return the status of the terminal
+     */
     public String getStatus() {
         return _state.toString();
     }
 
+    /**
+     * @return the network in which the terminal is registered in
+     */
     Network getNetwork() {
         return _network;
     }
 
+    /**
+     * @return the client which owns the terminal
+     */
     public Client getClient() {
         return _client;
     }
 
+    /**
+     * @return the owner's key
+     */
     String getClientKey(){
         return _client.getKey();
     }
 
+    /**
+     * @param id which references a payment
+     * @throws InexistentPaymentException if there is no payment with the given id
+     * @return the desired payment
+     */
     Payment getPayment(int id) throws InexistentPaymentException {
         for (Payment p : _payments){
             if (p.getId() == id){
@@ -75,6 +96,11 @@ public abstract class Terminal implements Serializable {
         throw new InexistentPaymentException(id);
     }
 
+    /**
+     * @throws NoOngoingCommunicationException if the terminal is not participation in a given
+     * communication currently
+     * @return the current communication.
+     */
     public InteractiveCommunication getCommunication() throws NoOngoingCommunicationException {
         if (_currentCommunication!= null){
             return _currentCommunication;
@@ -82,6 +108,9 @@ public abstract class Terminal implements Serializable {
         throw new NoOngoingCommunicationException();
     }
 
+    /**
+     * Sets the given status on the terminal
+     */
     public void setStatus(String s) {
         _state.notifyClients(s);
         switch (s) {
@@ -92,10 +121,17 @@ public abstract class Terminal implements Serializable {
         }
     }
 
+    /**
+     * set the given communication as the current communication in which the terminal is
+     * participating
+     */
     void setCurrentCommunication(InteractiveCommunication com){
         _currentCommunication = com;
     }
 
+    /**
+     * @return a string which represents the terminal in the desired form
+     */
     public String toString() {
         var out = new StringJoiner("|");
         out.add(_type)
@@ -138,18 +174,37 @@ public abstract class Terminal implements Serializable {
         return res;
     }
 
+    /**
+     * add a client which needs to be notified of its availability
+     *
+     * @param key of the client which needs to be notified
+     */
     void addClientToNotify(String key) {
         _keysToNotify.add(key);
     }
 
+    /**
+     * @return a List with the keys of the clients which need to be notified of its availability
+     */
     List<String> getClientsToNotify() {
         return new ArrayList<>(_keysToNotify);
     }
 
+    /**
+     * when a client finally gets notified, it no longer needs to be notified, so their key is 
+     * taken off of the list
+     */
     void flushClientsToNotify() {
+        //FIXME apenas tirar o cliente que já foi notificado
         _keysToNotify.clear();
     }
 
+    /**
+     * add the key of a friendly terminal to the list of friends
+     *
+     * @param fk key to be added
+     * @throws InexistentKeyException if the given key doesn't exist on the network
+     */
     public void addFriend(String fk) throws InexistentKeyException {
         if (!_network.hasTerminalKey(fk))
             throw new InexistentKeyException(fk);
@@ -157,6 +212,12 @@ public abstract class Terminal implements Serializable {
             _friendlyKeys.add(fk);
     }
 
+    /**
+     * remove a key of a friendly terminal from the list of friends
+     *
+     * @param fk key to be removed
+     * @throws InexistentKeyException if the key doesn't correspond to a friend of the terminal
+     */
     public void removeFriend(String fk) throws InexistentKeyException {
         if (_network.hasTerminalKey(fk))
         _friendlyKeys.remove(fk);
