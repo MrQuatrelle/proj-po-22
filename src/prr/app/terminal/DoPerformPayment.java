@@ -19,16 +19,20 @@ class DoPerformPayment extends TerminalCommand {
     @Override
     protected final void execute() throws CommandException {
         var comId = integerField("comId");
-        if (_receiver.canPerformPayment(comId,_receiver)){
-            try {
-                _receiver.performPayment(comId);
-            } catch (InexistentPaymentException e) {
-                _display.popup(Message.invalidCommunication());
+        try {
+            if (_receiver.canPerformPayment(comId,_receiver)){
+                try {
+                    _receiver.performPayment(comId);
+                } catch (InexistentPaymentException e) {
+                    _display.popup(Message.invalidCommunication());
+                }
             }
-        }
-        else {
-            _display.add(Message.invalidCommunication());
-            _display.display();
+            else {
+                _display.add(Message.invalidCommunication());
+                _display.display();
+            }
+        } catch (InexistentPaymentException e) {
+            _display.popup(Message.invalidCommunication());
         }
     }
 }
