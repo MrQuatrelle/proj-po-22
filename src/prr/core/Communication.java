@@ -37,7 +37,7 @@ public abstract class Communication implements Serializable {
     }
 
     public String toString(){
-        var out = new StringBuilder(_comType + "|" + _sender.getNetwork().getNrOfCommunications() + "|" +
+        var out = new StringBuilder(_comType + "|" + _id + "|" +
                 _sender.getKey() + "|" + _receiver.getKey() + "|");
         if (_isOnGoing) out.append(0 + "|" + 0 + "|" + "ONGOING");
         else out.append(getSize() + "|" + Math.round(getCost()) + "|" + "FINISHED");
