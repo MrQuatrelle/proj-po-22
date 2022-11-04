@@ -30,7 +30,11 @@ class DoStartInteractiveCommunication extends TerminalCommand {
         } catch (InexistentKeyException e) {
             throw new UnknownTerminalKeyException(stringField("destination"));
         } catch (NoVideoSupportException e) {
-            _display.popup(Message.unsupportedAtDestination(e.getMessage(), "VIDEO"));
+            if ((e.getMessage()).equals(_receiver.getKey())){
+                _display.popup(Message.unsupportedAtOrigin(e.getMessage(), "VIDEO"));
+            }
+            else
+                _display.popup(Message.unsupportedAtDestination(e.getMessage(), "VIDEO"));
         } catch (UnavailableTerminalException e) {
             switch (e.getState()) {
                 case "OFF" -> _display.popup(Message.destinationIsOff(e.getKey()));
