@@ -66,6 +66,15 @@ public abstract class Terminal implements Serializable {
         return _client.getKey();
     }
 
+    Payment getPayment(int id) throws InexistentPaymentException {
+        for (Payment p : _payments){
+            if (p.getId() == id){
+                return p;
+            }
+        }
+        throw new InexistentPaymentException(id);
+    }
+
     public InteractiveCommunication getCommunication() throws NoOngoingCommunicationException {
         if (_currentCommunication!= null){
             return _currentCommunication;
@@ -161,8 +170,9 @@ public abstract class Terminal implements Serializable {
         _payments.add(p);
     }
 
-    public boolean canPerformPayment(int id, Terminal t){
-        return (_network.getCommunication(id).getSender() == t && _network.getCommunication(id).getState() && _payments.get(id).isPaid());
+    public boolean canPerformPayment(int id, Terminal t) throws InexistentPaymentException {
+        return (_network.getCommunication(id).getSender() == t && !(_network.getCommunication(id).getState())
+                && !(getPayment(id).isPaid()));
     }
     public void performPayment(int id) throws InexistentPaymentException {
         for (Payment p : _payments)
