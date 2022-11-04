@@ -21,7 +21,7 @@ public class TextCommunication extends Communication {
         if (getSize() < 50){
             return 10;
         }
-        if (getSize() > 50 && getSize() <100){
+        if (getSize() >= 50 && getSize() <100){
             return 16;
         }
         else {return (2 * getSize());}
