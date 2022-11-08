@@ -39,7 +39,8 @@ public class NetworkManager implements Serializable {
      * @throws UnavailableFileException if the specified file does not exist or there is
      *         an error while processing this file.
      */
-    public void load(String filename) throws UnavailableFileException, FileNotFoundException, ClassNotFoundException, ImportFileException {
+    public void load(String filename) throws UnavailableFileException, FileNotFoundException,
+            ClassNotFoundException, ImportFileException {
 
         try(FileInputStream fileIn = new FileInputStream(filename)) {
             try (ObjectInputStream in = new ObjectInputStream(fileIn)) {

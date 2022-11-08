@@ -17,7 +17,7 @@ public abstract class Communication implements Serializable {
 
     protected double _cost;
 
-    protected boolean _isOnGoing;
+    private boolean _isOnGoing;
 
     private final Terminal _sender;
 
@@ -27,7 +27,8 @@ public abstract class Communication implements Serializable {
 
     private final String _comType;
 
-    Communication (int id, Terminal sender, Terminal receiver, boolean isOnGoing, String comType) throws InexistentKeyException {
+    Communication (int id, Terminal sender, Terminal receiver, boolean isOnGoing, String comType)
+            throws InexistentKeyException {
         _id = id;
         _sender = sender;
         _receiver = receiver;
@@ -75,6 +76,9 @@ public abstract class Communication implements Serializable {
         return _cost;
     }
 
+    boolean getIsOngoing(){
+        return _isOnGoing;
+    }
     String getType() {
         return _comType;
     }

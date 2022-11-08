@@ -13,14 +13,13 @@ public abstract class Terminal implements Serializable {
     /** Serial number for serialization. */
     @Serial
     private static final long serialVersionUID = 202208091753L;
-    protected String _type;
+    private String _type;
     private final String _key;
     private final Client _client;
     private final Set<String> _friendlyKeys;
     private final Set<String> _keysToNotify;
-
     private final Network _network;
-    protected TerminalState _state;
+    private TerminalState _state;
     private final ArrayList<Payment> _payments;
 
     private InteractiveCommunication _currentCommunication;
@@ -75,6 +74,18 @@ public abstract class Terminal implements Serializable {
      */
     String getClientKey(){
         return _client.getKey();
+    }
+
+    void setType(String s){
+        _type = s;
+    }
+
+    TerminalState getState(){
+        return _state;
+    }
+
+    void setState(TerminalState state){
+        _state = state;
     }
 
     /**
@@ -244,7 +255,8 @@ public abstract class Terminal implements Serializable {
         _state.acceptVoiceCall(communication);
     }
 
-    public void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
+    public void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException,
+            UnavailableTerminalException {
         _state.makeTextCommunication(destinationKey, message);
     }
 
@@ -277,8 +289,10 @@ public abstract class Terminal implements Serializable {
         return _state.canStartCommunication();
     }
 
-    public abstract void makeVideoCall(String receiver) throws NoVideoSupportException, InexistentKeyException, UnavailableTerminalException;
-    protected abstract void acceptVideoCall(VideoCommunication communication) throws NoVideoSupportException, UnavailableTerminalException;
+    public abstract void makeVideoCall(String receiver) throws NoVideoSupportException, InexistentKeyException,
+            UnavailableTerminalException;
+    protected abstract void acceptVideoCall(VideoCommunication communication) throws NoVideoSupportException,
+            UnavailableTerminalException;
 
 
 }

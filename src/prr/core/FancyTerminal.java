@@ -8,16 +8,17 @@ public class FancyTerminal extends Terminal {
 
     FancyTerminal(String key, Client client, Network network) {
         super(key, client, network);
-        _type = "FANCY";
+         super.setType("FANCY");
     }
 
     @Override
-    public void makeVideoCall(String t) throws InexistentKeyException, UnavailableTerminalException, NoVideoSupportException {
-        _state.makeVideoCall(t);
+    public void makeVideoCall(String t) throws InexistentKeyException,
+            UnavailableTerminalException, NoVideoSupportException {
+        getState().makeVideoCall(t);
     }
 
     @Override
     public void acceptVideoCall(VideoCommunication communication) throws UnavailableTerminalException {
-        _state.acceptVideoCall(communication);
+        getState().acceptVideoCall(communication);
     }
 }

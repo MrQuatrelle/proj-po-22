@@ -68,7 +68,8 @@ public class Client implements Serializable {
         return _type.toString();
     }
 
-    public ClientType getType(){return _type;}
+    public ClientType getType(){
+        return _type;}
     public void setNotification(boolean b) throws UnchangedNotificationException {
         if (b == _receiveNotifications)
             throw new UnchangedNotificationException();

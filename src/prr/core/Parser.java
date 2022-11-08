@@ -24,7 +24,8 @@ public class Parser {
         _network = network;
     }
 
-    void parseFile(String filename) throws UnrecognizedEntryException, UnallowedKeyException, DuplicateException, ImportFileException {
+    void parseFile(String filename) throws UnrecognizedEntryException, UnallowedKeyException,
+            DuplicateException, ImportFileException {
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
 
@@ -46,7 +47,8 @@ public class Parser {
         }
     }
 
-    private void checkComponentsLength(String[] components, int expectedSize, String line) throws UnrecognizedEntryException {
+    private void checkComponentsLength(String[] components, int expectedSize, String line)
+            throws UnrecognizedEntryException {
         if (components.length != expectedSize)
             throw new UnrecognizedEntryException("Invalid number of fields in line: " + line);
     }
@@ -66,7 +68,8 @@ public class Parser {
     }
 
     // parse a line with format terminal-type|idTerminal|idClient|state
-    private void parseTerminal(String[] components, String line) throws UnrecognizedEntryException, UnallowedKeyException, DuplicateException {
+    private void parseTerminal(String[] components, String line) throws UnrecognizedEntryException,
+            UnallowedKeyException, DuplicateException {
         checkComponentsLength(components, 4, line);
 
         try {
