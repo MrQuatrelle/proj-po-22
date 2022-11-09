@@ -155,11 +155,6 @@ public abstract class Terminal implements Serializable {
         return out.toString();
     }
 
-    @Override
-    public int hashCode() {
-        return _key.hashCode();
-    }
-
     public double getBalancePaid() {
         double res = 0;
         for(Payment p : _payments){

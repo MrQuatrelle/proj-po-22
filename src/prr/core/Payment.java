@@ -1,6 +1,13 @@
 package prr.core;
 
-public class Payment {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Payment implements Serializable {
+
+    /** Serial number for serialization. */
+    @Serial
+    private static final long serialVersionUID = 202208091753L;
     private final int _communicationId;
 
     private boolean _paid;
@@ -21,7 +28,7 @@ public class Payment {
         return _paid;
     }
 
-    void pay(){
+    void pay() {
         _paid = true;
     }
 

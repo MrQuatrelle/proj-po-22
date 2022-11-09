@@ -24,7 +24,7 @@ public class Client implements Serializable {
     private ClientType _type;
     private boolean _receiveNotifications;
     private Map<String, Notification> _notifications;
-    private final Set<Terminal> _terminals;
+    private final Map<String, Terminal> _terminals;
 
     private final Map<Integer, Communication> _communicationsFrom;
     private final Map<Integer, Communication> _communicationsTo;
@@ -37,7 +37,7 @@ public class Client implements Serializable {
         _ssNum = ss;
         _type = new NormalType(this);
         _receiveNotifications = true;
-        _terminals = new HashSet<>();
+        _terminals = new HashMap<>();
         _notifications = new HashMap<>();
         _communicationsFrom = new HashMap<>();
         _communicationsTo = new HashMap<>();
@@ -81,7 +81,7 @@ public class Client implements Serializable {
     }
 
     public List<Terminal> getTerminals() {
-        return new ArrayList<>(_terminals);
+        return new ArrayList<>(_terminals.values());
     }
 
     public List<Communication> getAllReceivingCommunications() {
@@ -94,7 +94,7 @@ public class Client implements Serializable {
 
     private int countActiveTerminals() {
         int out = 0;
-        for (Terminal t : _terminals) {
+        for (Terminal t : _terminals.values()) {
             if (!Objects.equals(t.getStatus(), "OFF"))
                 out++;
         }
@@ -103,14 +103,14 @@ public class Client implements Serializable {
 
     private int countTerminals() {
         int out = 0;
-        for (Terminal t : _terminals) {
+        for (Terminal t : _terminals.values()) {
             out++;
         }
         return out;
     }
 
     public void addTerminal(Terminal t) {
-        _terminals.add(t);
+        _terminals.put(t.getKey(), t);
     }
 
     public void addComTo(Communication com){
