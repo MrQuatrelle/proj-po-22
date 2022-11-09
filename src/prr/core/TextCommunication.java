@@ -7,7 +7,8 @@ public class TextCommunication extends Communication {
     private final String _message;
 
 
-    TextCommunication(int id, Terminal sender, Terminal receiver, boolean isOnGoing, String message) throws InexistentKeyException {
+    TextCommunication(int id, Terminal sender, Terminal receiver,
+                      boolean isOnGoing, String message) throws InexistentKeyException {
         super(id, sender, receiver, isOnGoing,"TEXT");
         _message = message;
     }

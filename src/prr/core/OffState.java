@@ -69,7 +69,8 @@ public class OffState extends TerminalState {
         throw new UnavailableTerminalException(_terminal.getKey(),"OFF");
     }
 
-    void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
+    void makeTextCommunication(String destinationKey, String message) throws
+            InexistentKeyException, UnavailableTerminalException {
 
     }
 }

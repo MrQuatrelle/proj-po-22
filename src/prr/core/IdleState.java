@@ -35,7 +35,8 @@ public class IdleState extends TerminalState {
         if (t.equals(_terminal.getKey()))
             throw new UnavailableTerminalException(t, "BUSY");
         var comm = new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications() + 1,
-                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),
+                true);
         _terminal.getNetwork().getTerminal(t).acceptVoiceCall(comm);
         _terminal.setCurrentCommunication(comm);
         _terminal.getNetwork().addCommunication(comm);
@@ -55,7 +56,8 @@ public class IdleState extends TerminalState {
         if (t.equals(_terminal.getKey()))
             throw new UnavailableTerminalException(t, "BUSY");
         var com = new VideoCommunication(_terminal.getNetwork().getNrOfCommunications() + 1,
-                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),
+                true);
         _terminal.getNetwork().getTerminal(t).acceptVideoCall(com);
         _terminal.setCurrentCommunication(com);
         _terminal.getNetwork().addCommunication(com);
@@ -81,7 +83,8 @@ public class IdleState extends TerminalState {
     }
 
     @Override
-    void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
+    void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException,
+            UnavailableTerminalException {
         var com = new TextCommunication(_terminal.getNetwork().getNrOfCommunications() + 1,
                 _terminal, _terminal.getNetwork().getTerminal(destinationKey),false,message);
         com.computeCost( _terminal.getClient().getTypeString());

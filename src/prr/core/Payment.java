@@ -3,7 +3,6 @@ package prr.core;
 public class Payment {
     private final int _communicationId;
 
-
     private boolean _paid;
 
     private final double _cost;

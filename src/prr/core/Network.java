@@ -297,7 +297,8 @@ public class Network implements Serializable {
      * @throws UnrecognizedEntryException if some entry is not correct
      * @throws IOException if there is an IO error while processing the text file
      */
-    void importFile(String filename) throws UnrecognizedEntryException, IOException, UnallowedTypeException, DuplicateException, UnallowedKeyException, ImportFileException {
+    void importFile(String filename) throws UnrecognizedEntryException, IOException, UnallowedTypeException,
+            DuplicateException, UnallowedKeyException, ImportFileException {
         var parser = new Parser(this);
         parser.parseFile(filename);
     }

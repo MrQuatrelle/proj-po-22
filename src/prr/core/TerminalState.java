@@ -30,5 +30,6 @@ public abstract class TerminalState implements Serializable {
     abstract void notifyClients(String s);
 
     abstract void acceptTextCommunication(TextCommunication communication) throws UnavailableTerminalException;
-    abstract void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException;
+    abstract void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException,
+            UnavailableTerminalException;
 }

@@ -35,7 +35,8 @@ public class SilentState extends TerminalState {
         if (t.equals(_terminal.getKey()))
             throw new UnavailableTerminalException(t, "BUSY");
         var communication = new VoiceCommunication(_terminal.getNetwork().getNrOfCommunications() + 1,
-                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),
+                true);
         _terminal.getNetwork().getTerminal(t).acceptVoiceCall(communication);
         _terminal.setCurrentCommunication(communication);
         _terminal.setStatus("BUSY");
@@ -52,7 +53,8 @@ public class SilentState extends TerminalState {
         if (t.equals(_terminal.getKey()))
             throw new UnavailableTerminalException(t, "BUSY");
         var com = new VideoCommunication(_terminal.getNetwork().getNrOfCommunications() + 1,
-                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),true);
+                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(t),
+                true);
         _terminal.getNetwork().getTerminal(t).acceptVideoCall(com);
         _terminal.setCurrentCommunication(com);
         _terminal.getNetwork().addCommunication(com);
@@ -79,9 +81,11 @@ public class SilentState extends TerminalState {
         _terminal.getClient().addComTo(communication);
     }
 
-    void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException, UnavailableTerminalException {
+    void makeTextCommunication(String destinationKey, String message) throws InexistentKeyException,
+            UnavailableTerminalException {
         var com = new TextCommunication(_terminal.getNetwork().getNrOfCommunications() + 1,
-                _terminal.getNetwork().getTerminal(_terminal.getKey()), _terminal.getNetwork().getTerminal(destinationKey),false,message);
+                _terminal.getNetwork().getTerminal(_terminal.getKey()),
+                _terminal.getNetwork().getTerminal(destinationKey),false,message);
         com.computeCost( _terminal.getClient().getTypeString());
         var payment = new Payment(_terminal.getNetwork().getNrOfCommunications() + 1, false,
                 com.getCost());
