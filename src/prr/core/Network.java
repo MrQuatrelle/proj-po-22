@@ -148,6 +148,22 @@ public class Network implements Serializable {
         return out;
     }
 
+    public double getAllPayments(){
+        double out = 0;
+        for (Client c : _clients.values()){
+            out += c.getPaymentValue();
+        }
+        return out;
+    }
+
+    public double getAllDebts(){
+        double out = 0;
+        for (Client c : _clients.values()){
+            out += c.getDebtValue();
+        }
+        return out;
+    }
+
     /** Sets the notifications of the client with the given key on or off
      * @param key client's specific key
      * @param b true to turn on, false for turn of
