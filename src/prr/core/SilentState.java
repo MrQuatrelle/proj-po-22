@@ -72,8 +72,10 @@ public class SilentState extends TerminalState {
     void notifyClients(String s) {
         var network = _terminal.getNetwork();
         for(String key: _terminal.getClientsToNotify()) {
-            network.notifyClient(key, new SilentToIdleNotification(_terminal.getKey()));
+            if (s.equals("IDLE"))
+                network.notifyClient(key, new SilentToIdleNotification(_terminal.getKey()));
         }
+        
     }
 
     @Override

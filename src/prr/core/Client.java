@@ -1,9 +1,9 @@
 package prr.core;
 
 import java.io.Serial;
+import  java.io.Serializable;
 import java.nio.MappedByteBuffer;
 import java.util.*;
-import  java.io.Serializable;
 
 import prr.core.exception.UnchangedNotificationException;
 import prr.core.notification.Notification;
