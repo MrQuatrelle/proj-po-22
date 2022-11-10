@@ -4,4 +4,3 @@
 # ignore intellij thingies
 *.iml
 **/.idea
-**/tests/
