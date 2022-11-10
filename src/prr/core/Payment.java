@@ -7,7 +7,7 @@ public class Payment implements Serializable {
 
     /** Serial number for serialization. */
     @Serial
-    private static final long serialVersionUID = 202208091753L;
+    private static final long serialVersionUID = 202211101009L;
     private final int _communicationId;
 
     private boolean _paid;
