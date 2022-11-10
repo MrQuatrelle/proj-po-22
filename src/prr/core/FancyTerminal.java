@@ -15,6 +15,7 @@ public class FancyTerminal extends Terminal {
     public void makeVideoCall(String t) throws InexistentKeyException,
             UnavailableTerminalException, NoVideoSupportException {
         getState().makeVideoCall(t);
+
     }
 
     @Override

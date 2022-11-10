@@ -45,13 +45,13 @@ public class TextCommunication extends Communication {
         return 4;
     }
     @Override
-    void computeCost(String type) {
+    void computeCost(String type, Terminal terminal) {
         switch (type) {
             case "NORMAL" -> _cost = normalCost();
             case "GOLD" -> _cost = goldCost();
             case "PLATINUM" -> _cost = platinumCost();
         }
-        if (getSender().hasFriend(getReceiver().getKey())) {
+        if (getSender().hasFriend(getReceiver().getKey()) && getSender() == terminal) {
             _cost = _cost / 2;
         }
     }

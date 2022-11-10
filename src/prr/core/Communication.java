@@ -68,7 +68,7 @@ public abstract class Communication implements Serializable {
      boolean getState(){
         return _isOnGoing;
      }
-    abstract void computeCost(String type);
+    abstract void computeCost(String type, Terminal terminal);
 
     abstract int getSize();
 

@@ -21,5 +21,5 @@ public abstract class InteractiveCommunication extends Communication {
         _duration = duration;
     }
 
-    abstract void computeCost(String type);
+    abstract void computeCost(String type, Terminal terminal);
 }

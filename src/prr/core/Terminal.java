@@ -21,8 +21,8 @@ public abstract class Terminal implements Serializable {
     private final Network _network;
     private TerminalState _state;
     private final ArrayList<Payment> _payments;
-
     private InteractiveCommunication _currentCommunication;
+    private int _nrOfCommunications;
 
 
     Terminal (String key, Client client, Network network) {
@@ -262,8 +262,11 @@ public abstract class Terminal implements Serializable {
        return  _state.endOngoingCommunication(size);
     }
 
+    public void incrementNrOfCommunications(){
+        _nrOfCommunications++;
+    }
     public int getNumberOfCommunications() {
-        return 0;
+        return _nrOfCommunications;
     }
     /**
      * Checks if this terminal can end the current interactive communication.

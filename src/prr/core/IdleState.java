@@ -42,6 +42,7 @@ public class IdleState extends TerminalState {
         _terminal.getNetwork().addCommunication(comm);
         _terminal.getClient().addComFrom(comm);
         _terminal.setStatus("BUSY");
+        _terminal.incrementNrOfCommunications();
     }
 
     @Override
@@ -49,6 +50,7 @@ public class IdleState extends TerminalState {
         _terminal.setCurrentCommunication(communication);
         _terminal.getClient().addComTo(communication);
         _terminal.setStatus("BUSY");
+        communication.getReceiver().incrementNrOfCommunications();
     }
 
     @Override
@@ -63,6 +65,7 @@ public class IdleState extends TerminalState {
         _terminal.getNetwork().addCommunication(com);
         _terminal.getClient().addComFrom(com);
         _terminal.setStatus("BUSY");
+        _terminal.incrementNrOfCommunications();
     }
 
     @Override
@@ -70,6 +73,7 @@ public class IdleState extends TerminalState {
         _terminal.setCurrentCommunication(communication);
         _terminal.getClient().addComTo(communication);
         _terminal.setStatus("BUSY");
+        communication.getReceiver().incrementNrOfCommunications();
     }
 
     @Override
@@ -80,6 +84,7 @@ public class IdleState extends TerminalState {
     @Override
     void acceptTextCommunication(TextCommunication communication) {
         _terminal.getClient().addComTo(communication);
+        communication.getReceiver().incrementNrOfCommunications();
     }
 
     @Override
@@ -87,7 +92,7 @@ public class IdleState extends TerminalState {
             UnavailableTerminalException {
         var com = new TextCommunication(_terminal.getNetwork().getNrOfCommunications() + 1,
                 _terminal, _terminal.getNetwork().getTerminal(destinationKey),false,message);
-        com.computeCost( _terminal.getClient().getTypeString());
+        com.computeCost( _terminal.getClient().getTypeString(),_terminal);
         var payment = new Payment(_terminal.getNetwork().getNrOfCommunications() + 1,false,
                 com.getCost());
         _terminal.getClient().addComFrom(com);
@@ -95,5 +100,6 @@ public class IdleState extends TerminalState {
         _terminal.getNetwork().addCommunication(com);
         _terminal.addPayment(payment);
         _terminal.getClient().addPayment(payment);
+        _terminal.incrementNrOfCommunications();
     }
 }

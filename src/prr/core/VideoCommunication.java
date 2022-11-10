@@ -8,13 +8,13 @@ public class VideoCommunication extends InteractiveCommunication{
         super(id, sender, receiver, isOnGoing,"VIDEO");
     }
     @Override
-    void computeCost(String type) {
+    void computeCost(String type, Terminal terminal) {
         switch(type){
             case "NORMAL" -> _cost = getSize() * 30;
             case "GOLD" -> _cost = getSize() * 20;
             case "PLATINUM" -> _cost = getSize() * 10;
         }
-        if (getSender().hasFriend(getReceiver().getKey())) {
+        if (getSender().hasFriend(getReceiver().getKey()) && getSender() == terminal) {
             _cost = _cost / 2;
         }
     }
