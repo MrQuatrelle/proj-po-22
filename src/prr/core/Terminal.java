@@ -232,8 +232,12 @@ public abstract class Terminal implements Serializable {
     }
 
     public boolean canPerformPayment(int id, Terminal t) throws InexistentPaymentException {
-        return (_network.getCommunication(id).getSender() == t) && !(_network.getCommunication(id).getState())
-                && !(getPayment(id).isPaid());
+        try {
+            return (_network.getCommunication(id).getSender() == t) && !(_network.getCommunication(id).getState())
+                    && !(getPayment(id).isPaid());
+        } catch (InexistentCommunicationException e) {
+            throw new InexistentPaymentException(id);
+        }
     }
     public void performPayment(int id) throws InexistentPaymentException {
         getPayment(id).pay();

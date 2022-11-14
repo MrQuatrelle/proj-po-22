@@ -95,11 +95,11 @@ public class Network implements Serializable {
         _allCommunications.add(com);
     }
 
-    Communication getCommunication(int id){
+    Communication getCommunication(int id) throws InexistentCommunicationException {
         for (Communication c: _allCommunications)
             if (c.getId() == id)
                 return c;
-        return null;
+        throw new InexistentCommunicationException(id);
     }
     public List<String> getAllCommunicationStrings() {
         return _allCommunications.stream()
@@ -130,13 +130,17 @@ public class Network implements Serializable {
     }
 
     public List<String> getClientsWithDebtsString(){
-        ArrayList<String> out = new ArrayList<>();
+        ArrayList<Client> out = new ArrayList<>();
         for (Client c : _clients.values()){
             if (c.getDebtValue() > 0){
-                out.add(c.toString());
+                out.add(c);
             }
         }
-        return out;
+        return out.stream()
+                  .sorted(Comparator.comparing(Client::getDebtValue)
+                                    .reversed())
+                  .map(Client::toString)
+                  .toList();
     }
     public List<String> getClientsWithoutDebtsString() {
         ArrayList<String> out = new ArrayList<>();

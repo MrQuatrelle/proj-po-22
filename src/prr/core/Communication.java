@@ -32,7 +32,7 @@ public abstract class Communication implements Serializable {
         _id = id;
         _sender = sender;
         _receiver = receiver;
-        _isOnGoing  =isOnGoing;
+        _isOnGoing = isOnGoing;
         _clientType = _sender.getNetwork().getClient(_sender.getClientKey()).getTypeString();
         _comType = comType;
     }
@@ -62,7 +62,6 @@ public abstract class Communication implements Serializable {
     }
 
     void endCommunication(int size) throws InexistentKeyException, NoOngoingCommunicationException {
-        _receiver.endOngoingCommunication(size);
         _isOnGoing = false;
     }
      boolean getState(){

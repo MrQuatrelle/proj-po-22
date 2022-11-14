@@ -22,7 +22,7 @@ public class TextCommunication extends Communication {
         if (getSize() < 50){
             return 10;
         }
-        if (getSize() >= 50 && getSize() <100){
+        if (getSize() >= 50 && getSize() < 100){
             return 16;
         }
         else {return (2 * getSize());}
@@ -32,10 +32,12 @@ public class TextCommunication extends Communication {
         if (getSize() < 50){
             return 10;
         }
-        if (getSize() > 50 && getSize() <100){
+        if (getSize() >= 50 && getSize() < 100){
             return 10;
         }
-        else {return (2 * getSize());}
+        else {
+            return (2 * getSize());
+        }
     }
 
     double platinumCost(){
@@ -50,6 +52,7 @@ public class TextCommunication extends Communication {
             case "NORMAL" -> _cost = normalCost();
             case "GOLD" -> _cost = goldCost();
             case "PLATINUM" -> _cost = platinumCost();
+            default -> System.out.println("FREAK");
         }
         if (getSender().hasFriend(getReceiver().getKey()) && getSender() == terminal) {
             _cost = _cost / 2;

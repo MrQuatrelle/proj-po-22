@@ -77,7 +77,6 @@ public class SilentState extends TerminalState {
             if (s.equals("IDLE"))
                 network.notifyClient(key, new SilentToIdleNotification(_terminal.getKey()));
         }
-        
     }
 
     @Override

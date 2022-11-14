@@ -44,8 +44,11 @@ public class BusyState extends TerminalState {
             _terminal.addPayment(p);
             _terminal.getClient().addPayment(p);
             comm.getReceiver().endOngoingCommunication(size);
+            _terminal.getClient().addComFrom(comm);
         }
-        _terminal.getClient().addComFrom(comm);
+        else {
+            _terminal.getClient().addComTo(comm);
+        }
         _terminal.setCurrentCommunication(null);
         _terminal.setStatus(_previous.toString());
         return comm.getCost();
